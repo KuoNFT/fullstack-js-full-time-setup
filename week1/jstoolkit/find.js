@@ -1,9 +1,18 @@
-function findPositiveValue(values) {
+function findPositiveValue(values) { 
   // Insert your code here
-}
+  const posValue = values.filter(num => num > 0);
+  return posValue
+
+  }
+;
+ 
+
 
 function findNegativeValue(values) {
   // Insert your code here
+  const negValue = values.filter(num => num < 0);
+  return negValue
+
 }
 
 console.log(findPositiveValue([-54, -82, 2, -10, -9]));
