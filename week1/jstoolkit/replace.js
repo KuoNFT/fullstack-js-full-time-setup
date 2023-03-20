@@ -1,9 +1,12 @@
 function replaceWord(str, oldWord, newWord) {
   // Insert your code here
+   const newPhrase = str.replace(oldWord, newWord)
+  return newPhrase
 }
 
 function hideWord(str, word) {
   // Insert your code here
+  const secret = str.replace(word,'******' )
 }
 
 console.log(replaceWord('I hate JavaScript!', 'hate', 'love'));
