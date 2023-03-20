@@ -1,6 +1,6 @@
 function findPositiveValue(values) { 
   // Insert your code here
-  const posValue = values.filter(num => num > 0);
+  const posValue = values.filter(num => num >= 0);
   return posValue
 
   }
