@@ -1,10 +1,19 @@
 function ascendingSort(values) {
+  const newValue = values.sort(function(a,b)
+  {
+    return a - b;
+  });
+  return newValue
   // Insert your code here
 }
 
+
 function descendingSort(values) {
-  // Insert your code here
-}
+  const newValue = values.sort(function(a,b)
+  {
+    return b - a;
+  });
+  return newValue}
 
 console.log(ascendingSort([5, 2, 1, 3, 4]));
 // Expected: [1, 2, 3, 4, 5]
