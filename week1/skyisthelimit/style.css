@@ -21,25 +21,6 @@
     z-index: 1;
 }
 
-#cigar {
-
-    height : 300px;
-    width: 500px;
-    background-image: url(assets/m82_cigar.jpg);
-    position: absolute;
-    display: block;
-    z-index: 1;
-
-}
-
-#pinwheel {
-
-}
-
-
-#sombrero {
-
-}
     
 h1 {
     font-family : sans-serif;
@@ -52,9 +33,17 @@ h1 {
 }
 
 .row {
-    
-    width: 500px;
-    height: 300px;
+    float: left;
     background-size: contain;
     display: block;
+}
+
+#container {
+    width: 50%;
+    height: 1000px;
+    background-color: white;
+}
+
+p {
+    float: right;
 }
