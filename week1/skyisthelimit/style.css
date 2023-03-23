@@ -33,17 +33,29 @@ h1 {
 }
 
 .row {
+    margin-left: 50px;
+    margin-right: 50px;
+    display: flex;
     float: left;
     background-size: contain;
     display: block;
 }
 
 #container {
-    width: 50%;
-    height: 1000px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    height: 800px;
     background-color: white;
 }
 
 p {
     float: right;
+}
+
+img {
+    display: flex;
+    height: 200px;
+    width: 200px;
 }
