@@ -1,15 +1,101 @@
 <!-- Insert your code here -->
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Document</title>
-        <link rel='stylesheet' href='style.css' > 
-    </head>
-    <body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel='stylesheet' href='style.css' > 
+</head>
+
+
+<body>
+
+
+    <div id="container">
+
+        <div id="header">
+
+            <div id='logo-container'>
+            <img class="logo" src="images/logomymails.png" />
+            <h1 class="logo-text">MYMAILS</h1>
+            </div>
+
+            <div id="search-container">
+            <input id="search-message" type="text" placeholder=" 🔎 Search message..." />
+            <button type="button" id="btn-search">Search</button>
+            </div>
+
+        </div>
+
+        <div id="content-left">Content LEFT
+    
+          <div id="add-section">
+            <input id="add-message" type="text" placeholder=" ✉️ New message" />
+            <button type="button" id="btn-add"></button>
+          </div>
+
+        </div>
+
 
         
-    </body>
-    </html>
+        <div id="content-right"> CONTENT RIGHT
+
+            <div id="compteur">Compteur
+            <span id="count">5</span>
+            </div>
+
+
+          <div id="msg-container">
+              <div class = "row" id='message1'>
+                <div class = nameAndMess>
+                  <h6>John Doe</h6>
+                  <p>Message Numéro 1</p>
+              </div>
+                <img class="avatar" src="images/avatar-1.jpg" id="av1" />
+                <span class="delete">✖</span>
+              </div>
+              <div class = "row" id='message2'>
+                  <div class = nameAndMess>
+                    <p>Marissa</p>
+                    <p>Message Numéro 2</p>
+                </div>
+                  <img class="avatar" src="images/avatar-2.jpg" id="av2"/>
+                  <span class="delete">✖</span>
+                </div>
+                <div class = "row" id='message3'>
+                  <div class = nameAndMess>
+                    <p>Joel</p>
+                    <p>Message Numéro 3</p>
+                </div>
+                  <img class="avatar" src="images/avatar-3.jpg" id="av3" />
+                  <span class="delete">✖</span>
+                </div>
+                <div class = "row" id='message4'>
+                  <div class = nameAndMess>
+                    <p>Daniel</p>
+                    <p>Message Numéro 4</p>
+                </div>
+                  <img class="avatar" src="images/avatar-4.jpg" id="av4"/>
+                  <span class="delete">✖</span>
+                </div>
+                <div class = "row" id='message5'>
+                  <div class = nameAndMess>
+                    <p>Luna</p>
+                    <p>Message Numéro 5</p>
+                </div>
+                  <img class="avatar" src="images/avatar-5.jpg" id='av5'/>
+                  <span class="delete">✖</span>
+              </div>
+            
+        </div>
+    
+        <div id="footer">footer
+
+        </div>
+    </div>
+
+    
+</body>
+</html>
