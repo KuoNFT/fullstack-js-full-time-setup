@@ -1,7 +1,13 @@
 function objectsToStrings(data) {
     let result = []
     // Insert your code here
-
+    for (let i = 0; i< data.length; i++){
+        if(typeof data[i].firstName === 'string' && data[i].firstName !== "" ){
+     
+        result.push(data[i].firstName)
+    }
+  
+    }
 
     return result
 }
