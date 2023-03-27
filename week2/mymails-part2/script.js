@@ -10,3 +10,14 @@ document.querySelector('#msg-container').innerHTML += `
           </div>
           <span class="delete">✖</span>
         </div> `  
+
+        
+const messagesCount = document.querySelectorAll('p').length
+document.querySelector('#count').textContent = messagesCount
+
+
+let date= new Date().toLocalDateString(fr);
+console.log(date)
+
+document.querySelector("#date").textContent = date;
+
