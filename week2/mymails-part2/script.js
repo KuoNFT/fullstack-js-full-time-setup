@@ -16,8 +16,21 @@ const messagesCount = document.querySelectorAll('p').length
 document.querySelector('#count').textContent = messagesCount
 
 
-let date= new Date().toLocalDateString(fr);
-console.log(date)
+
+let day = new Date().getDate();
+
+//if(day < 10) {
+    //day += "0"
+    //return day
+//} else {
+   // return day
+ //}
+
+let month = new Date().getMonth();
+let year = new Date().getFullYear()
+
+let date= `${year} ${month} ${day}`
+
 
 document.querySelector("#date").textContent = date;
 
