@@ -241,7 +241,7 @@ span {
 
 
 .row {
-  border: 1 px solid rgb(61, 60, 60);
+
   justify-content: space-between ;
   text-align: center;
   }
@@ -258,6 +258,12 @@ span {
   
 }
 
+#total-message {
+  height: 3vw;
+
+
+
+}
 .delete {
   width: 20px;
   height: 20px;
