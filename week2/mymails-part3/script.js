@@ -1,5 +1,7 @@
 console.log('hey')
 
+
+
 const newMessage = ` 
   <div class="row new-row">
     <img class="avatar" src="images/avatar-1.jpg" />
@@ -10,24 +12,21 @@ const newMessage = `
     <span class="delete">✖</span>
   </div>`
 
-
-for (let i = 0; i < document.querySelectorAll('.delete').length; i++) {
-  document.querySelectorAll('.delete')[i].addEventListener('click',
-  function () {
-  this.parentNode.remove();
+  document.querySelector('#msg-container').innerHTML += newMessage;
   const messagesCount = document.querySelectorAll('p').length;
   document.querySelector('#count').textContent = messagesCount;
-  }
-  )
-  }
-
- 
 
 
-document.querySelector('#msg-container').innerHTML += newMessage;
+  for (let i = 0; i < document.querySelectorAll('.delete').length; i++) {
+    document.querySelectorAll('.delete')[i].addEventListener('click',
+    function () {
+    this.parentNode.remove();
+    const messagesCount = document.querySelectorAll('p').length;
+    document.querySelector('#count').textContent = messagesCount;
+    }
+    )
+    }
 
-const messagesCount = document.querySelectorAll('p').length;
-document.querySelector('#count').textContent = messagesCount;
 
 let year = new Date().getUTCFullYear();
 let month;
@@ -48,16 +47,15 @@ if (new Date().getDate() < 9) {
 const date = year + "-" + month + "-" + day;
 document.querySelector('#footer').innerHTML += `<span id="date">${date}</span>`;
 
+
+
+
 document.querySelector('#btn-add').addEventListener('click',
  function (){
-  let message = 
-
-
-
-
+  let message = document.querySelector('#add-message').value
   document.querySelector('#msg-container').innerHTML += `
   <div class="row new-row">
-    <img class="avatar" src="avatar-1.jpg" />
+    <img class="avatar" src="images/avatar-1.jpg" />
     <div class="text-container">
       <h6>John Doe</h6>
       <p>${message}</p>
@@ -65,6 +63,32 @@ document.querySelector('#btn-add').addEventListener('click',
     <span class="delete">&#x2716;</span>
   </div>
  `;
+ const messagesCount = document.querySelectorAll('p').length;
+    document.querySelector('#count').textContent = messagesCount;
+    for (let i = 0; i < document.querySelectorAll('.delete').length; i++) {
+      document.querySelectorAll('.delete')[i].addEventListener('click',
+      function () {
+      this.parentNode.remove();
+      const messagesCount = document.querySelectorAll('p').length;
+      document.querySelector('#count').textContent = messagesCount;
+      }
+      )
+      }
+    
  }
 );
 
+
+document.querySelector('#btn-search').addEventListener('click',
+ function (){ 
+  let textToCompare = document.querySelector('#search-message').value.toLowerCase()
+  for (let i = 0; i < document.querySelectorAll('h6').length; i++) {
+    if (document.querySelectorAll('h6')[i].textContent.toLowerCase().includes(textToCompare) === false) {
+      const textToShow = document.querySelectorAll('h6')[i].parentNode.parentNode;
+                  textToShow.style.display = 'none';
+   
+     } else {
+      const textToHide = document.querySelectorAll('h6')[i].parentNode.parentNode;
+                  textToHide.style.display = 'flex';
+    }
+   }})   
