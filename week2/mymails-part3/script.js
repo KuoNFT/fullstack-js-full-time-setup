@@ -1,3 +1,5 @@
+console.log('hey')
+
 const newMessage = ` 
   <div class="row new-row">
     <img class="avatar" src="images/avatar-1.jpg" />
@@ -6,17 +8,21 @@ const newMessage = `
       <p>New message</p>
     </div>
     <span class="delete">✖</span>
-  </div>
-`;
+  </div>`
+
 
 for (let i = 0; i < document.querySelectorAll('.delete').length; i++) {
   document.querySelectorAll('.delete')[i].addEventListener('click',
-    function () {
-      console.log("clicked")
-      this.parentNode.remove();
-    }
-  );
- }
+  function () {
+  this.parentNode.remove();
+  const messagesCount = document.querySelectorAll('p').length;
+  document.querySelector('#count').textContent = messagesCount;
+  }
+  )
+  }
+
+ 
+
 
 document.querySelector('#msg-container').innerHTML += newMessage;
 
@@ -44,7 +50,21 @@ document.querySelector('#footer').innerHTML += `<span id="date">${date}</span>`;
 
 document.querySelector('#btn-add').addEventListener('click',
  function (){
-   
+  let message = 
+
+
+
+
+  document.querySelector('#msg-container').innerHTML += `
+  <div class="row new-row">
+    <img class="avatar" src="avatar-1.jpg" />
+    <div class="text-container">
+      <h6>John Doe</h6>
+      <p>${message}</p>
+    </div>
+    <span class="delete">&#x2716;</span>
+  </div>
+ `;
  }
 );
 
