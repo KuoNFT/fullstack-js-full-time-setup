@@ -1,0 +1,56 @@
+body {
+  margin: 0;
+}
+
+#maintitle {
+  text-align: center;
+  margin: 2vw;
+}
+
+.title {
+  font-weight: bold;
+  font-size: 24px;
+}
+
+#container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100vw;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.card {
+  height: 20vh;
+  width: 45vw;
+  margin: 1vw;
+  padding-top: 1vh;
+}
+
+.small-card {
+  height: 25vh;
+  width: 35vw;
+  margin: 1vw;
+  padding-top: 1vh;
+}
+
+.content {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
