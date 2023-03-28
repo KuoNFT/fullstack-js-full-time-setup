@@ -12,6 +12,7 @@ const newMessage = `
 for (let i = 0; i < document.querySelectorAll('.delete').length; i++) {
   document.querySelectorAll('.delete')[i].addEventListener('click',
     function () {
+      console.log("clicked")
       this.parentNode.remove();
     }
   );
