@@ -19,18 +19,11 @@ document.querySelector('#count').textContent = messagesCount
 
 let day = new Date().getDate();
 
-//if(day < 10) {
-    //day += "0"
-    //return day
-//} else {
-   // return day
- //}
-
 let month = new Date().getMonth();
 let year = new Date().getFullYear()
 
 let date= `${year} ${month} ${day}`
-
+date = date.replace(/(^|\D)(\d)(?!\d)/g, '$10$2')
 
 document.querySelector("#date").textContent = date;
 
