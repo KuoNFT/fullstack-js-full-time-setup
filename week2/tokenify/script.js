@@ -9,7 +9,21 @@ const artistsList = document.getElementById("artistsList");
 
 // Ajouter un gestionnaire d'événement pour le clic sur le bouton de recherche
 searchButton.addEventListener("click", () => {
-  const artistName = searchInput.value;
+    const artistName = searchInput.value.trim();
+
+    // Vérification si le champ de saisie est vide
+    if (!artistName) {
+      // Création d'un message d'erreur
+      const errorMessage = document.createElement("div");
+      errorMessage.id = "error";
+      errorMessage.textContent = "Artist not found";
+  
+      // Ajout du message d'erreur à la liste des artistes
+      artistsList.innerHTML = "";
+      artistsList.appendChild(errorMessage);
+  
+      return;
+    }
 
   // Récupérer le jeton d'accès à l'API Spotify en utilisant les informations d'identification de l'application
   fetch("https://accounts.spotify.com/api/token", {
@@ -65,7 +79,8 @@ searchButton.addEventListener("click", () => {
               for (let i = 0; i < top10.length; i++) {
                 const track = top10[i];
                 const trackItem = document.createElement("li");
-                trackItem.textContent = `${track.name} - ${track.album.name}`;
+                trackItem.classList.add("music"); // Ajout de la classe 'music'
+                trackItem.textContent = `${i + 1}. ${track.name}`;
                 top10List.appendChild(trackItem);
               }
               const top10Title = document.createElement("h3");
