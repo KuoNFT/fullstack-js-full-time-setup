@@ -6,21 +6,7 @@ function createPokemonCard(pokemon) {
  const type = pokemon.types[0].type.name;
  const name = pokemon.name[0].toUpperCase() + pokemon.name.slice(1);
 
- document.querySelector('#next').addEventListener('click', function {
-    startIndex = 15
-    pokemonsNumber= 30
-    function fetchPokemons() {
-        for (let i = startIndex; i <= pokemonsNumber; i++) {
-          fetch(`https://pokeapi.co/api/v2/pokemon/${i}`)
-            .then(response => response.json())
-            .then(data => {
-              createPokemonCard(data);
-            });
-        }
-       }
-})
  
-
  document.querySelector('#pokemonContainer').innerHTML += `
    <div class="pokemon ${type}">
      <div class="imgContainer">
@@ -47,3 +33,11 @@ function fetchPokemons() {
 // Initial fetch
 fetchPokemons();
 
+function getNextPokemon(){
+    startIndex += 15
+    pokemonsNumber += 15
+    fetchPokemons();
+}
+
+document.querySelector('#next').addEventListener('click', getNextPokemon)
+ 
