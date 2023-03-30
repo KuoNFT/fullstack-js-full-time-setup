@@ -46,7 +46,7 @@ updateArticleStock('525ea9ca38d6a3776994651e', "2")
 
 
 function resetStocks() {
-	db.updateMany({name:''},{stock: '0'}).then(data => {
+	db.updateMany({},{stock: '0'}).then(data => {
 		console.log(data);
 	});
 }
