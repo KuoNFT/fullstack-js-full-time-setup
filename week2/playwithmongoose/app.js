@@ -2,7 +2,16 @@ const db = require('./database/setup'); // Do not edit/remove this line
 
 
 // Create todo with name and priority (done = false by default)
-function createTodo(name, priority) {}
+function createTodo(name, priority) {
+    const newTodo = new db({
+        name: `${name}`,
+        priority: `${priority}`
+    })
+    newTodo.save()
+    console.log(newTodo)
+}
+
+createTodo('touch Grass', '1')
 
 
 // Complete one todo by name (update property done = true)
