@@ -5,17 +5,23 @@ const db = require('./database/setup');
 // Insert your code here
 //https://fruityvice.com/api/fruit/all 
 //On veut fetch tous les fruits disponibles sur l'api fuityvice et la renvoyer dans notre database 
-const newUser = new db({
-    firstName: 'Jane',
-    lastName: 'Doe',
-   });
-   
-   newUser.save().then(() => {
-    
-    db.find().then(data => {
-      console.log(data);
-    });
-   
-   });
 
-   newUser()
+
+
+  function fetchFruits() {
+    fetch('https://fruityvice.com/api/fruit/all')
+      .then(response => response.json())
+      .then(data => {
+        // Stocker les fruits dans une variable
+        const fruits = data;
+  
+        // Faire quelque chose avec la variable fruits
+        for (let i= 0; i< fruits.length; i++){
+            const newFruit = new db (fruits[i])
+            newFruit.save()
+        }
+    
+      })
+
+  }
+ fetchFruits()
