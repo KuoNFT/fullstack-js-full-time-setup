@@ -18,7 +18,7 @@ function displayArticleByName(articleName) {
 //displayArticleByName('NKD')
 
 function displayArticleByID(articleId) {
-	db.findById({_id: articleId}).then(data => {
+	db.findById({articleId}).then(data => {
 		console.log(data);
 	});
 }
