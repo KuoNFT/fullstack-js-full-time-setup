@@ -4,30 +4,30 @@ const db = require('./database/setup');
 
 // Insert your code here
 
-
-
-
 function fetchFruits() {
     fetch('https://fruityvice.com/api/fruit/all')
       .then(response => response.json())
       .then(data => {
-        // Stocker les fruits dans une variable
-        const fruits = data;
-        db.deleteMany({})
-
-  
-        // Faire quelque chose avec la variable fruits
-        fruits.forEach(fruit => {
-          const newFruit = new db({
-            name: fruit.name,
-            family: fruit.family,
-            genus: fruit.genus,
-            order: fruit.order,
-            nutritions: fruit.nutritions
+        // Supprimer les fruits existants de la collection
+        db.collection.deleteMany({}, () => {
+          // Ajouter les fruits récupérés à partir de l'API à la collection
+          db.collection.insertMany(data, (error, result) => {
+            if (error) {
+              console.error(error);
+            } else {
+              console.log(`${result.insertedCount} nouveaux fruits ont été ajoutés à la collection.`);
+            }
           });
-          newFruit.save();
         });
       })
+      .catch(error => console.error(error));
   }
   
   fetchFruits();
+
+  
+  
+  
+  
+  
+  
