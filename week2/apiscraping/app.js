@@ -6,7 +6,7 @@ const db = require('./database/setup');
 
 function fetchFruits() {
     // Reset de la base de données
-    db.deleteMany({}, err => {
+    db.deleteMany({} => {
       if (err) {
         console.error(err);
       } else {
