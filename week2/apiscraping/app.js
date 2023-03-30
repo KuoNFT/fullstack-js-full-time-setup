@@ -6,12 +6,15 @@ const db = require('./database/setup');
 
 
 
+
 function fetchFruits() {
     fetch('https://fruityvice.com/api/fruit/all')
       .then(response => response.json())
       .then(data => {
         // Stocker les fruits dans une variable
         const fruits = data;
+        db.deleteMany({})
+
   
         // Faire quelque chose avec la variable fruits
         fruits.forEach(fruit => {
