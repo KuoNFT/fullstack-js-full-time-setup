@@ -3,39 +3,42 @@ const db = require('./database/setup');
 // Do not edit/remove code above this line
 
 // Insert your code here
-// Supprimer toutes les entrées dans la base de données
+// Supprimer tous les fruits de la base de données
+
+
+// Do not edit/remove code above this line
+
+// Insert your code here
 db.deleteMany()
   .then(() => {
-    // Fetch des fruits depuis l'API et stockage dans la base de données
+    console.log('Database reset');
     fetch('https://fruityvice.com/api/fruit/all')
       .then(response => response.json())
       .then(data => {
-        // Stocker les fruits dans une variable
         const fruits = data;
-
-        // Créer un tableau pour stocker les fruits à insérer
-        const fruitsToInsert = [];
-
-        // Pour chaque fruit dans la liste, créer une nouvelle instance de Fruit
-        fruits.forEach(fruit => {
+        for (let i = 0; i < fruits.length; i++) {
+          const fruit = fruits[i];
           const newFruit = new db({
             name: fruit.name,
             family: fruit.family,
             genus: fruit.genus,
             order: fruit.order,
-            nutritions: fruit.nutritions,
-            id: fruit.id // Ajouter la propriété "id" manquante
+            carbohydrates: fruit.nutritions.carbohydrates,
+            protein: fruit.nutritions.protein,
+            fat: fruit.nutritions.fat,
+            calories: fruit.nutritions.calories,
+            sugar: fruit.nutritions.sugar,
+            fiber: fruit.nutritions.fiber,
+            vitamins: fruit.nutritions.vitamins,
+            minerals: fruit.nutritions.minerals
           });
-          fruitsToInsert.push(newFruit);
-        });
-
-        // Insérer tous les fruits dans la base de données en une seule fois
-        db.insertMany(fruitsToInsert)
-          .then(() => console.log('La base de données a été mise à jour avec succès !'))
-          .catch(error => console.error(error));
+          newFruit.save()
+            .then(() => {
+              console.log(`Added ${newFruit.name} to database`);
+            })
+            .catch(error => console.error(error));
+        }
       })
       .catch(error => console.error(error));
   })
   .catch(error => console.error(error));
- 
-
