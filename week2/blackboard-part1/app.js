@@ -18,7 +18,9 @@ function displayArticleByName(articleName) {
 //displayArticleByName('NKD')
 
 function displayArticleByID(articleId) {
-	db.findOne({_id: articleId})
+	db.findOne({id: articleId}).then(data => {
+		console.log(data);
+	});
 }
 
 
@@ -44,7 +46,9 @@ function updateArticleStock(articleId, newStock) {
 
 
 function resetStocks() {
-	db.updateMany({},{stock: '0'});
+	db.updateMany({},{stock: '0'}).then(data => {
+		console.log(data);
+	});
 }
 
 //resetStocks()
