@@ -12,7 +12,7 @@ searchButton.addEventListener("click", () => {
     const artistName = searchInput.value.trim();
 
     // Vérification si le champ de saisie est vide
-    if (!artistName) {
+    if (!artistName)  {
       // Création d'un message d'erreur
       const errorMessage = document.createElement("div");
       errorMessage.id = "error";
@@ -24,6 +24,9 @@ searchButton.addEventListener("click", () => {
   
       return;
     }
+    
+
+
 
   // Récupérer le jeton d'accès à l'API Spotify en utilisant les informations d'identification de l'application
   fetch("https://accounts.spotify.com/api/token", {
@@ -36,6 +39,7 @@ searchButton.addEventListener("click", () => {
   })
     .then((response) => response.json())
     .then((data) => {
+        
       const accessToken = data.access_token;
 
       // Utiliser le jeton d'accès pour récupérer les informations de l'artiste en fonction de son nom
@@ -47,7 +51,24 @@ searchButton.addEventListener("click", () => {
         .then((response) => response.json())
         .then((data) => {
           const artist = data.artists.items[0];
+          if (data.artists.items.length === 0) {
+            // Création d'un message d'erreur
+            const errorMessage = document.createElement("div");
+            errorMessage.id = "error";
+            errorMessage.textContent = "Artist not found";
+
+            // Ajout du message d'erreur à la liste des artistes
+            artistsList.innerHTML = "";
+            artistsList.appendChild(errorMessage);
+
+            return;
+          }
           const artistId = artist.id;
+
+          const errorMessage = document.getElementById("error");
+          if (errorMessage) {
+            errorMessage.remove();
+          }
            // Récupérer les top tracks de l'artiste
            fetch(`https://api.spotify.com/v1/artists/${artistId}/top-tracks?market=FR`, {
             headers: {
