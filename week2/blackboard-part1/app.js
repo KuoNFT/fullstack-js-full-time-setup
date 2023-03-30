@@ -27,7 +27,7 @@ function displayArticleByID(articleId) {
 displayArticleByID('525ea9ca38d6a3776994651e')
 
 function updateArticlePrice(articleId, newPrice) {
-	db.updateOne({_id:articleId},{price:newPrice}).then(data => {
+	db.updateOne({_id: articleId},{price: newPrice}).then(data => {
 		console.log(data);
 	});
 
@@ -36,7 +36,7 @@ function updateArticlePrice(articleId, newPrice) {
 updateArticlePrice('525ea9ca38d6a3776994651e', '400')
 
 function updateArticleStock(articleId, newStock) {
-	db.updateOne({_id:articleId},{stock:newStock}).then(data => {
+	db.updateOne({_id: articleId},{stock: newStock}).then(data => {
 		console.log(data);
 	});
 
