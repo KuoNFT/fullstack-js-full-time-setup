@@ -10,7 +10,7 @@ function displayAllArticles() {
 displayAllArticles()
 
 function displayArticleByName(articleName) {
-	db.find({name:`${articleName}`}).then( data => {
+	db.find({name: articleName}).then( data => {
 		console.log(data)
 	})
 }
@@ -18,15 +18,15 @@ function displayArticleByName(articleName) {
 displayArticleByName('NKD')
 
 function displayArticleByID(articleId) {
-	db.find({_id:`${articleId}`}).then( data => {
+	db.find({_id: articleId}).then( data => {
 		console.log(data)
 	})
-}
+
 
 displayArticleByID('525ea9ca38d6a3776994651e')
 
 function updateArticlePrice(articleId, newPrice) {
-	db.updateOne({_id:`${articleId}`},{price:`${newPrice}`})
+	db.updateOne({_id:articleId},{price:newPrice})
 	.then(()=> {
 		db.find().then(data=> {
 			console.log(data)
@@ -39,7 +39,7 @@ function updateArticlePrice(articleId, newPrice) {
 updateArticlePrice('525ea9ca38d6a3776994651e', '400')
 
 function updateArticleStock(articleId, newStock) {
-	db.updateOne({_id:`${articleId}`},{stock:`${newStock}`})
+	db.updateOne({_id:articleId},{stock:newStock})
 	.then(()=> {
 		db.find().then(data=> {
 			console.log(data)
