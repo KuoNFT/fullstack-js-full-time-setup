@@ -5,10 +5,11 @@ const db = require('./database/setup'); // Do not edit/remove this line
 function createTodo(name, priority) {
     const newTodo = new db({
         name: `${name}`,
-        priority: `${priority}`
+        priority: `${priority}`,
+        done : false
     })
     newTodo.save()
-    console.log(newTodo)
+
 }
 
 createTodo('touch Grass', '1')
