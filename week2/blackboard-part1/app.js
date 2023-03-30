@@ -6,6 +6,7 @@ function displayAllArticles() {
 		console.log(data)
 	})
 }
+
 displayAllArticles()
 
 function displayArticleByName(articleName) {
