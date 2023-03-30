@@ -7,7 +7,7 @@ function displayAllArticles() {
 	});
 	}
 
-displayAllArticles()
+//displayAllArticles()
 
 function displayArticleByName(articleName) {
 	db.findOne({name: articleName}).then(data => {
@@ -15,7 +15,7 @@ function displayArticleByName(articleName) {
 	});
 }
 
-displayArticleByName('NKD')
+//displayArticleByName('NKD')
 
 function displayArticleByID(articleId) {
 	db.findOne({_id: articleId}).then(data => {
@@ -24,7 +24,7 @@ function displayArticleByID(articleId) {
 }
 
 
-displayArticleByID('525ea9ca38d6a3776994651e')
+//displayArticleByID('525ea9ca38d6a3776994651e')
 
 function updateArticlePrice(articleId, newPrice) {
 	db.updateOne({_id: articleId},{price: newPrice}).then(data => {
@@ -33,7 +33,7 @@ function updateArticlePrice(articleId, newPrice) {
 
 }
 
-updateArticlePrice('525ea9ca38d6a3776994651e', '400')
+//updateArticlePrice('525ea9ca38d6a3776994651e', '400')
 
 function updateArticleStock(articleId, newStock) {
 	db.updateOne({_id: articleId},{stock: newStock}).then(data => {
@@ -42,7 +42,7 @@ function updateArticleStock(articleId, newStock) {
 
 }
 
-updateArticleStock('525ea9ca38d6a3776994651e', "2")
+//updateArticleStock('525ea9ca38d6a3776994651e', "2")
 
 
 function resetStocks() {
@@ -51,7 +51,7 @@ function resetStocks() {
 	});
 }
 
-resetStocks()
+//resetStocks()
 
 // Do not edit/remove code under this line
 module.exports = {
