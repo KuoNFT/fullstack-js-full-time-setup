@@ -2,9 +2,7 @@ const db = require('./database/setup'); // Do not edit/remove this line
 
 
 function displayAllArticles() {
-	db.find().then(data => {
-		console.log(data);
-	   })
+	db.find()
 	}
 
 displayAllArticles()
