@@ -67,16 +67,30 @@ async function deleteUser(userId) {   try {
     console.error(`Erreur lors de la suppression de l'utilisateur : ${error.message}`);
   }}
 
-deleteUser('123')
+
 /*
 ** Orders
 */
 
-function displayAllOrders() { }
+function displayAllOrders() { 
+	Order.find().then(data => {
+		console.log('ORDER =>', data);
+	});}
 
-function updateOrderPaymentStatus(orderId, isPaid) { }
+function updateOrderPaymentStatus(orderId, isPaid) {
+	Order.updateOne({_id: orderId }, {isPaid: isPaid } )
+ }
 
-function deleteOrder(orderId) { }
+ async function deleteOrder(orderId) {
+	try {
+	  const result = await Order.deleteOne({ _id: orderId });
+	  console.log(`Deleted order with ID ${orderId}.`);
+	  return result;
+	} catch (error) {
+	  console.error(`Error deleting order with ID ${orderId}: ${error.message}`);
+	  throw error;
+	}
+  }
 
 
 // Do not edit/remove code under this line
