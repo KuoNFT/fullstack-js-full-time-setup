@@ -18,6 +18,8 @@ function displayAllArticles() {
 	});
 }
 
+displayAllArticles()
+
 function displayArticleByName(articleName) {
 	Article.findOne({ name: articleName }).then(data => {
 		console.log('ARTICLE =>', data);
