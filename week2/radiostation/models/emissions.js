@@ -5,7 +5,7 @@ const userSchema = mongoose.Schema({
     discontinued : Boolean,
     mainAnimator : String,
     name : String,
-    nbAnimators : number, 
+    nbAnimators : Number, 
 
 })
 
