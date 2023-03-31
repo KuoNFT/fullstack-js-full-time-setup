@@ -13,9 +13,11 @@ fetchBtn.addEventListener("click", () => {
   .then((response)=> response.json())
   .then((data)=> {
     const resultQuestion = data.question
-    const resultPunchline = data.resultPunchline
+    console.log(resultQuestion)
+    const resultPunchline = data.punchline
     document.querySelector('#result-question').textContent = resultQuestion
     document.querySelector('#result-punchline').textContent = resultPunchline
 
   })
 });
+
