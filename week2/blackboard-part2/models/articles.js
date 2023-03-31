@@ -12,6 +12,6 @@ const articlesSchema = mongoose.Schema(
 )
 
 
-const Artricle = mongoose.model('articles', articlesSchema)
+const Article = mongoose.model('articles', articlesSchema)
 
-module.exports = Artricle
+module.exports = Article

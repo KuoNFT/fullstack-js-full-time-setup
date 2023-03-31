@@ -1,6 +1,13 @@
 // Add your own requires here 😉
 
 require('./models/connection')
+
+const User = require('./models/users')
+
+const Article = require('./models/articles')
+
+const Order = require('./models/orders')
+
 /*
 ** Articles
 */
