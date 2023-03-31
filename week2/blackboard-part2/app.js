@@ -18,7 +18,6 @@ function displayAllArticles() {
 	});
 }
 
-displayAllArticles()
 
 function displayArticleByName(articleName) {
 	Article.findOne({ name: articleName }).then(data => {
@@ -55,11 +54,20 @@ function resetStocks() {
 ** Users
 */
 
-function displayAllUsers() { }
+function displayAllUsers() { 
+	User.find().then(data => {
+		console.log('USERS =>', data);
+	});
+}
 
-function deleteUser(userId) { }
+async function deleteUser(userId) {   try {
+    const result = await User.deleteOne({_id: userId});
+    console.log(`Utilisateur supprimé : ${result.deletedCount} document(s) ont été supprimé(s)`);
+  } catch (error) {
+    console.error(`Erreur lors de la suppression de l'utilisateur : ${error.message}`);
+  }}
 
-
+deleteUser('123')
 /*
 ** Orders
 */
