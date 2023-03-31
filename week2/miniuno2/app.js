@@ -33,10 +33,14 @@ const Play = require('./models/plays')
 //}
 
 function playUno(cards, lastPlay) {
+    Play.deleteMany({}, function(err) {
+        if (err) {
+          console.error(err);
+          return;
+        }
+        console.log('Plays collection reset before starting the game');
     let lastCard = lastPlay;
-	Play.deleteMany()
-	.then(() => {
-	  console.log('Database reset');
+
     while (cards.length > 0) {
         let cardsToPlay = [];
 
@@ -62,7 +66,7 @@ function playUno(cards, lastPlay) {
     }
 
     console.log('Game Over');
-	}}
+}
 
 
 
