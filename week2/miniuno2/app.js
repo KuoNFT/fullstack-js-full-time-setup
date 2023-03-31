@@ -34,9 +34,10 @@ const Play = require('./models/plays')
 
 function playUno(cards, lastPlay) {
     let lastCard = lastPlay;
-    let cardsToPlay = [];
 
-    if (cards.length > 0) {
+    while (cards.length > 0) {
+        let cardsToPlay = [];
+
         for (let i = 0; i < cards.length; i++) {
             if (cards[i].color === lastCard.color || cards[i].number === lastCard.number) {
                 cardsToPlay.push(cards[i]);
@@ -52,13 +53,13 @@ function playUno(cards, lastPlay) {
                 number: lastCard.number,
             });
             playedCard.save();
-            return lastCard;
         } else {
             console.log('No valid cards to play');
+            break;
         }
-    } else {
-        console.log('Game Over');
     }
+
+    console.log('Game Over');
 }
 
 
