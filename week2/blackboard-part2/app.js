@@ -1,5 +1,6 @@
 // Add your own requires here 😉
 
+require('./models/connection')
 /*
 ** Articles
 */
