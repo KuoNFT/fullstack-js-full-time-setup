@@ -1,5 +1,21 @@
-function playUno(cards, lastPlay) {}
+require('./models/connection')
 
+const Play = require('./models/plays')
+
+function playUno(cards, lastPlay) {
+    let lastCard = lastPlay;
+    let cardsToPlay = [];
+
+    for (let i = 0; i < cards.length; i++) {
+        if (cards[i].color === lastCard.color || cards[i].number === lastCard.number) {
+            cardsToPlay.push(cards[i]);
+        }
+    }
+
+    lastCard = cardsToPlay[0];
+
+    return lastCard;
+}
 const cardsExample = [
 	{ color: 'green', number: 6 },
 	{ color: 'red', number: 6 },
