@@ -8,5 +8,3 @@ const userSchema = mongoose.Schema({
     nbAnimators : Number, 
 
 })
-
-const Emissions = mongoose.model('emissions', userSchema)

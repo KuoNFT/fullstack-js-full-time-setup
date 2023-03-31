@@ -9,5 +9,3 @@ const userSchema = mongoose.Schema({
     title : String, 
 
 })
-
-const Emissions = mongoose.model('songs', userSchema)
