@@ -10,8 +10,8 @@ const fetchBtn = document.querySelector("#fetch-btn");
 fetchBtn.addEventListener("click", () => {
 
  fetch("https://backend-omega-seven.vercel.app/api/getjoke")
- .then((response)=> response.json())
-  .then((data)=> {
+ .then(response=> response.json())
+  .then(data => {
     console.log(data)
     const resultQuestion = data[0].question
     console.log(data.question)
