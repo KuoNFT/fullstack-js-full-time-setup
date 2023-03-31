@@ -5,31 +5,60 @@ const Play = require('./models/plays')
 /////////////////////////////////////////////
 
 
+//function playUno(cards, lastPlay) {
+//    let lastCard = lastPlay;
+//    let cardsToPlay = [];
+
+ 	
+//    if (cards.length > 0){
+//    for (let i = 0; i < cards.length; i++) {
+//        if (cards[i].color === lastCard.color || cards[i].number === lastCard.number) {
+//            cardsToPlay.push(cards[i]);
+//			cards.slice(i, 1)
+//        }
+//    }
+
+//    lastCard = cardsToPlay[0];
+//	const playedCard = new Play({
+//		color: lastCard.color,
+//		number: lastCard.number,
+//	})
+//	playedCard.save()
+
+
+//    return lastCard;
+//} else {
+//	console.log('Game Over')
+//}
+//}
+
 function playUno(cards, lastPlay) {
     let lastCard = lastPlay;
     let cardsToPlay = [];
 
- 	
-    if (cards.length > 0){
-    for (let i = 0; i < cards.length; i++) {
-        if (cards[i].color === lastCard.color || cards[i].number === lastCard.number) {
-            cardsToPlay.push(cards[i]);
-			cards.slice(i, 1)
+    if (cards.length > 0) {
+        for (let i = 0; i < cards.length; i++) {
+            if (cards[i].color === lastCard.color || cards[i].number === lastCard.number) {
+                cardsToPlay.push(cards[i]);
+                cards.splice(i, 1);
+                break;
+            }
         }
+
+        if (cardsToPlay.length > 0) {
+            lastCard = cardsToPlay[0];
+            const playedCard = new Play({
+                color: lastCard.color,
+                number: lastCard.number,
+            });
+            playedCard.save();
+            return lastCard;
+        } else {
+            console.log('No valid cards to play');
+        }
+    } else {
+        console.log('Game Over');
     }
-
-    lastCard = cardsToPlay[0];
-	const playedCard = new Play({
-		color: lastCard.color,
-		number: lastCard.number,
-	})
-	playedCard.save()
-
-
-    return lastCard;
-} else {
-	console.log('Game Over')
-}
 }
 
 const cardsExample = [
