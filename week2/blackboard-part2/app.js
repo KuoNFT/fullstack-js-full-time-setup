@@ -77,6 +77,8 @@ function displayAllOrders() {
 		console.log('ORDER =>', data);
 	});}
 
+	displayAllOrders()
+	
 function updateOrderPaymentStatus(orderId, isPaid) {
 	Order.updateOne({_id: orderId }, {isPaid: isPaid } )
  }
