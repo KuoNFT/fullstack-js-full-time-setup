@@ -9,9 +9,12 @@ function playUno(cards, lastPlay) {
     let lastCard = lastPlay;
     let cardsToPlay = [];
 
+ 	
+    if (cards.length > 0){
     for (let i = 0; i < cards.length; i++) {
         if (cards[i].color === lastCard.color || cards[i].number === lastCard.number) {
             cardsToPlay.push(cards[i]);
+			cards.slice(i, 1)
         }
     }
 
@@ -24,6 +27,9 @@ function playUno(cards, lastPlay) {
 
 
     return lastCard;
+} else {
+	console.log('Game Over')
+}
 }
 
 const cardsExample = [
