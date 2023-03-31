@@ -66,7 +66,7 @@ function playUno(cards, lastPlay) {
     }
 
     console.log('Game Over');
-}
+})}
 
 
 
