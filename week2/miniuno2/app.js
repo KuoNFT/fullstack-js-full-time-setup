@@ -2,6 +2,9 @@ require('./models/connection')
 
 const Play = require('./models/plays')
 
+/////////////////////////////////////////////
+
+
 function playUno(cards, lastPlay) {
     let lastCard = lastPlay;
     let cardsToPlay = [];
@@ -13,9 +16,16 @@ function playUno(cards, lastPlay) {
     }
 
     lastCard = cardsToPlay[0];
+	const playedCard = new Play({
+		color: lastCard.color,
+		number: lastCard.number,
+	})
+	playedCard.save()
+
 
     return lastCard;
 }
+
 const cardsExample = [
 	{ color: 'green', number: 6 },
 	{ color: 'red', number: 6 },
