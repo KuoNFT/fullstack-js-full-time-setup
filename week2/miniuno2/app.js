@@ -34,7 +34,9 @@ const Play = require('./models/plays')
 
 function playUno(cards, lastPlay) {
     let lastCard = lastPlay;
-
+	Play.deleteMany()
+	.then(() => {
+	  console.log('Database reset');
     while (cards.length > 0) {
         let cardsToPlay = [];
 
@@ -60,7 +62,7 @@ function playUno(cards, lastPlay) {
     }
 
     console.log('Game Over');
-}
+	}}
 
 
 
