@@ -61,6 +61,10 @@ function playUno(cards, lastPlay) {
     }
 }
 
+while (cardsExample.length > 0) {
+    const lastCardPlayed = playUno(cardsExample, lastPlayExample);
+    console.log('Last card played:', lastCardPlayed);}
+
 const cardsExample = [
 	{ color: 'green', number: 6 },
 	{ color: 'red', number: 6 },
