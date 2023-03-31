@@ -9,4 +9,6 @@ const newEmissionSchema = mongoose.Schema({
 
 })
 
-const Emissions = mongose.model("emissions", newEmissionSchema)
+const Emissions = mongoose.model("emissions", newEmissionSchema)
+
+module.exports = Emissions;
