@@ -22,5 +22,3 @@ fetchBtn.addEventListener("click", () => {
 
   })
 });
-
-
