@@ -2,8 +2,10 @@
 const mongoose = require('mongoose');
 
 const countriesPopSchema = mongoose.Schema(
-    populationNbr: Number,
+    {
+    populationNbr : Number,
     year : Date,
+    }
 )
 
 const countriesSchema = mongoose.Schema(
