@@ -3,7 +3,6 @@ const Article = require('./models/articles');
 const User = require('./models/users');
 const Order = require('./models/orders');
 const ervy = require('ervy')
-import chalk from 'chalk';
 
 /*
 ** Articles
