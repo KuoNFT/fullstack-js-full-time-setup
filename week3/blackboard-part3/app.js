@@ -2,17 +2,38 @@ require('./models/connection');
 const Article = require('./models/articles');
 const User = require('./models/users');
 const Order = require('./models/orders');
-
+const ervy = require('ervy')
+import chalk from 'chalk';
 
 /*
 ** Articles
 */
 
+
+
 function displayAllArticles() {
-	Article.find().then(data => {
-		console.log('ARTICLES =>', data);
-	});
+    Article.find().then(donnes => {
+        const data = []
+        for(let i = 0; i < donnes.length; i++) {
+            if (donnes[i].stock < 5) {
+                data.push({key: donnes[i].name, value: donnes[i].stock, style: ervy.bg('red')});
+            } else {
+                data.push({key: donnes[i].name, value: donnes[i].stock, style: ervy.bg('blue')});
+            }
+        }
+        console.log(ervy.bullet(data));
+    })
 }
+
+displayAllArticles();
+
+//function displayAllArticles() {
+//	Article.find().then(data => {
+//		console.log('ARTICLES =>', data);
+//	})
+//	;
+//}
+
 
 function displayArticleByName(articleName) {
 	Article.findOne({ name: articleName }).then(data => {
