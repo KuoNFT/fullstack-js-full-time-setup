@@ -1,0 +1,11 @@
+{
+  "name": "letsmodelize",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "mongoose": "^6.3.0"
+  },
+  "devDependencies": {
+    "jest": "^27.5.1"
+  }
+}
