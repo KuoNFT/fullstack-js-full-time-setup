@@ -17,7 +17,7 @@ function createPokemon(pokemonName, typeName, typeColor) {
   })
   newPokemon.save().then((data)=> console.log("New Pokemon created"))
 };
- createPokemon('pikachu', 'electric', 'yellow')
+//createPokemon('pikachu', 'electric', 'yellow')
 
 //! Add a sub-document/sub-object to an array
 function addType(pokemonName, typeName, typeColor) {
