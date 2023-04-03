@@ -1,4 +1,4 @@
-require('./models/connection')
+require('./models/connections')
 
 const City = require('./models/cities')
 
