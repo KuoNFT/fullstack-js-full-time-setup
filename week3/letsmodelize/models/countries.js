@@ -12,8 +12,8 @@ const countriesSchema = mongoose.Schema(
     {
         name : String,
         flagImg : String,
-        currency : Number,
-        population : countriesPopSchema,
+        currency : String,
+        population : [countriesPopSchema],
         
         
     }
