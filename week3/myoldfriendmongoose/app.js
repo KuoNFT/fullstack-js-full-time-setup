@@ -37,14 +37,13 @@ function createCity(name, currentPopulation, countryId) {
           currentPopulation,
           countryId,  
         }
-        .populate('countryId')
         .then(data => {
             newCity.save().then(()=> console.log('New city created'))
         })
     )
 }
 //Sample call:
-createCity('Sydney', 5312163, 'COUNTRY_ID_TO_REPLACE');
+createCity('Sydney', 5312163, '642a9c0c9c2509a0e142fb47');
 
 
 // Display country population from country name
