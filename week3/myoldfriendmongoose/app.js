@@ -35,12 +35,11 @@ function createCity(name, currentPopulation, countryId) {
         {
           name,
           currentPopulation,
-          countryId,  
+          country : countryId,  
         }
-        .then(data => {
-            newCity.save().then(()=> console.log('New city created'))
-        })
-    )
+        )
+        newCity.populate('country').save().then(()=> console.log('New city created'))
+        
 }
 //Sample call:
 createCity('Sydney', 5312163, '642a9c0c9c2509a0e142fb47');
