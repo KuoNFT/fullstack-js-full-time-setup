@@ -30,27 +30,51 @@ function createCountry(name, flagImg, currency, population) {
 
 
 // Create city with name, population and country foreign key
-function createCity(name, currentPopulation, countryId) { 
-    const newCity = new City (
-        {
-          name,
-          currentPopulation,
-          country : countryId,  
-        }
-        )
-        newCity.populate('country').save().then(()=> console.log('New city created'))
-        
-}
-//Sample call:
-createCity('Sydney', 5312163, '642a9c0c9c2509a0e142fb47');
+function createCity(name, currentPopulation, countryId) {
+    const newCity = new City({
+      name,
+      currentPopulation,
+      countryId,
+    });
+    newCity.populate('countryId')
+    .then((data)=> data.save().then(()=> console.log('New city created')) )
+  }
+  
+  // Sample call:
+  createCity('Sydney', 5312163, '642a9c0c9c2509a0e142fb47');
 
 
 // Display country population from country name
-function displayCountryPopulation(countryName) { }
+function displayCountryPopulation(countryName) {
+    Country.findOne({ name: countryName })
+        .then((country) => {
+            if (country) {
+                console.log(`Population of ${countryName}: ${country.population[0].populationNbr}`);
+            } else {
+                console.log(`Country ${countryName} not found`);
+            }
+        })
+        .catch((err) => console.log('Error finding country:', err));
+}
 
 
 // Display country informations from city name (with populate)
-function displayCountryFromCityName(cityName) { }
+function displayCountryFromCityName(cityName) {
+    City.findOne({ name: cityName })
+        .populate('countryId')
+        .then((city) => {
+            if (city && city.countryId) {
+                console.log(`City: ${cityName}`);
+                console.log(`Country: ${city.countryId.name}`);
+                console.log(`Flag: ${city.countryId.flagImg}`);
+                console.log(`Currency: ${city.countryId.currency}`);
+                console.log(`Population: ${city.countryId.population[0].populationNbr}`);
+            } else {
+                console.log(`City ${cityName} not found`);
+            }
+        })
+        .catch((err) => console.log('Error finding city:', err));
+}
 
 
 module.exports = { createCountry, createCity, displayCountryPopulation, displayCountryFromCityName }; // Do not edit/remove this line
