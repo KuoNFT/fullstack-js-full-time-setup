@@ -6,7 +6,7 @@ const orderSchema = mongoose.Schema({
 	isPaid: Boolean,
 	purchaseDate: Date,
 	user: {type: mongoose.Schema.Types.ObjectId, ref: "users"},
-	articles: {type: mongoose.Schema.Types.ObjectId, ref: 'articles'},
+	articles: [{type: mongoose.Schema.Types.ObjectId, ref: 'articles'}],
 });
 
 const Order = mongoose.model('orders', orderSchema);

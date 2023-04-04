@@ -2,27 +2,39 @@ require('./models/connection');
 const Article = require('./models/articles');
 const User = require('./models/users');
 const Order = require('./models/orders');
-const ervy = require('ervy')
+const ervy = require('ervy');
+const { bar, pie, bullet, donut, gauge, scatter } = ervy
+
+
 
 /*
 ** Articles
 */
 
-
-
 function displayAllArticles() {
-    Article.find().then(donnes => {
-        const data = []
-        for(let i = 0; i < donnes.length; i++) {
-            if (donnes[i].stock < 5) {
-                data.push({key: donnes[i].name, value: donnes[i].stock, style: ervy.bg('red')});
-            } else {
-                data.push({key: donnes[i].name, value: donnes[i].stock, style: ervy.bg('blue')});
-            }
-        }
-        console.log(ervy.bullet(data));
-    })
+Article.find().then(data => {
+const graph =[]
+data.forEach(e => {
+if (e.stock<5) {
+graph.push({
+key : e.name,
+value : e.stock,
+style: ervy.bg('red'), barWidth: 1
+})
+}else{
+graph.push({
+key : e.name,
+value : e.stock,
+style: ervy.bg('blue'), barWidth: 1
+})
 }
+
+});
+console.log(bullet(graph));
+});
+}
+
+
 
 displayAllArticles();
 
@@ -112,7 +124,7 @@ function deleteOrder(orderId) {
 function displayOrderArticles(orderId) {
 	Order.findById(orderId)
    
-	   .populate('articles')
+	  .populate('articles')
 	  .then(data => {
 		console.log('ORDER =>', data);
    
