@@ -35,8 +35,23 @@ console.log(bullet(graph));
 }
 
 
-
 displayAllArticles();
+
+
+function displayAllArticles() {
+    Article.find().then(donnes => {
+        const data = []
+        for(let i = 0; i < donnes.length; i++) {
+            if (donnes[i].stock < 5) {
+                data.push({key: donnes[i].name, value: donnes[i].stock, style: ervy.bg('red')});
+            } else {
+                data.push({key: donnes[i].name, value: donnes[i].stock, style: ervy.bg('blue')});
+            }
+        }
+        console.log(ervy.bullet(data));
+    })
+}
+
 
 //function displayAllArticles() {
 //	Article.find().then(data => {
