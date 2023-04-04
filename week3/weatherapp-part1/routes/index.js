@@ -7,6 +7,22 @@ let weather = [
   { cityName: 'Stockholm', description: 'sunny', tempMin: 6.03, tempMax: 10.59 },
 ];
 
+router.post('/weather', (req, res)=> {
+  if (!weather.some (e=> e.cityName.toLowerCase() === req.body.cityName.toLowerCase())) {
+    const newCity= {
+      cityName: req.body.cityName, 
+      description: req.body.description,
+      tempMin: req.body.tempMin,
+      tempMax: req.body.tempMax
+    }
+    weather.push(newCity)
+        res.json({ result: true, weather: weather });
+    } else {
+        res.json({ result: false, error: "City already saved" });
+    }
+  })
+ ;
+
 // POST /weather - Sample result: 
 /*{
   "result": true,
@@ -24,6 +40,13 @@ OR
 }
 */
 
+router.get('/weather', (req, res)=>{
+  if(req.body.cityName){
+  res.json({result : true, weather: weather})
+  } else {
+    res.json({result : false})
+  }
+})
 
 // GET /weather - Sample result: 
 /*{
@@ -50,6 +73,10 @@ OR
 } */
 
 
+router.get('/weather/:cityName', (req, res){
+  let 
+})
+
 // GET /weather/:cityName - Sample result: 
 /*{
   "result": true,
@@ -66,7 +93,9 @@ OR
   "error": "City not found"
 } */
 
-
+router.delete('weather/:cityName', (req, res){
+  
+})
 // DELETE /weather/:cityName - Sample result: 
 /*{
   "result": true,
