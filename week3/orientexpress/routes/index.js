@@ -52,8 +52,8 @@ router.get('/trips', (req, res)=>{
 //    res.json({trips.length-1})
 //})
 router.get('/lastTrip', function(req, res) {
-    var lastTrip = trips[trips.length-1];
-    var result = {
+    let lastTrip = trips[trips.length-1];
+    let result = {
       "lastTrip": {
         "departure": lastTrip.departure,
         "arrival": lastTrip.arrival
