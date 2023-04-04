@@ -5,7 +5,7 @@ let trips = [{ departure: 'Paris', arrival: 'Lyon' }, { departure: 'Lyon', arriv
 
 router.post('/trips', (req, res)=> {
     trips.push({departure: req.body.departure, arrival: req.body.arrival})
-    res.json({tripList: trips}) //correction : res.json({ allTrips: trips });
+    res.json({allTrips: trips}) 
 } )
 
 
@@ -27,7 +27,7 @@ router.post('/trips', (req, res)=> {
 //   }
 // ]
 router.get('/trips', (req, res)=>{
-    res.json({tripsList: trips})
+    res.json({allTrips: trips})
 })
 
 
@@ -51,20 +51,29 @@ router.get('/trips', (req, res)=>{
 //router.get('/trips', (req, res)=>{
 //    res.json({trips.length-1})
 //})
-router.get('/trips/last', function(req, res) {
-    let lastTrip = trips[trips.length-1];
-    res.json({ tripList: [lastTrip] });
+router.get('/lastTrip', function(req, res) {
+    var lastTrip = trips[trips.length-1];
+    var result = {
+      "lastTrip": {
+        "departure": lastTrip.departure,
+        "arrival": lastTrip.arrival
+      }
+    };
+    res.json(result);
   });
+
+
 
 // GET /lastTrip - Sample result:
 // "lastTrip": {
 //   "departure": "Grenoble",
 //   "arrival": "Strasbourg"
 // }
-router.delete('/trips/:position', (req, res)=>{
-    trips.splice(req.params, 1);
-    res.json({tripList: trips})
-})
+
+router.delete('/trips', function(req, res) {
+    trips = [];
+    res.json({ message: 'Tous les voyages ont été supprimés.' });
+  });
 // DELETE /trips - Sample result:
 // "allTrips": []
 
