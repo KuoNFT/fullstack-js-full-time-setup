@@ -15,14 +15,16 @@ const apiKeys = ['azerty123', 'supersecretapikey'];
 
 function validateApiKey(req, res, next) {
     const apiKey = req.headers['key'];
+    //console.log(apiKey)
     if (apiKeys.includes(apiKey)) {
       next();
     } else {
-      res.status(403).json({result: false, message: 'Invalid API key'});
+      res.status(403).json({result: false, error: 'Invalid API key'});
     }
+    
   }
   
-  app.use(express.json());
+  
   app.use(validateApiKey);
   
   app.get('/message', (req, res) => {
