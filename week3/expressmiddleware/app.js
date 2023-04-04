@@ -21,7 +21,9 @@ function validateApiKey(req, res, next) {
       res.status(403).json({result: false, message: 'Invalid API key'}); // Si la clé est invalide, on renvoie une réponse avec un statut 403 et un message d'erreur
     }
   }
-
+  app.get('/hello', validateApiKey, (req, res) => {
+    res.status(200).json({result: true, message: 'Hello world!'});
+  });
 
 app.use(logger('dev'));
 app.use(express.json());
