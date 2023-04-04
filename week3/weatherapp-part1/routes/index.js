@@ -40,12 +40,15 @@ OR
 }
 */
 
-router.get('/weather', (req, res)=>{
-  if(req.body.cityName){
-  res.json({result : true, weather: weather})
-  } else {
-    res.json({result : false})
-  }
+//router.get('/weather', (req, res)=>{
+//  if(req.body.cityName){
+//  res.json({result : true, weather: cityName})
+//  } else {
+//    res.json({result : false})
+//  }
+//})
+
+router.get('/weather', (req, res)=>{res.json({weather: weather})
 })
 
 // GET /weather - Sample result: 
@@ -73,9 +76,15 @@ router.get('/weather', (req, res)=>{
 } */
 
 
-//router.get('/weather/:cityName', (req, res){
-//  let 
-//})
+
+router.get('/weather/:cityName', (req, res) => {
+  const searchedWeather = weather.find(e => e.cityName.toLowerCase() === req.params.cityName.toLowerCase());
+  if (searchedWeather) {
+    res.json({ result: true, weather: searchedWeather });
+  } else {
+    res.json({ result: false, error: 'City not found' });
+  }
+ });
 
 // GET /weather/:cityName - Sample result: 
 /*{
@@ -93,9 +102,19 @@ OR
   "error": "City not found"
 } */
 
-//router.delete('weather/:cityName', (req, res){
+router.delete('/weather/:cityName', (req, res) => {
+  const cityName = req.params.cityName.toLowerCase();
+  const indexToDelete = weather.findIndex(e => e.cityName.toLowerCase() === cityName);
 
-//})
+  if (indexToDelete >= 0) {
+    weather.splice(indexToDelete, 1);
+    res.json({ result: true, weather: weather }); 
+  } else {
+    res.json({ result: false, error: 'City not found' });
+  }
+});
+
+
 // DELETE /weather/:cityName - Sample result: 
 /*{
   "result": true,
