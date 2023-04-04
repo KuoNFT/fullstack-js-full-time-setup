@@ -16,7 +16,7 @@ router.post('/weather', (req, res)=> {
       tempMax: req.body.tempMax
     }
     weather.push(newCity)
-        res.json({ result: true, weather: weather });
+        res.json({ result: true, weather: newCity });
     } else {
         res.json({ result: false, error: "City already saved" });
     }
@@ -73,9 +73,9 @@ router.get('/weather', (req, res)=>{
 } */
 
 
-router.get('/weather/:cityName', (req, res){
-  let 
-})
+//router.get('/weather/:cityName', (req, res){
+//  let 
+//})
 
 // GET /weather/:cityName - Sample result: 
 /*{
@@ -93,9 +93,9 @@ OR
   "error": "City not found"
 } */
 
-router.delete('weather/:cityName', (req, res){
-  
-})
+//router.delete('weather/:cityName', (req, res){
+
+//})
 // DELETE /weather/:cityName - Sample result: 
 /*{
   "result": true,
