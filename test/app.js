@@ -57,11 +57,18 @@ function nombresPremiers(number) {
   }
 //isPalindrome('benjamin')
 
-//fonction pour trier un tableau d'entiers dans l'ordre croissant.
+//fonction pour trier un tableau d'entiers dans l'ordre croissant/décroissant.
 
-function isSorted(array){
-   let sortedArray= array.sort()
-   console.log(sortedArray)
-}
+function isSorted(array) {
+    array.sort((a, b) => a - b);
+    return array;
+  }
+  
+  console.log(isSorted([340, 54, 32, 233, 122])); // [340, 233, 122, 54, 32]
 
-isSorted([340, 54, 32, 233, 122])
+  function isSorted(array) {
+    array.sort((a, b) => b - a);
+    return array;
+  }
+  
+  console.log(isSorted([340, 54, 32, 233, 122])); // [340, 233, 122, 54, 32]
