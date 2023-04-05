@@ -26,13 +26,21 @@ let weather = [
 router.post('/weather', (req, res) => {
   if (!weather.some(e => e.cityName.toLowerCase() === req.body.cityName.toLowerCase())) {
     fetch(`https://api.openweathermap.org/data/2.5/weather?q=${req.body.cityName}&appid=${owmApiKey}&units=metric`)
-    .then(response => response.json)
-    .then(apiData => {const newCity = {
-      cityName: req.body.cityName,
-      description: req.body.description,
-      tempMin: req.body.tempMin,
-      tempMax: req.body.tempMax,
-    }
+    .then(response => response.json())
+    .then(apiData => {
+      const newCity = {
+
+        cityName: apiData.name,
+
+        main: apiData.weather[0].main,
+
+        description: apiData.weather[0].description,
+
+        tempMin: apiData.main.temp_min,
+
+        tempMax: apiData.main.temp_max,
+
+      };
   weather.push(newCity)
   res.json({result : true, weather: newCity})
   })
@@ -40,6 +48,8 @@ router.post('/weather', (req, res) => {
     res.json({ result: false, error: 'City already saved' });
   }
 });
+
+
 
 router.get('/weather', (req, res) => {
   res.json({ weather });
