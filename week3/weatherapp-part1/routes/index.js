@@ -8,7 +8,7 @@ let weather = [
 ];
 
 router.post('/weather', (req, res)=> {
-  if (!weather.some (e=> e.cityName.toLowerCase() === req.body.cityName.toLowerCase())) {
+  if (!weather.some (e=> e.cityName.toLowerCase() === req.body.cityName.toLowerCase())) {//some est comme find mais renvoie un boolean
     const newCity= {
       cityName: req.body.cityName, 
       description: req.body.description,
