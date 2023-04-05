@@ -1,11 +1,12 @@
 var express = require('express');
 var router = express.Router();
 const fetch = require('node-fetch');
+let owmApiKey = 'c88d94bbb2c9195835e71452811315ca'
 
 let weather = [
   { cityName: "London", description: "cloudy", main: "clouds", tempMin: 12.95, tempMax: 17.39 },
-  {
-    cityName: "Rio de Janeiro",
+ {
+   cityName: "Rio de Janeiro",
     main: "clear",
     description: "sunny",
     tempMin: 23.98,
@@ -17,13 +18,14 @@ let weather = [
     main: "clear",
     tempMin: 6.03,
     tempMax: 10.59,
+
   },
 ];
 
 
 router.post('/weather', (req, res) => {
   if (!weather.some(e => e.cityName.toLowerCase() === req.body.cityName.toLowerCase())) {
-    fetch(`https://api.openweathermap.org/data/2.5/weather?q=${req.body.cityName}&appid=${c88d94bbb2c9195835e71452811315ca}&units=metric`)
+    fetch(`https://api.openweathermap.org/data/2.5/weather?q=${req.body.cityName}&appid=${owmApiKey}&units=metric`)
     .then(response => response.json)
     .then(apiData => {const newCity = {
       cityName: req.body.cityName,
@@ -34,10 +36,6 @@ router.post('/weather', (req, res) => {
   weather.push(newCity)
   res.json({result : true, weather: newCity})
   })
-    
-
-    weather.push(newCity);
-    res.json({ result: true, weather: newCity });
   } else {
     res.json({ result: false, error: 'City already saved' });
   }
