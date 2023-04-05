@@ -1,5 +1,7 @@
+require('C:\Users\crusi\OneDrive\Bureau\lacapsule-fullstack-js\week3\orientexpress2\models\connections.js')
 var express = require('express');
 var router = express.Router();
+
 
 let trips = [{ departure: 'Paris', arrival: 'Lyon' }, { departure: 'Lyon', arrival: 'Marseille' }];
 
