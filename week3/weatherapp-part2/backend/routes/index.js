@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+const fetch = require('node-fetch');
 
 let weather = [
   { cityName: "London", description: "cloudy", main: "clouds", tempMin: 12.95, tempMax: 17.39 },
@@ -22,12 +23,18 @@ let weather = [
 
 router.post('/weather', (req, res) => {
   if (!weather.some(e => e.cityName.toLowerCase() === req.body.cityName.toLowerCase())) {
-    const newCity = {
+    fetch(`https://api.openweathermap.org/data/2.5/weather?q=${req.body.cityName}&appid=${c88d94bbb2c9195835e71452811315ca}&units=metric`)
+    .then(response => response.json)
+    .then(apiData => {const newCity = {
       cityName: req.body.cityName,
       description: req.body.description,
       tempMin: req.body.tempMin,
       tempMax: req.body.tempMax,
-    };
+    }
+  weather.push(newCity)
+  res.json({result : true, weather: newCity})
+  })
+    
 
     weather.push(newCity);
     res.json({ result: true, weather: newCity });
