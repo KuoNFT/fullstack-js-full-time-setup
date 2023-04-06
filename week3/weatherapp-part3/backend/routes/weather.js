@@ -6,35 +6,35 @@ const City = require('../models/cities')
 const OWM_API_KEY = 'c88d94bbb2c9195835e71452811315ca'
 
 
-router.post("/", (req, res) => {
-    const cityName = req.body.cityName.toLowerCase();
-    
-    // Vérifier si la ville est déjà dans la base de données
-    City.findOne({ cityName })
-    .then((city) => {
-        if (city) {
-            return res.json({ result: false, error: "City already saved" });
-        }
-
-        // Si la ville est absente de la DB on va récupérer les données depuis l'api
-        return fetch(`https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${OWM_API_KEY}&units=metric`);
-    })
+router.post('/', (req, res) => {
+    // Check if the city has not already been added
+    City.findOne({ cityName: { $regex: new RegExp(req.body.cityName, 'i') } }).then(dbData => {
+    if (dbData === null) {
+    // Request OpenWeatherMap API for weather data
+    fetch(`https://api.openweathermap.org/data/2.5/weather?q=${req.body.cityName}&appid=${OWM_API_KEY}&units=metric`)
     .then(response => response.json())
     .then(apiData => {
-        const newCity = new City({
-            cityName: apiData.name.toLowerCase(),
-            main: apiData.weather[0].main,
-            description: apiData.weather[0].description,
-            tempMin: apiData.main.temp_min,
-            tempMax: apiData.main.temp_max,
-        });
+    // Creates new document with weather data
+    const newCity = new City({
+    cityName: req.body.cityName,
+    main: apiData.weather[0].main,
+    description: apiData.weather[0].description,
+    tempMin: apiData.main.temp_min,
+    tempMax: apiData.main.temp_max,
+    });
+    
+    // Finally save in database
+    newCity.save().then(newDoc => {
+    res.json({ result: true, weather: newDoc });
+    });
+    });
+    } else {
+    // City already exists in database
+    res.json({ result: false, error: 'City already saved' });
+    }
+    });
+    });
 
-        return newCity.save();
-    })
-    .then((city) => {
-        res.json({ result: true, weather: city });
-    })
-});
   
   router.get("/", (req, res) => {
     City.find().then(data => {

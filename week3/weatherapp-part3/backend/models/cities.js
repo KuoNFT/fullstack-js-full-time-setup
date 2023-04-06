@@ -4,7 +4,7 @@ const citySchema = mongoose.Schema(
     {
         cityName : String,
         main : String,
-        Description : String,
+        description : String,
         tempMin : Number,
         tempMax : Number, 
         
