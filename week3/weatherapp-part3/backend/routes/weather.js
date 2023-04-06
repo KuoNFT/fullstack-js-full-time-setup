@@ -10,39 +10,30 @@ router.post("/", (req, res) => {
     const cityName = req.body.cityName.toLowerCase();
     
     // Vérifier si la ville est déjà dans la base de données
-    City.findOne({ cityName }, (err, city) => {
-        if (err) {
-            return res.json({ result: false, error: err.message });
-        }
-        
+    City.findOne({ cityName })
+    .then((city) => {
         if (city) {
             return res.json({ result: false, error: "City already saved" });
         }
-        
-        // Si la ville est absente de la DB on va récupérer les données depuis l'api
-        fetch(`https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${OWM_API_KEY}&units=metric`)
-            .then(response => response.json())
-            .then(apiData => {
-                const newCity = new City({
-                    cityName: apiData.name.toLowerCase(),
-                    main: apiData.weather[0].main,
-                    description: apiData.weather[0].description,
-                    tempMin: apiData.main.temp_min,
-                    tempMax: apiData.main.temp_max,
-                });
 
-                newCity.save((err, city) => {
-                    if (err) {
-                        return res.json({ result: false, error: err.message });
-                    }
-                    
-                    res.json({ result: true, weather: city });
-                });
-            })
-            .catch(err => {
-                res.json({ result: false, error: err.message });
-            });
-    });
+        // Si la ville est absente de la DB on va récupérer les données depuis l'api
+        return fetch(`https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${OWM_API_KEY}&units=metric`);
+    })
+    .then(response => response.json())
+    .then(apiData => {
+        const newCity = new City({
+            cityName: apiData.name.toLowerCase(),
+            main: apiData.weather[0].main,
+            description: apiData.weather[0].description,
+            tempMin: apiData.main.temp_min,
+            tempMax: apiData.main.temp_max,
+        });
+
+        return newCity.save();
+    })
+    .then((city) => {
+        res.json({ result: true, weather: city });
+    })
 });
   
   router.get("/", (req, res) => {

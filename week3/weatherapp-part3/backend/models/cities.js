@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const citiesSchema = mongoose.Schema(
+const citySchema = mongoose.Schema(
     {
         cityName : String,
         main : String,
@@ -12,6 +12,6 @@ const citiesSchema = mongoose.Schema(
 )
 
 
-const City = mongoose.model('cities', citiesSchema)
+const City = mongoose.model('cities', citySchema)
 
 module.exports = City
