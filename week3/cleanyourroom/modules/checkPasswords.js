@@ -1,15 +1,10 @@
 function checkModeratorPassword(password){
-    if (password === 'modpwd123'){
-        return true
-    } else {
-        return false
+    return password === 'modpwd123'
     }
-} 
+ 
 
 function checkAdminPassword(password){
-    if (password === 'adminazerty123'){
-        return true
-    } else {
-        return false
-    }
+    return password === 'adminazerty123'
 }
+
+module.exports = {checkAdminPassword,checkModeratorPassword };

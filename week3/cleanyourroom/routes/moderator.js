@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-
+const { checkModeratorPassword } = require('../modules/checkPasswords')
 
 router.post('/moderator/login', (req, res) => {
     const password = 'modpwd123';
@@ -25,6 +25,8 @@ router.post('/moderator/login', (req, res) => {
     }
   });
   
+
+  module.exports = router;
   
   
   

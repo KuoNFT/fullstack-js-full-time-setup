@@ -1,7 +1,9 @@
 
 var express = require('express');
 var router = express.Router();
-const { checkAdminPassword } = require('../modules/checkPassword')
+const { checkAdminPassword } = require('../modules/checkPasswords')
+
+checkAdminPassword()
 
 router.post('/admin/login', (req, res) => {
     const password = 'adminazerty123';

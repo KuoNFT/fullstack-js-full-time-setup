@@ -2,8 +2,8 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-var adminRouter = require('../routes/admin')
-var moderatorRouter = require('../routes/moderator')
+var adminRouter = require('./routes/admin')
+var moderatorRouter = require('./routes/moderator')
 var indexRouter = require('./routes/index');
 
 var app = express();
