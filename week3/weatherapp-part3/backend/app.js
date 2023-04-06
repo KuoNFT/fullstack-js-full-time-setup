@@ -7,7 +7,7 @@ var indexRouter = require('./routes/index');
 var weatherRouter = require('./routes/weather')
 var app = express();
 
-require('../backend/models/connections')
+require('./models/connection')
 
 
 const cors = require('cors');

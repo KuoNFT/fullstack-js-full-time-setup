@@ -6,7 +6,7 @@ const City = require('../models/cities')
 const OWM_API_KEY = 'c88d94bbb2c9195835e71452811315ca'
 
 
-router.post("/weather", (req, res) => {
+router.post("/", (req, res) => {
     const cityName = req.body.cityName.toLowerCase();
     
     // Vérifier si la ville est déjà dans la base de données
@@ -45,7 +45,7 @@ router.post("/weather", (req, res) => {
     });
 });
   
-  router.get("/weather", (req, res) => {
+  router.get("/", (req, res) => {
     City.find().then(data => {
      res.json({ weather : data });
     })
@@ -53,7 +53,7 @@ router.post("/weather", (req, res) => {
   });
   
 
-  router.get('/weather/:cityName', (req, res) => {
+  router.get('/:cityName', (req, res) => {
     City.findOne({ cityName: { $regex: new RegExp(req.params.cityName, 'i') } }).then(data => {
             if (data) {
                     res.json({ result: true, weather: data });
@@ -63,7 +63,7 @@ router.post("/weather", (req, res) => {
     });
 });
   
-router.delete("/weather/:cityName", (req, res) => {
+router.delete("/:cityName", (req, res) => {
     const cityName = req.params.cityName;
     City.findOneAndDelete({ cityName }).then(deletedCity => {
         if (deletedCity) {
