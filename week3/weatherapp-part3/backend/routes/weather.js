@@ -19,7 +19,7 @@ router.post("/", (req, res) => {
             return res.json({ result: false, error: "City already saved" });
         }
         
-        // Si la ville n'est pas dans la base de données, récupérer les données depuis l'API OpenWeatherMap
+        // Si la ville est absente de la DB on va récupérer les données depuis l'api
         fetch(`https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${OWM_API_KEY}&units=metric`)
             .then(response => response.json())
             .then(apiData => {
