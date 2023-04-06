@@ -2,6 +2,9 @@ var express = require('express');
 var router = express.Router();
 const { checkModeratorPassword } = require('../modules/checkPasswords')
 
+checkModeratorPassword()
+
+
 router.post('/moderator/login', (req, res) => {
     const password = 'modpwd123';
     if (req.body.password === password) {
