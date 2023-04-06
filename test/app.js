@@ -11,6 +11,28 @@ function displayOddNumbers() {
     
     //displayOddNumbers();
 
+//Fonction pour voir si un nombre est pair 
+
+function isEven(number) {
+  return number % 2 === 0;
+}
+
+// Test de la fonction
+console.log(isEven(4)); // Résultat : true
+console.log(isEven(7)); // Résultat : false
+
+//Fonction pour voir inverser une chaine de caractère 
+
+function reverseString(str) {
+  let reversed = "";
+  for (let i = str.length - 1; i >= 0; i--) {
+    reversed += str[i];
+  }
+  return reversed;
+}
+
+// Test de la fonction
+console.log(reverseString("Hello")); // Résultat : "olleH"
 
 //fonction addition des nombres pairs de 1 à 100
 function sumEvenNum() {
@@ -96,6 +118,32 @@ function getPalindromes(words) {
     console.log(getPalindromes(examplePalindromes));
     // Expected: ['ANNA', 'KAYAK', LOL']
 
+    //Savoir si deux chaines de caractères sont des anagrames : 
+
+    function areAnagrams(str1, str2) {
+      if (str1.length !== str2.length) {
+        return false;
+      }
+      const charCount = {};
+      for (let i = 0; i < str1.length; i++) {
+        const char = str1[i];
+        charCount[char] = charCount[char] ? charCount[char] + 1 : 1;
+      }
+      for (let i = 0; i < str2.length; i++) {
+        const char = str2[i];
+        if (!charCount[char]) {
+          return false;
+        }
+        charCount[char]--;
+      }
+      return true;
+    }
+    
+    // Test de la fonction
+    console.log(areAnagrams("listen", "silent")); // Résultat : true
+    console.log(areAnagrams("hello", "world")); // Résultat : false
+    
+
 //Générer tous les anngrames d'un mot 
 function anagramMe(word) {
     const anagramList = [];
@@ -122,6 +170,20 @@ console.log(anagramMe('AGE'));
 // Expected: ['AEG', 'AGE', 'EAG', 'EGA', 'GAE', 'GEA']
 
 
+//Trouver le minimum dans une array
+function findMin(arr) {
+  let min = arr[0];
+  for (let i = 1; i < arr.length; i++) {
+    if (arr[i] < min) {
+      min = arr[i];
+    }
+  }
+  return min;
+}
+
+// Test de la fonction
+const myArray = [12, 4, 6, 45, 8];
+console.log(findMin(myArray)); // Résultat : 4
     
 
 //fonction pour trier un tableau d'entiers dans l'ordre croissant/décroissant.
@@ -214,7 +276,7 @@ console.log(checkValues(list));
 //     { fullname: 'Richard Lawson', age: 42, tel: '0765432109', email: null }]
 
 
-//retrouver un éléments dans une array :
+//retrouver un éléments dans une array (find):
 
 function findUser(request, list) {
     let userFound = false;
@@ -304,7 +366,6 @@ function cashback(data){
   result.push(same)
      
  }
-    // Insert your code here
 
     return result;
 }
@@ -316,6 +377,43 @@ console.log(checkDifferences([
     ['10', 10, 10, 10]
 ]));
 // Expected: true, true, false, false
+
+//Function find plus gros biggest
+
+function findMax(arr) {
+  let max = arr[0];
+  for (let i = 1; i < arr.length; i++) {
+    if (arr[i] > max) {
+      max = arr[i];
+    }
+  }
+  return max;
+}
+
+// Test de la fonction
+const myArray = [12, 4, 6, 45, 8];
+console.log(findMax(myArray)); // Résultat : 45
+
+
+// function Find deuxième plus gros
+function findSecondMax(arr) {
+  let max = arr[0];
+  let secondMax = -Infinity;
+  for (let i = 1; i < arr.length; i++) {
+    if (arr[i] > max) {
+      secondMax = max;
+      max = arr[i];
+    } else if (arr[i] > secondMax && arr[i] !== max) {
+      secondMax = arr[i];
+    }
+  }
+  return secondMax;
+}
+
+// Test de la fonction
+const myArray = [12, 4, 6, 45, 8];
+console.log(findSecondMax(myArray)); // Résultat : 12 
+
 
 //À partir du tableau à deux dimensions, recréez un nouveau tableau des nombres les plus grands de chaque série.
 
@@ -339,7 +437,7 @@ function getBiggest(numbers) {
   console.log(getBiggest(list)); // [5,27,39,1001]
 
   //Un candidat passe un test de 10 questions, dont les bonnes réponses sont stockées dans le tableau correctAnswers.
-//Les réponses du candidat sont quant à elles stockées dans le tableau results.
+//Les réponses du candidat sont quant à elles stockées dans le tableau results. compare les données dans deux tableaux aux mêmes index
 
 function isSucceeded(ans, res) {
     let success = false;
@@ -363,3 +461,58 @@ const correctAnswers = [2, 3, 4, 1, 2, 2, 4, 3];
 const results = [2, 4, 3, 1, 3, 2, 4, 3];
 console.log(isSucceeded(correctAnswers, results));
 // Expected: {"success":true,"score":62.5}
+
+
+//intersection : Écrire une fonction qui prend en entrée deux tableaux de nombres et qui renvoie un nouveau tableau qui contient les nombres qui sont présents dans les deux tableaux.
+
+
+function intersection(arr1, arr2) {
+  const intersectionArray = [];
+  for (let i = 0; i < arr1.length; i++) {
+    if (arr2.includes(arr1[i])) {
+      intersectionArray.push(arr1[i]);
+    }
+  }
+  return intersectionArray;
+}
+
+// Test de la fonction
+const array1 = [1, 2, 3, 4, 5];
+const array2 = [3, 4, 5, 6, 7];
+console.log(intersection(array1, array2)); // Résultat : [3, 4, 5]
+
+
+//Écrire une fonction qui prend en entrée une chaîne de caractères et qui renvoie la première lettre qui n'apparaît qu'une seule fois dans la chaîne.
+function findUnique(str) {
+  const charCount = {};
+  for (let i = 0; i < str.length; i++) {
+    const char = str[i];
+    charCount[char] = charCount[char] ? charCount[char] + 1 : 1;
+  }
+  for (let i = 0; i < str.length; i++) {
+    const char = str[i];
+    if (charCount[char] === 1) {
+      return char;
+    }
+  }
+  return null;
+}
+
+// Test de la fonction
+console.log(findUnique("hello")); // Résultat : "h"
+console.log(findUnique("abbcddeff")); // Résultat : "c"
+
+
+//retrouver les numbres supérieurs à la moyenne dans une array : 
+
+function filterGreaterThanAverage(arr) {
+  const sum = arr.reduce((acc, cur) => acc + cur, 0);
+  const avg = sum / arr.length;
+  return arr.filter((num) => num > avg);
+}
+
+// Test de la fonction
+const myArray = [12, 4, 6, 45, 8];
+console.log(filterGreaterThanAverage(myArray)); // Résultat : [12, 45]
+
+
