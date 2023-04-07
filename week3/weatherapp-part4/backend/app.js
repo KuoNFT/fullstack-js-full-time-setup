@@ -7,6 +7,7 @@ require('./models/connection');
 
 var indexRouter = require('./routes/index');
 var weatherRouter = require('./routes/weather');
+var usersRouter = require('./routes/users')
 
 var app = express();
 
@@ -19,6 +20,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use('/users', usersRouter)
 app.use('/', indexRouter);
 app.use('/weather', weatherRouter);
 
