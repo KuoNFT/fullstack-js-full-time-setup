@@ -1,9 +1,9 @@
 const request = require('supertest');
-const mongoose = require('mongoose');
 const app = require('./app');
-const Todo = require('./models/todos');
+
 
 const newTodo = { title: "Aller faire les courses", priority: 2 }
+
 
 
 beforeEach(async () => {
@@ -51,11 +51,3 @@ afterAll(async () => {
     mongoose.connection.close();
 });
 
-router.get("/todos", (req, res) => {
-    Todo.find().then(data => {
-     res.json({ todo : data });
-    })
-    
-  });
-
-module.exports = router;
