@@ -24,7 +24,7 @@ router.post('/signup', (req, res) => {
       }
     });
   } else {
-    res.json({ result: false, error: 'missing or empty fields' });
+    res.json({ result: false, error: 'Missing or empty fields' });
   }
 });
 
@@ -42,8 +42,9 @@ router.post('/signin', (req, res) => {
       }
     });
   } else {
-    res.json({ result: false, error: 'missing or empty fields' });
+    res.json({ result: false, error: 'Missing or empty fields' });
   }
 });
+
 
 module.exports = router;
