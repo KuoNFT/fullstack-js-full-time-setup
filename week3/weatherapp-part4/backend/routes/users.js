@@ -3,7 +3,7 @@ var router = express.Router();
 const fetch = require('node-fetch');
 const User = require('../models/users')
 const OWM_API_KEY = 'ce7418650c86eae6629dfcfdda141c14';
-const { checkBody } = require('./modules/checkBody');
+const { checkBody } = require('../modules/checkBody');
 
 router.post('/signup', (req, res) => {
   const expectedKeys = ['name', 'email', 'password'];
