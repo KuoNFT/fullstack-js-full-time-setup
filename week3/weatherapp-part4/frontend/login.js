@@ -4,7 +4,7 @@ let emailValue  = document.querySelector('#registerEmail').value
 let passwordValue = document.querySelector('#registerPassword').value
 
 document.querySelector('#register').addEventListener('click', function (){
-    fetch('https://https://backendweatherapp-p3.vercel.app/signup', {
+    fetch('http://localhost:3000/signup', {
         method: 'POST',
         headers : {"Content-Type": "application/json"},
         body: JSON.stringify({
@@ -23,7 +23,7 @@ document.querySelector('#register').addEventListener('click', function (){
 })
 
 document.querySelector('#connection').addEventListener('click', function (){
-    fetch('https://backendweatherapp-p3.vercel.app/signin', {
+    fetch('http://localhost:3000/signin', {
         method: 'POST',
         headers : {"Content-Type": "application/json"},
         body: JSON.stringify({
