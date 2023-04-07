@@ -3,10 +3,11 @@ var router = express.Router();
 const fetch = require('node-fetch');
 const User = require('../models/users')
 const OWM_API_KEY = 'ce7418650c86eae6629dfcfdda141c14';
-
+const { checkBody } = require('./modules/checkBody');
 
 router.post('/signup', (req, res) => {
-    // Check if the user has not already been registered
+  const expectedKeys = ['name', 'email', 'password'];
+  if (checkBody(req.body, expectedKeys)) {
     User.findOne({ email: req.body.email }).then(data => {
       if (data === null) {
         const newUser = new User({
@@ -19,27 +20,30 @@ router.post('/signup', (req, res) => {
           res.json({ result: true });
         });
       } else {
-        // User already exists in database
         res.json({ result: false, error: 'User already exists' });
       }
     });
-   });
+  } else {
+    res.json({ result: false, error: 'Invalid request body' });
+  }
+});
 
-   router.post('/signin', (req, res) => {
+router.post('/signin', (req, res) => {
+  const expectedKeys = ['email', 'password'];
+  if (checkBody(req.body, expectedKeys)) {
     const email = req.body.email;
     const password = req.body.password;
-  
-    if (!email || !password) {
-      res.json({ result: false, error: 'Missing or empty fields' });
-    } else {
-      User.findOne({ email, password }).then(data => {
-        if (data === null) {
-          res.json({ result: false, error: 'User not found' });
-        } else {
-          res.json({ result: true });
-        }
-      });
-    }
-  });
+
+    User.findOne({ email, password }).then(data => {
+      if (data === null) {
+        res.json({ result: false, error: 'User not found' });
+      } else {
+        res.json({ result: true });
+      }
+    });
+  } else {
+    res.json({ result: false, error: 'Invalid request body' });
+  }
+});
 
 module.exports = router;
