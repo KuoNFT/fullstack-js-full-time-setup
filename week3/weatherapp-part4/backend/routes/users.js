@@ -24,7 +24,7 @@ router.post('/signup', (req, res) => {
       }
     });
   } else {
-    res.json({ result: false, error: 'Invalid request body' });
+    res.json({ result: false, error: 'missing or empty fields' });
   }
 });
 
@@ -42,7 +42,7 @@ router.post('/signin', (req, res) => {
       }
     });
   } else {
-    res.json({ result: false, error: 'Invalid request body' });
+    res.json({ result: false, error: 'missing or empty fields' });
   }
 });
 
