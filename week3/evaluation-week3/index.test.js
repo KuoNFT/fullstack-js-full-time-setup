@@ -51,4 +51,36 @@ afterAll(async () => {
     mongoose.connection.close();
 });
 
+// POST /todos
+router.post('/todos', (req, res) => {
+	const todo = new Todo({
+	  title: req.body.title,
+	  priority: req.body.priority
+	});
+  
+	todo.save()
+	  .then(result => {
+		res.status(201).json({ message: 'Nouvelle todo créée avec succès', todo: result });
+	  })
+	  .catch(err => {
+		console.log(err);
+		res.status(500).json({ error: err });
+	  });
+  });
+  
+  // GET /todos
+  router.get('/todos', (req, res) => {
+	Todo.find()
+	  .then(todos => {
+		res.status(200).json({ todos: todos });
+	  })
+	  .catch(err => {
+		console.log(err);
+		res.status(500).json({ error: err });
+	  });
+  });
+  
+
+
+
 module.exports = router;
