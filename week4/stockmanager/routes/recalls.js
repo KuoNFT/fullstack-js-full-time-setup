@@ -13,9 +13,10 @@ router.get('/byBrand/:brand', (req, res) => {
           }
         });
         return acc;
-      }, []);
+         }, []);
     
     res.json(recalls);
+    console.log(recalls)
   });
 
   router.get('/byTimestamp/:timestamp', (req, res) => {
