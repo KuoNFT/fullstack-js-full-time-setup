@@ -23,7 +23,7 @@ router.get('/byBrand/:brand', (req, res) => {
       curr.batches.forEach(batch => {
         const expirationDateTimestamp = new Date(batch.expirationDate).getTime();
         if (batch.recall && expirationDateTimestamp === Number(req.params.timestamp)) {
-          acc.push({ id: curr.id, batchId: batch.id });
+          acc.push(curr.id);
         }
       });
       return acc;
