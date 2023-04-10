@@ -1,10 +1,9 @@
 var express = require('express');
 var router = express.Router();
-const app = express();
 const productsData = require('../data');
 
 // Route 1 : Récupérer un produit par son ID
-router.get('/products/byId/:id', (req, res) => {
+router.get('./products/byId/:id', (req, res) => {
     const product = productsData.find(p => p.id === req.params.id);
     if (product) {
       res.json(product);
@@ -14,7 +13,7 @@ router.get('/products/byId/:id', (req, res) => {
   });
   
   // Route 2 : Récupérer tous les produits d'une marque
-  router.get('/products/byBrand/:brand', (req, res) => {
+  router.get('./products/byBrand/:brand', (req, res) => {
     const products = productsData.filter(p => p.brand === req.params.brand);
     if (products.length > 0) {
       res.json(products);
@@ -24,7 +23,7 @@ router.get('/products/byId/:id', (req, res) => {
   });
   
   // Route 3 : Récupérer un produit par son numéro de lot
-  router.get('/products/byBatchId/:id', (req, res) => {
+  router.get('./products/byBatchId/:id', (req, res) => {
     const product = productsData.find(p => p.batches.some(b => b.id === req.params.id));
     if (product) {
       const batch = product.batches.find(b => b.id === req.params.id);
