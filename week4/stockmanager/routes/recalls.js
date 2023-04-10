@@ -3,7 +3,7 @@ var router = express.Router();
 const productsData = require('../data');
 
 
-router.get('/recalls/byBrand/:brand', (req, res) => {
+router.get('/byBrand/:brand', (req, res) => {
     const recalls = productsData
       .filter(p => p.brand === req.params.brand)
       .reduce((acc, curr) => {
@@ -18,7 +18,7 @@ router.get('/recalls/byBrand/:brand', (req, res) => {
     res.json(recalls);
   });
 
-  router.get('/recalls/byTimestamp/:timestamp', (req, res) => {
+  router.get('/byTimestamp/:timestamp', (req, res) => {
     const recalls = productsData.reduce((acc, curr) => {
       curr.batches.forEach(batch => {
         const expirationDateTimestamp = new Date(batch.expirationDate).getTime();
