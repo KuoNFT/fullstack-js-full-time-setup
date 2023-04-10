@@ -1,26 +1,51 @@
+var express = require('express');
+var router = express.Router();
+const app = express();
+const productsData = require('../data');
 
-const request = require('supertest');
-const app = require('./app');
+// Route 1 : Récupérer un produit par son ID
+router.get('/products/byId/:id', (req, res) => {
+    const product = productsData.find(p => p.id === req.params.id);
+    if (product) {
+      res.json(product);
+    } else {
+      res.status(404).send('Product not found');
+    }
+  });
+  
+  // Route 2 : Récupérer tous les produits d'une marque
+  router.get('/products/byBrand/:brand', (req, res) => {
+    const products = productsData.filter(p => p.brand === req.params.brand);
+    if (products.length > 0) {
+      res.json(products);
+    } else {
+      res.status(404).send('No products found for this brand');
+    }
+  });
+  
+  // Route 3 : Récupérer un produit par son numéro de lot
+  router.get('/products/byBatchId/:id', (req, res) => {
+    const product = productsData.find(p => p.batches.some(b => b.id === req.params.id));
+    if (product) {
+      const batch = product.batches.find(b => b.id === req.params.id);
+      res.json({
+        id: product.id,
+        brand: product.brand,
+        name: product.name,
+        price: product.price,
+        unitPrice: product.unitPrice,
+        unit: product.unit,
+        batchId: batch.id,
+        quantity: batch.quantity,
+        shippingDate: batch.shippingDate,
+        expirationDate: batch.expirationDate,
+        recall: batch.recall,
+      });
+    } else {
+      res.status(404).send('Product not found for this batch ID');
+    }
+  });
+  
 
 
-
-
-it('Get product by ID - 1202',  () => {
-    const item = getProductById(1202)
-
-    expect(item).toEqual({
-		id: 1202,
-		brand: 'Amora',
-		name: 'Mustard',
-		price: 1.49,
-		unitPrice: 5.62,
-		unit: 'killogram',
-		batches: [
-			{ id: 1220009508, quantity: 9000, shippingDate: '2042-03-25', expirationDate: '2043-03-25', recall: false },
-			{ id: 1220009509, quantity: 11000, shippingDate: '2042-04-01', expirationDate: '2043-04-01', recall: false },
-			{ id: 1220009510, quantity: 11000, shippingDate: '2042-04-12', expirationDate: '2043-04-12', recall: true },
-		],
-	});
-   });
-
-   it('Get brands\' products - Amora)
+module.exports = router;
