@@ -8,15 +8,14 @@ router.get('/byBrand/:brand', (req, res) => {
       .filter(p => p.brand === req.params.brand)
       .reduce((acc, curr) => {
         curr.batches.forEach(batch => {
-          if (batch.recall) {
-            acc.push({ id: curr.id, batchId: batch.id });
+          if (batch.recall && !acc.includes(curr.id)) {
+            acc.push(curr.id);
           }
         });
         return acc;
-         }, []);
+      }, []);
     
     res.json(recalls);
-    console.log(recalls)
   });
 
   router.get('/byTimestamp/:timestamp', (req, res) => {
