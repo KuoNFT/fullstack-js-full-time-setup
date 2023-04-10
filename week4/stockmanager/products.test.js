@@ -23,7 +23,7 @@ it('GET /products/byId/:Id', async () => {
   });
   
   it('GET/products/byBrand/:brand', async () => {
-    const response = await request.get('/products/byBrand/Amora');
+    const response = await request(app).get('/products/byBrand/Amora');
     expect(response.status).toBe(200);
     expect(response.body).toEqual([
       {
@@ -44,7 +44,7 @@ it('GET /products/byId/:Id', async () => {
   });
 
   it('GET/products/byBatchId/:id', async () => {
-    const response = await request.get('/products/byBatchId/1220009510');
+    const response = await request(app).get('/products/byBatchId/1220009510');
     expect(response.status).toBe(200);
     expect(response.body).toEqual({
       id: 1202,
