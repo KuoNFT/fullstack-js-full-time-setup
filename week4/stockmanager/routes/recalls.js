@@ -1,13 +1,6 @@
-const request = require('supertest');
-const app = require('./app');
+var express = require('express');
+var router = express.Router();
+const app = express();
+const productsData = require('./data.js');
 
-
-
-it('Total cart with shipping costs', () => {
-    const items = [
-      { name: "shoes", price: 15 },
-      { name: "t-shirt", price: 15 },
-    ];
-    const shippingFees = 3;
-    expect(basket(items, shippingFees)).toBe(33);
-   });
+module.exports = router;
