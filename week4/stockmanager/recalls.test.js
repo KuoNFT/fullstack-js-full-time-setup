@@ -11,7 +11,7 @@ it('GET /recalls/byBrand/:brand', async () => {
     
     // Test 2 : Récupérer une liste de tous les ID de produits rappeléspour une date donnée en timestamp
 it('GET /recalls/byTimestamp/:timestamp', async () => {
-    const response = await request(app).get('/recalls/byTimestamp/2282956800');
+    const response = await request(app).get('/recalls/byTimestamp/2282956800000');
     expect(response.statusCode).toBe(200);
     expect(response.body).toEqual([1311]); 
     });

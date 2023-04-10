@@ -22,7 +22,6 @@ router.get('/byBrand/:brand', (req, res) => {
     const recalls = productsData.reduce((acc, curr) => {
       curr.batches.forEach(batch => {
         const expirationDateTimestamp = new Date(batch.expirationDate).getTime();
-        console.log(expirationDateTimestamp)
         if (batch.recall && expirationDateTimestamp === Number(req.params.timestamp)) {
           acc.push(curr.id);
         }
