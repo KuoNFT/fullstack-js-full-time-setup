@@ -6,8 +6,8 @@ const productsData = require('./data.js');
 
 it('GET /products/byId/:Id', async () => {
     const response = await request(app).get('/products/byId/1202');
-    expect(response.status).toBe(200);
-    expect(response.body).toEqual({
+    expect(response.statusCode).toBe(200);
+    expect(response.body.product).toEqual({
       id: 1202,
       brand: 'Amora',
       name: 'Mustard',
@@ -24,8 +24,8 @@ it('GET /products/byId/:Id', async () => {
   
   it('GET /products/byBrand/:brand', async () => {
     const response = await request(app).get('/products/byBrand/Amora');
-    expect(response.status).toBe(200);
-    expect(response.body).toEqual([
+    expect(response.statusCode).toBe(200);
+    expect(response.body.product).toEqual([
       {
         id: 1202,
         brand: 'Amora',
@@ -45,8 +45,8 @@ it('GET /products/byId/:Id', async () => {
 
   it('GET /products/byBatchId/:id', async () => {
     const response = await request(app).get('/products/byBatchId/1220009510');
-    expect(response.status).toBe(200);
-    expect(response.body).toEqual({
+    expect(response.statusCode).toBe(200);
+    expect(response.body.product).toEqual({
       id: 1202,
       brand: 'Amora',
       name: 'Mustard',
