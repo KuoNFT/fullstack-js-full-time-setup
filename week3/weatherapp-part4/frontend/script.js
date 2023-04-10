@@ -1,4 +1,4 @@
-fetch('http://localhost:3000/weather')
+fetch('https://vercelweather-backend-vewu.vercel.app/weather')
 	.then(response => response.json())
 	.then(data => {
 		if (data.weather) {
@@ -38,7 +38,7 @@ function updateDeleteCityEventListener() {
 document.querySelector('#addCity').addEventListener('click', function () {
 	const cityName = document.querySelector('#cityNameInput').value;
 
-	fetch('http://localhost:3000/weather/weather', {
+	fetch('https://vercelweather-backend-vewu.vercel.app/weather', {
 		method: 'POST',
 		headers: { 'Content-Type': 'application/json' },
 		body: JSON.stringify({ cityName }),
