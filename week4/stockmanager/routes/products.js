@@ -15,8 +15,8 @@ router.get('/byId/:id', (req, res) => {
   // Route 2 : Récupérer tous les produits d'une marque
   router.get('/byBrand/:brand', (req, res) => {
     const products = productsData.filter(p => p.brand === req.params.brand);
-    if (products) {
-      res.json(products.length > 0);
+    if (products.length > 0) {
+      res.json(products);
     } else {
       res.status(404).send('No products found for this brand');
     }

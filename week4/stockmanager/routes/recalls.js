@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 const productsData = require('../data.js');
-
+const moment = require('moment')
 
 router.get('/byBrand/:brand', (req, res) => {
     const recalls = productsData
@@ -16,7 +16,6 @@ router.get('/byBrand/:brand', (req, res) => {
       }, []);
     
     res.json(recalls);
-    console.log(recalls)
   });
 
   router.get('/byTimestamp/:timestamp', (req, res) => {
