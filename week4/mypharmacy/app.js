@@ -12,9 +12,11 @@ function getDrugDescriptionByName(name) {
   }
   
   function getDrugNamesByGroup(groupName) {
-    return drugs.filter(drug => drug.groups.includes(groupName))
-        .map(drug => drug.name);
-}
-
+    const filteredDrugs = drugs.filter(drug => drug.groups.includes(groupName));
+    console.log(filteredDrugs)
+    const drugNames = filteredDrugs.map(drug => drug.name).sort();
+    console.log(drugNames)
+    return drugNames;
+  }  
   
 module.exports = { getDrugDescriptionByName, getDrugTypeByName, getDrugNamesByGroup };
