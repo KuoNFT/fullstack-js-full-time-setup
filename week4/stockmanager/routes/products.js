@@ -16,7 +16,7 @@ router.get('/byId/:id', (req, res) => {
   router.get('/byBrand/:brand', (req, res) => {
     const products = productsData.filter(p => p.brand === req.params.brand);
     if (products) {
-      res.json(products);
+      res.json(products.length > 0);
     } else {
       res.status(404).send('No products found for this brand');
     }
