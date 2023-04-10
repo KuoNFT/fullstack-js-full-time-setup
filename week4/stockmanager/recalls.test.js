@@ -6,7 +6,7 @@ const productsData = require('./data.js');
 it('GET /recalls/byBrand/:brand', async () => {
     const response = await request(app).get('/recalls/byBrand/Amora');
     expect(response.statusCode).toBe(200);
-    expect(response.body).toEqual([1202, 1204, 1311, 1490, 1590]); 
+    expect(response.body).toEqual([1202, 1311, 1490, 1590]); 
     });
     
     // Test 2 : Récupérer une liste de tous les ID de produits rappeléspour une date donnée en timestamp
