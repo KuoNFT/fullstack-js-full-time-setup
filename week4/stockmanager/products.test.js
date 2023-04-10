@@ -1,7 +1,7 @@
 
 const request = require('supertest');
 const app = require('./app');
-
+const productsData = require('./data.js');
 
 
 it('GET /products/byId/:Id', async () => {
@@ -39,7 +39,7 @@ it('GET /products/byId/:Id', async () => {
           { id: 1220009510, quantity: 11000, shippingDate: '2042-04-12', expirationDate: '2043-04-12', recall: true },
         ],
       },
-      // other products of brand Amora
+     
     ]);
   });
 

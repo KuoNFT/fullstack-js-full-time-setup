@@ -1,6 +1,6 @@
 const request = require('supertest');
 const app = require('./app');
-const productsData = require('./data');
+const productsData = require('./data.js');
 
 // Test 1 : Récupérer une liste de tous les ID de produits qui sont rappelés pour une marque
 it('GET /recalls/byBrand/:brand', async () => {

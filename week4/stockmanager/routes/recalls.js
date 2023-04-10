@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-const productsData = require('../data');
+const productsData = require('../data.js');
 
 
 router.get('/byBrand/:brand', (req, res) => {

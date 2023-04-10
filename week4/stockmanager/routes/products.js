@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-const productsData = require('../data');
+const productsData = require('../data.js');
 
 // Route 1 : Récupérer un produit par son ID
 router.get('/byId/:id', (req, res) => {

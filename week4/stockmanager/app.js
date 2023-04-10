@@ -19,7 +19,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/', recallsRouter);
-app.use('/', productsRouter);
+app.use('/recalls', recallsRouter);
+app.use('/products', productsRouter);
 
 module.exports = app;
