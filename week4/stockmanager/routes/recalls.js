@@ -19,16 +19,11 @@ router.get('/byBrand/:brand', (req, res) => {
   });
 
   router.get('/byTimestamp/:timestamp', (req, res) => {
-    const recalls = productsData.reduce((acc, curr) => {
-      curr.batches.forEach(batch => {
-        const expirationDateTimestamp = new Date(batch.expirationDate).getTime();
-        if (batch.recall && expirationDateTimestamp === Number(req.params.timestamp)) {
-          acc.push(curr.id);
-        }
-      });
-      return acc;
-    }, []);
-    res.json(recalls);
+    const {timestamp} = req.params;
+    const date = moment(Number(timestamp)).format("YYYY-MM-DD");
+    const productsRecalled = data.filter(product => product.batches.find(batch => batch.recall && batch.expirationDate === date ))
+    const products = productsRecalled.map(product => product.id )
+    res.json({products })
   });
   
   
