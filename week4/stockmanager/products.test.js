@@ -8,17 +8,15 @@ it('GET /products/byId/:Id', async () => {
     const response = await request(app).get('/products/byId/1737');
     expect(response.statusCode).toBe(200);
     expect(response.body.product).toEqual({
-      id: 1202,
-      brand: 'Amora',
-      name: 'Mustard',
-      price: 1.49,
-      unitPrice: 5.62,
-      unit: 'killogram',
-      batches: [
-        { id: 1220009508, quantity: 9000, shippingDate: '2042-03-25', expirationDate: '2043-03-25', recall: false },
-        { id: 1220009509, quantity: 11000, shippingDate: '2042-04-01', expirationDate: '2043-04-01', recall: false },
-        { id: 1220009510, quantity: 11000, shippingDate: '2042-04-12', expirationDate: '2043-04-12', recall: true },
-      ],
+        id: 1737,
+		brand: 'Amora',
+		name: 'Mayonnaise',
+		price: 2.85,
+		unitPrice: 7.13,
+		unit: 'killogram',
+		batches: [
+			{ id: 1370005607, quantity: 5000, shippingDate: '2042-10-05', expirationDate: '2043-10-05', recall: false },
+		]
     });
   });
   
