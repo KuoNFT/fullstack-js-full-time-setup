@@ -32,9 +32,11 @@ function Home() {
         </Popover>
       </div>
     </header>
-    <div className = 'content'>
-        <h2>Last releases</h2>
+    <div className = {styles.content}>
+      <h2 style={{marginLeft: '150px'}}>Last releases</h2>
+      <div className = {styles.movieList}>
         {moviesList}
+      </div>
     </div>
     
     </div>

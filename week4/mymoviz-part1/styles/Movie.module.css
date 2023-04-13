@@ -1,5 +1,12 @@
 .card {
-
+   
+        
+        margin-right: 10px;
+      }
+      
+.card:last-child {
+        margin-right: 0;
+      
 
 
 }
