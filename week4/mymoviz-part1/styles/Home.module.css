@@ -1,22 +1,25 @@
-.main {
+.header {
+  background-color: #021334;
+  width : 100%;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-  min-height: 100vh;
-  padding: 4rem 0;
+
 }
 
-.title {
-  line-height: 1.15;
-  font-size: 4rem;
+.logo{
+  width: 20vh;
+  height: 15vh;
 }
 
-.title a {
-  color: #0070f3;
-  text-decoration: none;
+.logocontainer {}
+
+.favorites {
+
 }
 
-.title a:hover, .title a:focus, .title a:active {
-  text-decoration: underline;
+.movieList {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
