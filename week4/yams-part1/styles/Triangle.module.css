@@ -1,0 +1,8 @@
+.triangle{
+    display : inline-block;
+    height : 0;
+    width : 0;
+    border-top : 15vh solid transparent;
+    border-bottom : 15vh solid transparent;
+    
+   }
