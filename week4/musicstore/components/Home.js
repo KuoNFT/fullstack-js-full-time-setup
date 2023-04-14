@@ -15,7 +15,14 @@ function Home() {
         </div>
 
         <div className={styles.homeHeaderBottom}>
-
+          <div>
+            <span></span>
+            <span></span>
+          </div>
+          <div>
+            <button></button>
+            <button></button>
+          </div>
         </div>
       </header>
 
