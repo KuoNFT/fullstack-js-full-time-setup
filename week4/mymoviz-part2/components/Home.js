@@ -12,10 +12,11 @@ function Home() {
     { title: 'Inception', poster: 'inception.jpg', voteAverage: 8.4, voteCount: 31_546, overview: 'Cobb, a skilled thief who commits corporate espionage by infiltrating the subconscious of his targets is offered a chance to regain his old life.' },
   ];
 
-  const movies = [];
-  for (let i = 0; i < 10; i++) {
-    movies.push(<Movie key={i} />);
-  }
+  const movies = moviesData.map(data => {
+    return <Movie title={data.title} poster={data.poster} voteAverage={data.voteAverage} voteCount={data.voteCount} overview={data.overview}/>
+
+  });
+  
 
   const popoverContent = (
     <div className={styles.popoverContent}>
