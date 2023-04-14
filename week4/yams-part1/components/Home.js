@@ -3,20 +3,25 @@ import Dice from './Dice'
 
 function Home() {
   const dicesData = [
-    { number: '1' },
-    { number: '2' },
-    { number: '3' },
-    { number: '4' },
-    { number: '5' },
+    { number: rollDice() },
+    { number: rollDice() },
+    { number: rollDice() },
+    { number: rollDice() },
+    { number: rollDice() },
   ];
 
-  const dices = dicesData.map((data) => {
-    return <Dice number={data.number} />;
+  function rollDice() {
+    return Math.floor(Math.random() * 6) + 1;
+  }
+
+  const dices = dicesData.map((data, index) => {
+    return <Dice key={index} number={data.number} />;
   });
 
+
   return (
-    <div>
-      <div></div>
+    <div className={styles.main}>
+      <div ></div>
       <div className={styles.diceContainer}>
         {dices}
       </div>
