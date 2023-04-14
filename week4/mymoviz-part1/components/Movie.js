@@ -14,6 +14,7 @@ function Movie () {
         stars.push(<FontAwesomeIcon key={i} icon={faStar} color="#ccc" />);
       }
     }
+    
 return (
     <div className={styles.card}>
       <img className={styles.image} src='poster.jpg' alt='poster'/>
