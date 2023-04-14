@@ -18,7 +18,7 @@ function Movie(props) {
 <img className={styles.image} src={props.poster} alt={props.title} />
       <div className={styles.textContainer}>
         <span className={styles.name}>{props.title}</span>
-        <p className={styles.description}>{props.description}</p>
+        <p className={styles.description}>{props.overview}</p>
         <span className={styles.vote}>{stars} ({props.voteCount})</span>
       </div>
     </div>
