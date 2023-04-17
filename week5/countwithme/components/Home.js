@@ -9,7 +9,10 @@ setCounter(counter + 1);
 };
 
 const handleDecrement = () => {
-setCounter(counter - 1);
+  if (counter === 0 ) {
+    setCounter(counter)
+  } else {
+setCounter(counter - 1)};
 };
 
 return (
