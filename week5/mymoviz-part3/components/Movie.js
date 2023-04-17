@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faStar, faCamera } from '@fortawesome/free-solid-svg-icons';
+import { faStar, faCamera, faHeart, } from '@fortawesome/free-solid-svg-icons';
 import styles from '../styles/Movie.module.css';
 
 function Movie(props) {
@@ -36,6 +36,13 @@ const handleWatchClick = () => {
 };
 
 
+const handleLikeClick = () => {
+  setLike(!like);
+  };
+  
+  const likeStyle = like ? { color: '#e74c3c' } : {};
+
+
 return (
   <div className={styles.card}>
     <img className={styles.image} src={props.poster} alt={props.title} />
@@ -44,8 +51,11 @@ return (
       <p className={styles.description}>{props.overview}</p>
       <span className={styles.vote}>{stars} ({props.voteCount})</span>
       <div className={styles.personalStars}>{personalStars}</div>
+      <div className={styles.icon}>
       <FontAwesomeIcon icon={faCamera} className="watch" style={watchStyle} onClick={handleWatchClick} />
       <span>({watchCount})</span>
+      </div>
+      <FontAwesomeIcon icon={faHeart} className ="like" style={likeStyle} onClick={handleLikeClick} />
     </div>
   </div>
 );
