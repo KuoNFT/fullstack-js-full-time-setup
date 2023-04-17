@@ -21,15 +21,15 @@ stars.push(<FontAwesomeIcon key={i} icon={faStar} style={style} />);
 
 const personalStars = [];
 for (let i = 0; i < 10; i++) {
-let style = {};
+let style = {cursor: 'pointer'};
 if (i < personalNote) {
-style = { 'color': '#2196f3'};
+style = { 'color': '#2196f3', cursor: 'pointer'};
 }
 personalStars.push(<FontAwesomeIcon key={i} icon={faStar} onClick={() => setPersonalNote(i + 1)} className="note" style={style} />);
 }
 
 
-const watchStyle = watchCount > 0 ? { color: '#e74c3c' } : {};
+const watchStyle = watchCount > 0 ? { color: '#e74c3c', cursor:'pointer' } : {cursor: 'pointer'};
 
 const handleWatchClick = () => {
   setWatchCount(watchCount + 1);
@@ -40,7 +40,8 @@ const handleLikeClick = () => {
   setLike(!like);
   };
   
-  const likeStyle = like ? { color: '#e74c3c' } : {};
+const likeStyle = like ? { color: '#e74c3c' , cursor:'pointer' } : {cursor: 'pointer'};
+
 
 
 return (
