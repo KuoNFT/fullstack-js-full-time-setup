@@ -4,6 +4,11 @@ import Triangle from './Triangle'
 import Header from './Header'
 
 function Home() {
+
+  function rollDice() {
+    return Math.floor(Math.random() * 6) + 1;
+  }
+  
   const dicesData = [
     { number: rollDice() },
     { number: rollDice() },
@@ -12,9 +17,7 @@ function Home() {
     { number: rollDice() },
   ];
 
-  function rollDice() {
-    return Math.floor(Math.random() * 6) + 1;
-  }
+
 
   const dices = dicesData.map((data, index) => {
     return <Dice key={index} number={data.number} />;
