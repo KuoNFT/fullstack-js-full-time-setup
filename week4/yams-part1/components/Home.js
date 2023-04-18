@@ -35,13 +35,13 @@ const triangleRightData = [
   {color: 'black', direction: 'right', className: styles.triangleRight},
 ];
 
-const trianglesLeft = triangleLeftData.map((data) => {
+const trianglesLeft = triangleLeftData.map((data, index) => {
 
-  return <Triangle color={data.color} direction={data.direction} className={data.className} />
+  return <Triangle color={data.color} direction={data.direction} className={data.className} key={index}/>
 })
 
 const trianglesRight = triangleRightData.map((data, index) => {
-  return <Triangle color={data.color} direction={data.direction} className={data.className} />
+  return <Triangle color={data.color} direction={data.direction} className={data.className} key={index}/>
 })
 
 
