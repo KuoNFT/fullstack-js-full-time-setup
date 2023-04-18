@@ -23,14 +23,19 @@ function Home() {
     return <Burger key={i} name={data.name} image={data.image} selectBurger={selectBurger} removeBurger={removeBurger} />;
   });
 
+  const burgerCounter = selectedBurgers.reduce((counter, burger) => {
+    counter[burger] = (counter[burger] || 0) + 1;
+    return counter;
+  }, {});
+
   return (
     <div className={styles.container}>
       <img src="logo.png" className={styles.logo} />
-      <h4 className={styles.text}>Number of burgers selected: {selectedBurgers.length}</h4>
+      <h4 className={styles.text}>Nombre de burgers sélectionnés : <span id="counter">{Object.values(burgerCounter).reduce((a, b) => a + b, 0)}</span></h4>
       <div className={styles.burgerContainer}>
         {burgers}
       </div>
-      <p>Hi All, Explore <a href="https://drimmake.com/">https://drimmake.com/</a> for learn more.</p>
+     
     </div>
   );
 }
