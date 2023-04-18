@@ -4,7 +4,7 @@ import { useState } from 'react';
 
 function Home() {
   const [launched, setLaunched] = useState(false);
-  const [totalThrow, setTotalThrow] = useState(0);
+  const [totalThrow, setTotalThrow] = useState(5);
 
   const dices = [];
   if (launched) {
@@ -33,7 +33,7 @@ function Home() {
           {dices}
         </div>
         {!launched && <button className={styles.launchBtn} onClick={() => setLaunched(true)}>Launch</button>}
-        <p>Total de lancers : {totalThrow}</p>
+        <p id='total'>{totalThrow}</p>
       </div>
       <div>
         <div className={styles.triangleRight}></div>
