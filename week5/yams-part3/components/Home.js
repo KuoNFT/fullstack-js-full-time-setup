@@ -4,12 +4,19 @@ import { useState } from 'react';
 
 function Home() {
   const [launched, setLaunched] = useState(false);
+  const [totalThrow, setTotalThrow] = useState(0);
 
   const dices = [];
   if (launched) {
     for (let i = 0; i < 5; i++) {
       const randomNumber = Math.floor(Math.random() * 6) + 1;
-      dices.push(<Dice key={i} number={randomNumber} />);
+      dices.push(
+        <Dice
+          key={i}
+          initialNumber={randomNumber}
+          onDiceClick={() => setTotalThrow((prevTotalThrow) => prevTotalThrow + 1)}
+        />
+      );
     }
   }
 
@@ -26,6 +33,7 @@ function Home() {
           {dices}
         </div>
         {!launched && <button className={styles.launchBtn} onClick={() => setLaunched(true)}>Launch</button>}
+        <p>Total de lancers : {totalThrow}</p>
       </div>
       <div>
         <div className={styles.triangleRight}></div>

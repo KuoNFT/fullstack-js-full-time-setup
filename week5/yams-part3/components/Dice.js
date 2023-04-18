@@ -1,20 +1,21 @@
 import styles from '../styles/Dice.module.css';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
-function Dice(props) {
-
-  const [number, setNumber] = useState(props.number);
+function Dice({ initialNumber, onDiceClick }) {
+  const [number, setNumber] = useState(initialNumber);
   const [nbClicks, setNbClicks] = useState(0);
 
   const handleClick = () => {
     const randomNumber = Math.floor(Math.random() * 6) + 1;
     setNumber(randomNumber);
-    setNbClicks(nbClicks + 1);
+    setNbClicks((prevNbClicks) => prevNbClicks + 1);
+    onDiceClick();
   };
+
 
   return (
     <div>
-      <img className={styles.dice} src={`${number}.png`} alt={number} onClick={() => handleClick()} />
+      <img className={styles.dice} src={`${number}.png`} alt={number} onClick={handleClick} />
       <span className={styles.counter}>{nbClicks}</span>
     </div>
   );
