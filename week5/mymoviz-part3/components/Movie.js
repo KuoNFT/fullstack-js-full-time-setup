@@ -7,8 +7,12 @@ function Movie(props) {
 const [personalNote, setPersonalNote] = useState(0);
 const [watchCount, setWatchCount] = useState(0);
 const [like, setLike] = useState(false);
+const [likedMovies, setlikedMovies]= useState([])
 
+const updateLikedMovies = (movieTitle) => {
+  setlikedMovies([...likedMovies, movieTitle]);
 
+}
 
 const stars = [];
 for (let i = 0; i < 10; i++) {
