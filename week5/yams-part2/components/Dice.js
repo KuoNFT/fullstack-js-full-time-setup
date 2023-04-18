@@ -22,3 +22,5 @@ function Dice(props) {
 }
 
 export default Dice;
+
+//Le but est de faire un caroussel : 4 compo avec un  img un titre et un text et des bulles qui vont changer de couleurs en 
