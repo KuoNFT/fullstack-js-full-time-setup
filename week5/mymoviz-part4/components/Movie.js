@@ -30,6 +30,7 @@ function Movie(props) {
   // Like movie
   const handleLikeMovie = () => {
     setLike(!like);
+    props.updateLikedMovies(props.title);
   };
   let heartIconStyle = { 'cursor': 'pointer' };
   if (like) {
@@ -45,7 +46,8 @@ function Movie(props) {
     }
     personalStars.push(<FontAwesomeIcon key={i} icon={faStar} onClick={() => setPersonalNote(i + 1)} style={style} className="note" />);
   }
-
+ 
+  
   return (
     <div className={styles.card}>
       <img className={styles.image} src={props.poster} alt={props.title} />

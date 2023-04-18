@@ -2,6 +2,7 @@ import Movie from './Movie';
 import 'antd/dist/antd.css';
 import styles from '../styles/Home.module.css';
 import { Popover, Button } from 'antd';
+import {useState} from 'react'
 
 function Home() {
   const moviesData = [
@@ -12,36 +13,56 @@ function Home() {
     { title: 'Inception', poster: 'inception.jpg', voteAverage: 8.4, voteCount: 31_546, overview: 'Cobb, a skilled thief who commits corporate espionage by infiltrating the subconscious of his targets is offered a chance to regain his old life.' },
   ];
 
-  const movies = moviesData.map((data, i) => {
-    return <Movie key={i} title={data.title} overview={data.overview} poster={data.poster} voteAverage={data.voteAverage} voteCount={data.voteCount} />;
-  });
+
+
+  const [likedMovies, setLikedMovies]= useState([])
+
+  const updateLikedMovies = (movieTitle) => {
+    if (movieTitle && !likedMovies.includes(movieTitle)) {
+      setLikedMovies([...likedMovies, movieTitle]);
+    } else {
+      setLikedMovies(likedMovies.filter(title => title !== movieTitle));
+    }
+  };
 
   const popoverContent = (
     <div className={styles.popoverContent}>
-      <span>Movie 1</span>
-      <span>Movie 2</span>
-      <span>Movie 3</span>
-      <span>Movie 4</span>
+      {likedMovies.map((movie, index) => (
+        <span key={index}>{movie}</span>
+      ))}
     </div>
   );
 
-  return (
-    <div className={styles.main}>
-      <div className={styles.header}>
-        <div className={styles.logocontainer}>
-          <img src="logo.png" alt="Logo" />
-          <img className={styles.logo} src="logoletter.png" alt="Letter logo" />
-        </div>
-        <Popover title="Liked movies" content={popoverContent} className={styles.popover} trigger="click">
-          <Button>♥ 4 movie(s)</Button>
-        </Popover>
+
+  const movies=  moviesData.map((data, i) => (
+    <Movie
+      key={i}
+      title={data.title}
+      overview={data.overview}
+      poster={data.poster}
+      voteAverage={data.voteAverage}
+      voteCount={data.voteCount}
+      updateLikedMovies={updateLikedMovies}
+    />
+))
+
+return (
+  <div className={styles.main}>
+    <div className={styles.header}>
+      <div className={styles.logocontainer}>
+        <img src="logo.png" alt="Logo" />
+        <img className={styles.logo} src="logoletter.png" alt="Letter logo" />
       </div>
-      <div className={styles.title}>LAST RELEASES</div>
-      <div className={styles.moviesContainer}>
-        {movies}
-      </div>
+      <Popover title="Liked movies" content={popoverContent} className={styles.popover} trigger="click">
+        <Button>♥ {likedMovies.length} movie(s)</Button>
+      </Popover>
     </div>
-  );
+    <div className={styles.title}>LAST RELEASES</div>
+    <div className={styles.moviesContainer}>
+      {movies}
+    </div>
+  </div>
+);
 }
 
 export default Home;
