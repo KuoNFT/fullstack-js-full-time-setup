@@ -50,7 +50,7 @@ function Home() {
 
         const response = await fetch('https://my-moviz-back-end-delta.vercel.app/movies');
         const data = await response.json();
-        const formatedData= await data.results.map(movie => {
+        const formatedData= await data.movies.map(movie => {
           const poster = `https://image.tmdb.org/t/p/w500/${movie.poster_path}`;
           const textMaxi = maxText(movie.overview, 250)    
           return { title: movie.title, poster, voteAverage: movie.vote_average, voteCount: movie.vote_count, overview: textMaxi };
