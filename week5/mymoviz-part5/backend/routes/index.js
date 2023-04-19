@@ -1,7 +1,7 @@
+require('dotenv').config()
 const express = require('express');
 const fetch = require('node-fetch');
 var router = express.Router();
-require('dotenv').config()
 const API_KEY = process.env.API_KEY;
 
 

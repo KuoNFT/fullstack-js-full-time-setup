@@ -48,7 +48,7 @@ function Home() {
   useEffect(() => {
     const fetchMovies = async () => {
 
-        const response = await fetch('http://localhost:3000/movies');
+        const response = await fetch('https://my-moviz-back-end-delta.vercel.app/movies');
         const data = await response.json();
         const formatedData= await data.results.map(movie => {
           const poster = `https://image.tmdb.org/t/p/w500/${movie.poster_path}`;
