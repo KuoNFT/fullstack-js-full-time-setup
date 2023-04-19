@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Popover, Button } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleXmark } from '@fortawesome/free-solid-svg-icons';
@@ -8,6 +8,7 @@ import styles from '../styles/Home.module.css';
 
 function Home() {
   const [likedMovies, setLikedMovies] = useState([]);
+  
 
   // Liked movies (inverse data flow)
   const updateLikedMovies = (movieTitle) => {
@@ -33,14 +34,35 @@ function Home() {
     </div>
   );
 
+  function maxText(text, maxLength) {
+    if (text.length > maxLength){
+      return text.slice(0, maxLength) + '...';
+    } else {
+      return text;
+    }
+  }
+
   // Movies list
-  const moviesData = [
-    { title: 'Forrest Gump', poster: 'forrestgump.jpg', voteAverage: 9.2, voteCount: 22_705, overview: 'A man with a low IQ has accomplished great things in his life and been present during significant historic events—in each case.' },
-    { title: 'The Dark Knight', poster: 'thedarkknight.jpg', voteAverage: 8.5, voteCount: 27_547, overview: 'Batman raises the stakes in his war on crime and sets out to dismantle the remaining criminal organizations that plague the streets.' },
-    { title: 'Your name', poster: 'yourname.jpg', voteAverage: 8.5, voteCount: 8_691, overview: 'High schoolers Mitsuha and Taki are complete strangers living separate lives. But one night, they suddenly switch places.' },
-    { title: 'Iron Man', poster: 'ironman.jpg', voteAverage: 7.6, voteCount: 22_7726, overview: 'After being held captive in an Afghan cave, billionaire engineer Tony Stark creates a unique weaponized suit of armor to fight evil.' },
-    { title: 'Inception', poster: 'inception.jpg', voteAverage: 8.4, voteCount: 31_546, overview: 'Cobb, a skilled thief who commits corporate espionage by infiltrating the subconscious of his targets is offered a chance to regain his old life.' },
-  ];
+  const [moviesData, setMoviesData] = useState([])
+
+  useEffect(() => {
+    const fetchMovies = async () => {
+
+        const response = await fetch('http://localhost:3000/movies');
+        const data = await response.json();
+        const formatedData= await data.results.map(movie => {
+          const poster = `https://image.tmdb.org/t/p/w500/${movie.poster_path}`;
+          const textMaxi = maxText(movie.overview, 250)    
+          return { title: movie.title, poster, voteAverage: movie.vote_average, voteCount: movie.vote_count, overview: textMaxi };
+
+        })
+        setMoviesData(formatedData);
+
+    };
+  
+    fetchMovies();
+  }, []);
+  
 
   const movies = moviesData.map((data, i) => {
     const isLiked = likedMovies.some(movie => movie === data.title);

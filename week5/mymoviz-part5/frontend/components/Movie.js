@@ -6,7 +6,6 @@ import styles from '../styles/Movie.module.css';
 function Movie(props) {
   const [watchCount, setWatchCount] = useState(0);
   const [personalNote, setPersonalNote] = useState(0);
-
   // Average evaluation
   const stars = [];
   for (let i = 0; i < 10; i++) {
