@@ -40,7 +40,7 @@ function Home() {
 		<div className={styles.container}>
 			<h1 className={styles.title}>Pokedex</h1>
 			<div className={styles.pokemonContainer}>{pokemons}</div>
-			<button type='button' value='Next' onClick={() => fetchPokemons()} className={styles.next} />
+			<button type='button' value='Next' onClick={() => fetchPokemons()} className={styles.next} >Next</button>
 		</div>
 	)
 }
