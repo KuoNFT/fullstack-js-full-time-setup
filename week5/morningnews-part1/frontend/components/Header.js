@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { Modal } from 'antd';
 import Moment from 'react-moment';
+import Link from 'next/link';
 
 function Header() {
 	const [date, setDate] = useState('2050-11-22T23:59:59');
@@ -50,7 +51,7 @@ function Header() {
 			</div>
 
 			<div className={styles.linkContainer}>
-				<span className={styles.link}>Articles</span>
+				<Link className={styles.link} href="/aricles">Aricles</Link>
 				<span className={styles.link}>Bookmarks</span>
 			</div>
 
