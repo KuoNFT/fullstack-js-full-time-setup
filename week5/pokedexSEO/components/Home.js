@@ -1,48 +1,44 @@
-import { useEffect, useState } from 'react'
-import Pokemon from './Pokemon'
+import React, { useState, useEffect } from 'react';
+import Card from './Card';
 import styles from '../styles/Home.module.css'
 
 function Home() {
-	const [startIndex, setStartIndex] = useState(1)
-	const [pokemonsNumber, setPokemonsNumber] = useState(15)
-	const [pokemonsData, setPokemonsData] = useState([])
+  const [pokemons, setPokemons] = useState([]);
+  const [startIndex, setStartIndex] = useState(1);
 
-	const fetchPokemons = async () => {
-		const newPokemons = []
+  useEffect(() => {
+    fetchPokemons();
+  }, [startIndex]);
 
-		for (let i = startIndex; i <= pokemonsNumber; i++) {
-			const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${i}`)
-			const data = await response.json()
+  const fetchPokemons = async () => {
+    const newPokemons = [];
 
-			const newPokemon = {
-				id: data.id,
-				name: data.name[0].toUpperCase() + data.name.slice(1),
-				type: data.types[0].type.name,
-			}
+    for (let i = startIndex; i < startIndex + 15; i++) {
+      const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${i}`);
+      const data = await response.json();
+      newPokemons.push(data);
+    }
 
-			newPokemons.push(newPokemon)
-		}
+    setPokemons([...pokemons, ...newPokemons]);
+  };
 
-		setPokemonsData([...pokemonsData, ...newPokemons])
-		setStartIndex(startIndex + pokemonsNumber)
-		setPokemonsNumber(pokemonsNumber + pokemonsNumber)
-	}
+  const getNextPokemon = () => {
+    setStartIndex(startIndex + 15);
+  };
 
-	useEffect(() => {
-		fetchPokemons()
-	}, [])
-
-	const pokemons = pokemonsData.map(data => {
-		return <Pokemon id={data.id} name={data.name} type={data.type} />
-	})
-
-	return (
-		<div className={styles.container}>
-			<h1 className={styles.title}>Pokedex</h1>
-			<div className={styles.pokemonContainer}>{pokemons}</div>
-			<input type='button' value='Next' onClick={() => fetchPokemons()} className={styles.next} />
-		</div>
-	)
+  return (
+    <div className={styles.main}>
+      <h1>Pokedex</h1>
+      <div className={styles.pokemonContainer}>
+        {pokemons.map((pokemon) => (
+          <Card key={pokemon.id} pokemon={pokemon} />
+        ))}
+      </div>
+      <button className={styles.next} onClick={getNextPokemon}>
+        Next
+      </button>
+    </div>
+  );
 }
 
-export default Home
+export default Home;
