@@ -51,8 +51,8 @@ function Header() {
 			</div>
 
 			<div className={styles.linkContainer}>
-				<Link className={styles.link} href="/articles">Articles</Link>
-				<span className={styles.link}>Bookmarks</span>
+				<Link className={styles.link} href="/">Articles</Link>
+				<Link className={styles.link} href='/bookmarks'>Bookmarks</Link>
 			</div>
 
 			{isModalVisible && <div id="react-modals">
