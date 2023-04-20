@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from '../styles/Card.module.css'
+import Image from 'next/image';
 
 function Card({ pokemon }) {
   const type = pokemon.types[0].type.name;
@@ -33,9 +34,11 @@ function Card({ pokemon }) {
     <div className={styles.card} style={style}>
     <div className={`pokemon ${type}`} style ={style}>
       <div className={styles.imgContainer}>
-        <img
+        <Image
           src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemon.id}.png`}
           alt={name}
+          width= {100}
+          height= {100}
         />
       </div>
       <div className={styles.info}>
