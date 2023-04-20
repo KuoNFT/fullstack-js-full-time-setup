@@ -27,14 +27,14 @@ function Home() {
   };
 
   return (
-    <div>
+    <div className={styles.main}>
       <h1>Pokedex</h1>
       <div className={styles.pokemonContainer}>
         {pokemons.map((pokemon) => (
           <Card key={pokemon.id} pokemon={pokemon} />
         ))}
       </div>
-      <button id="next" onClick={getNextPokemon}>
+      <button className={styles.next} onClick={getNextPokemon}>
         Next
       </button>
     </div>

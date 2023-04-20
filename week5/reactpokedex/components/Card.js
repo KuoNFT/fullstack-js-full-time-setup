@@ -14,7 +14,15 @@ function Card({ pokemon }) {
     electric: '#F8D030',
     poison: '#A040A0',
     normal: '#A8A878',
-    fighting: '#C03028'
+    fighting: '#C03028',
+    fairy: '#EE99AC',
+    psychic : '#F85888',
+    rock : '#B8A038',
+    dragon : '#7038F8',
+    dark: '#705848',
+    ice: '#98D8D8',
+    steel: '#B8B8D0',
+    ghost: '#705898',
   };
   
   const backgroundColor = typeColors[type] || 'gray';
