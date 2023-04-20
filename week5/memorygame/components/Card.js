@@ -2,8 +2,14 @@ import Image from 'next/image';
 import styles from '../styles/Card.module.css';
 
 function Card(props) {
+  const handleClick = () => {
+    if (!props.selected && !props.matched) {
+      props.selectCard(props.id, props.name);
+    }
+  };
+
   return (
-    <div onClick={() => props.selectCard(props.id)} className={`${styles.card} ${props.selected && styles.active}`}>
+    <div onClick={handleClick} className={`${styles.card} ${(props.selected || props.matched) && styles.active}`}>
       <div className={styles.flipper}>
         <div className={styles.cardFront}>
           <Image src="/images/questionmark.svg" alt="Card back" width={50} height={50} />

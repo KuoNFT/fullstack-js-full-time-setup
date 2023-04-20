@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect  } from 'react';
 import Card from './Card';
 import styles from '../styles/Home.module.css';
 
@@ -22,13 +22,50 @@ function Home() {
     { id: 16, name: 'sunglasses', image: '/sunglasses.svg' },
   ];
 
+  const [shuffledDeck, setShuffledDeck] = useState([]);
+
+  const shuffleDeck = () => {
+    return deck.sort(()=>0.5- Math.random())
+  }
+
+  useEffect(() => {
+    setShuffledDeck(shuffleDeck)
+
+  }, [])
+
+ 
+  const [matched, setMatched] = useState([]);
+
   const [selected, setSelected] = useState([]);
 
-  const selectCard = (id) => {
-    setSelected([...selected, id]);
+  const selectCard = (id, name) => {
+    if(selected.length < 2 ){
+    setSelected((prevState)=>[...prevState, {id, name}]);
+  }
   };
 
-  const cardsToDisplay = deck.map((card) => {
+  useEffect(() => {
+    if (selected.length === 2) {
+      const [firstCard, secondCard] = selected;
+      if (firstCard.name === secondCard.name) {
+        setMatched((prevState) => [...prevState, firstCard.id, secondCard.id]);
+      }
+      setTimeout(() => setSelected([]), 1000);
+    }
+  }, [selected]);
+
+
+  useEffect(() => {
+    if (matched.length === deck.length) {
+      setTimeout(() => {
+        setShuffledDeck(shuffleDeck());
+        setMatched([]);
+      }, 2000);
+    }
+  }, [matched]);
+  
+
+  const cardsToDisplay = shuffledDeck.map((card) => {
     return (
       <Card
         key={card.id}
@@ -36,7 +73,8 @@ function Home() {
         name={card.name}
         image={card.image}
         selectCard={selectCard}
-        selected={selected.includes(card.id)}
+        selected={selected.some((selectedCard) => selectedCard.id === card.id)}
+        matched={matched.includes(card.id)}
       />
     );
   });
