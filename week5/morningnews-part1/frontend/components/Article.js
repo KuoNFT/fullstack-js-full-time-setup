@@ -3,7 +3,7 @@ import styles from '../styles/Article.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBookmark } from '@fortawesome/free-solid-svg-icons';
 
-function Article(props) {
+export default function Article(props) {
 
 	return (
 		<div className={styles.articles}>
@@ -13,10 +13,8 @@ function Article(props) {
 			</div>
 			<h4 style={{ textAlign: "right" }}>- {props.author}</h4>
 			<div className={styles.divider}></div>
-			<Image src={props.urlToImage} alt={props.title} width={600} height={314} />
+			{/* <Image src={props.urlToImage} alt={props.title} width={600} height={314} /> */}
 			<p>{props.description}</p>
 		</div>
 	);
 }
-
-export default Article;

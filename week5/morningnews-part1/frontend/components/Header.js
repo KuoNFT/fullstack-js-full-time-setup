@@ -51,7 +51,7 @@ function Header() {
 			</div>
 
 			<div className={styles.linkContainer}>
-				<Link className={styles.link} href="/aricles">Aricles</Link>
+				<Link className={styles.link} href="/articles">Articles</Link>
 				<span className={styles.link}>Bookmarks</span>
 			</div>
 
