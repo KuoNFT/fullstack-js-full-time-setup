@@ -5,25 +5,26 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addBookmarkToStore, removeBookmarkFromStore } from '../reducers/bookmarks';
 
 function TopArticle(props) {
-  const bookmarks = useSelector((state) => state.bookmarks.value);
   const dispatch = useDispatch();
 
-  const isBookmarked = bookmarks.some((bookmark) => bookmark.url === props.url);
+  const addBookmark = (newBookmark) => {
+    dispatch(addBookmarkToStore(newBookmark));
+  };
 
+  const bookmarks = useSelector((state) => state.bookmarks.value);
+  const isBookmarked = (url) => bookmarks.some((bookmark) => bookmark.url === url);
 
-  const handleBookmarkClick = () => {
-    if (isBookmarked) {
+  const toggleBookmark = () => {
+    if (isBookmarked(props.url)) {
       dispatch(removeBookmarkFromStore(props.url));
     } else {
-      dispatch(
-        addBookmarkToStore({
-          title: props.title,
-          author: props.author,
-          urlToImage: props.urlToImage,
-          description: props.description,
-          url: props.url,
-        })
-      );
+      addBookmark({
+        title: props.title,
+        author: props.author,
+        urlToImage: props.urlToImage,
+        description: props.description,
+        url: props.url,
+      });
     }
   };
 
@@ -34,8 +35,9 @@ function TopArticle(props) {
         <h2 className={styles.topTitle}>{props.title}</h2>
         <FontAwesomeIcon
           icon={faBookmark}
-          className={`${styles.bookmarkIcon} ${isBookmarked ? styles.bookmarked : ''}`}
-          onClick={handleBookmarkClick}
+          className={styles.bookmarkIcon}
+          style={{ color: isBookmarked(props.url) ? '#E9BE59' : '#000000' }}
+          onClick={toggleBookmark}
         />
         <h4>{props.author}</h4>
         <p>{props.description}</p>

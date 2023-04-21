@@ -8,8 +8,11 @@ function Bookmarks() {
   const bookmarks = useSelector((state) => state.bookmarks.value);
   const dispatch = useDispatch();
 
+
+
   const handleBookmarkClick = (url) => {
     dispatch(removeBookmarkFromStore(url));
+    console.log(isBookmarked)
   };
 
   return (
