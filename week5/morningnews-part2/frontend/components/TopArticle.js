@@ -10,6 +10,7 @@ function TopArticle(props) {
 
   const isBookmarked = bookmarks.some((bookmark) => bookmark.url === props.url);
 
+
   const handleBookmarkClick = () => {
     if (isBookmarked) {
       dispatch(removeBookmarkFromStore(props.url));
