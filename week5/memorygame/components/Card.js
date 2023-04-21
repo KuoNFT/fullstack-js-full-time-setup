@@ -3,9 +3,8 @@ import styles from '../styles/Card.module.css';
 
 function Card(props) {
   const handleClick = () => {
-    if (!props.selected && !props.matched) {
       props.selectCard(props.id, props.name);
-    }
+    
   };
 
   return (
