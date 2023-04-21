@@ -16,5 +16,5 @@ export const bookmarksSlice = createSlice({
         },
       }})
 
-export const {addBookmarkToStore} = bookmarksSlice.actions;
+export const {addBookmarkToStore, removeBookmarkFromStore} = bookmarksSlice.actions;
 export default bookmarksSlice.reducer;

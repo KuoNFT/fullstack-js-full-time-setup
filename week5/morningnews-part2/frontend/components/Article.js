@@ -3,7 +3,7 @@ import styles from '../styles/Article.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBookmark } from '@fortawesome/free-solid-svg-icons';
 import { addBookmarkToStore } from '../reducers/bookmarks';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 function Article(props) {
   const dispatch = useDispatch();
@@ -12,6 +12,10 @@ function Article(props) {
     dispatch(addBookmarkToStore(newBookmark));
   };
 
+  const bookmarks = useSelector((state) => state.bookmarks.value);
+  const isBookmarked = (url) => bookmarks.some((bookmark) => bookmark.url === url);
+
+
   return (
     <div className={styles.articles}>
       <div className={styles.articleHeader}>
@@ -19,6 +23,7 @@ function Article(props) {
         <FontAwesomeIcon
           icon={faBookmark}
           className={styles.bookmarkIcon}
+          style={{ color: isBookmarked(props.url) ? '#E9BE59' : '#000000' }}
           onClick={() => addBookmark(props)}
         />
       </div>

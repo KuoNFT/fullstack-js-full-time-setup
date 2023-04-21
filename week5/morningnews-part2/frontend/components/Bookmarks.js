@@ -1,10 +1,16 @@
 import Head from 'next/head';
 import styles from '../styles/Bookmarks.module.css';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import Article from './Article';
+import { removeBookmarkFromStore } from '../reducers/bookmarks';
 
 function Bookmarks() {
   const bookmarks = useSelector((state) => state.bookmarks.value);
+  const dispatch = useDispatch();
+
+  const handleBookmarkClick = (url) => {
+    dispatch(removeBookmarkFromStore(url));
+  };
 
   return (
     <div>
@@ -21,6 +27,8 @@ function Bookmarks() {
               author={bookmark.author}
               urlToImage={bookmark.urlToImage}
               description={bookmark.description}
+              isBookmarked={true}
+              onBookmarkClick={() => handleBookmarkClick(bookmark.url)}
             />
           ))
         ) : (
