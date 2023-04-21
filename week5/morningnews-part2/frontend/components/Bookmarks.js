@@ -1,20 +1,34 @@
 import Head from 'next/head';
 import styles from '../styles/Bookmarks.module.css';
-
+import { useSelector } from 'react-redux';
+import Article from './Article';
 
 function Bookmarks() {
-	return (
-		<div>
-			<Head>
-				<title>Morning News - Bookmarks</title>
-			</Head>
-			<div className={styles.container}>
-				<h2>Bookmarks</h2>
-				<p>No bookmark</p>
-			</div>
-		</div>
+  const bookmarks = useSelector((state) => state.bookmarks.value);
 
-	);
+  return (
+    <div>
+      <Head>
+        <title>Morning News - Bookmarks</title>
+      </Head>
+      <div className={styles.container}>
+        <h2>Bookmarks</h2>
+        {bookmarks.length > 0 ? (
+          bookmarks.map((bookmark) => (
+            <Article
+              key={bookmark.url}
+              title={bookmark.title}
+              author={bookmark.author}
+              urlToImage={bookmark.urlToImage}
+              description={bookmark.description}
+            />
+          ))
+        ) : (
+          <p>No bookmark</p>
+        )}
+      </div>
+    </div>
+  );
 }
 
 export default Bookmarks;
