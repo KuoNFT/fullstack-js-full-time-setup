@@ -1,14 +1,29 @@
 import styles from '../styles/Toparticle.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBookmark } from '@fortawesome/free-solid-svg-icons';
-import { useDispatch } from 'react-redux';
-import { addBookmarkToStore } from '../reducers/bookmarks';
+import { useDispatch, useSelector } from 'react-redux';
+import { addBookmarkToStore, removeBookmarkFromStore } from '../reducers/bookmarks';
 
 function TopArticle(props) {
+  const bookmarks = useSelector((state) => state.bookmarks.value);
   const dispatch = useDispatch();
 
-  const addBookmark = (newBookmark) => {
-    dispatch(addBookmarkToStore(newBookmark));
+  const isBookmarked = bookmarks.some((bookmark) => bookmark.url === props.url);
+
+  const handleBookmarkClick = () => {
+    if (isBookmarked) {
+      dispatch(removeBookmarkFromStore(props.url));
+    } else {
+      dispatch(
+        addBookmarkToStore({
+          title: props.title,
+          author: props.author,
+          urlToImage: props.urlToImage,
+          description: props.description,
+          url: props.url,
+        })
+      );
+    }
   };
 
   return (
@@ -18,16 +33,8 @@ function TopArticle(props) {
         <h2 className={styles.topTitle}>{props.title}</h2>
         <FontAwesomeIcon
           icon={faBookmark}
-          className={styles.bookmarkIcon}
-          onClick={() =>
-            addBookmark({
-              title: props.title,
-              author: props.author,
-              urlToImage: props.urlToImage,
-              description: props.description,
-              url: props.url,
-            })
-          }
+          className={`${styles.bookmarkIcon} ${isBookmarked ? styles.bookmarked : ''}`}
+          onClick={handleBookmarkClick}
         />
         <h4>{props.author}</h4>
         <p>{props.description}</p>
@@ -37,4 +44,3 @@ function TopArticle(props) {
 }
 
 export default TopArticle;
-
