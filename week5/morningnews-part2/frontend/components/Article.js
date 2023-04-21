@@ -33,7 +33,8 @@ function Article(props) {
         <h3>{props.title}</h3>
         <FontAwesomeIcon
           icon={faBookmark}
-          className={`${styles.bookmarkIcon} ${isBookmarked ? styles.bookmarked : ''}`}
+          className={`${styles.bookmarkIcon}`}
+          style= {{ color: isBookmarked ? '#E9BE59' : '#000000' }}
           onClick={handleBookmarkClick}
         />
       </div>
