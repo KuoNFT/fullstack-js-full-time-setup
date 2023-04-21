@@ -1,15 +1,20 @@
+import { Provider } from 'react-redux';
+import { configureStore } from '@reduxjs/toolkit';
+import counterReducer from '../reducers/counter';
 import '../styles/globals.css';
-import Head from 'next/head';
 
-function App({ Component, pageProps }) {
+const store = configureStore({
+  reducer: {
+    counter: counterReducer,
+  },
+});
+
+function MyApp({ Component, pageProps }) {
   return (
-    <>
-      <Head>
-        <title>Next.js App</title>
-      </Head>
+    <Provider store={store}>
       <Component {...pageProps} />
-    </>
+    </Provider>
   );
 }
 
-export default App;
+export default MyApp;
