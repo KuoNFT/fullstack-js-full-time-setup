@@ -1,0 +1,28 @@
+.globalContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  min-height: 100vh;
+  width: 100vw;
+}
+
+.title {
+  line-height: 1.15;
+  font-size: 40px;
+  font-weight: bold;
+  margin-top: 50px;
+}
+
+.counter {
+  font-size: 20px;
+}
+
+.countriesContainer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: center;
+  margin: 50px 50px 100px 50px;
+}
+

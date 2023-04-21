@@ -1,0 +1,29 @@
+.countryCard {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  width: 200px;
+  height: 250px;
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 4px;
+  border: 1px solid rgb(165, 178, 183);
+  margin: 10px;
+  padding: 20px;
+}
+
+.countryName {
+  font-size: 15px;
+  font-weight: bold;
+  margin: 0;
+  text-align: center;
+}
+
+.countryFlag {
+  height: 40px;
+}
+
+.countryIso {
+  font-size: 13px;
+  font-weight: bold;
+}
