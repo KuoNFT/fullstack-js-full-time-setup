@@ -6,14 +6,11 @@ import { removeBookmarkFromStore } from '../reducers/bookmarks';
 
 function Bookmarks() {
   const bookmarks = useSelector((state) => state.bookmarks.value);
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
-
-
-  const handleBookmarkClick = (url) => {
-    dispatch(removeBookmarkFromStore(url));
-    console.log(isBookmarked)
-  };
+  const removeBookmark = (url) => {
+    dispatch(removeBookmarkFromStore(url))
+  }
 
   return (
     <div>
@@ -30,8 +27,8 @@ function Bookmarks() {
               author={bookmark.author}
               urlToImage={bookmark.urlToImage}
               description={bookmark.description}
+              url={bookmark.url}
               isBookmarked={true}
-              onBookmarkClick={() => handleBookmarkClick(bookmark.url)}
             />
           ))
         ) : (
