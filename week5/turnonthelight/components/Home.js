@@ -22,7 +22,7 @@ function Home() {
       }}
     >
       <Image
-        src="/light.png"
+        src={lightIsOn ? "/light.png" : '/dark.png'}
         alt="Light"
         width={128}
         height={128}
