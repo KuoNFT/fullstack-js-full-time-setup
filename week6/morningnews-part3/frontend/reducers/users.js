@@ -1,21 +1,24 @@
-// reducers/user.js
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-    isConnected: false,
-    username: '',
-  };
-  
-  export default function user(state = initialState, action) {
-    switch (action.type) {
-      case 'SET_USER':
-        return {
-          isConnected: action.payload.isConnected,
-          username: action.payload.username,
-        };
-      case 'LOGOUT_USER':
-        return initialState;
-      default:
-        return state;
-    }
-  }
-  
+  isConnected: false,
+  username: '',
+};
+
+export const userSlice = createSlice({
+  name: 'users',
+  initialState,
+  reducers: {
+    setUser: (state, action) => {
+      state.isConnected = action.payload.isConnected;
+      state.username = action.payload.username;
+    },
+    logoutUser: (state) => {
+      state.isConnected = false;
+      state.username = '';
+    },
+  },
+});
+
+export const { setUser, logoutUser } = userSlice.actions;
+export default userSlice.reducer;
