@@ -5,10 +5,10 @@ import Header from '../components/Header';
 import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
 import bookmarks from '../reducers/bookmarks';
-import users from '../reducers/users';
+import user from '../reducers/users';
 
 const store = configureStore({
-  reducer: { bookmarks, users },
+  reducer: { bookmarks, user },
 });
 
 function App({ Component, pageProps }) {
