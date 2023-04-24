@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addTask, deleteTask, toggleTask } from '../reducers/tasks';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -5,16 +6,16 @@ import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import styles from '../styles/Home.module.css';
 
 function Home() {
+  const [taskName, setTaskName] = useState('');
+  const [urgent, setUrgent] = useState(false);
   const dispatch = useDispatch();
   const tasks = useSelector((state) => state.tasks.tasks);
 
   const handleAddTask = () => {
-    const taskName = document.getElementById('taskName').value;
-    const urgent = document.getElementById('urgent').checked;
-
     if (taskName.trim() !== '') {
       dispatch(addTask({ name: taskName, urgent, completed: false }));
-      document.getElementById('taskName').value = '';
+      setTaskName('');
+      setUrgent(false);
     }
   };
 
@@ -30,9 +31,20 @@ function Home() {
     <div className={styles.container}>
       <div className={styles.card}>
         <div className={styles.addContainer}>
-          <input type="text" placeholder="Task" id="taskName" className={styles.addTask} />
+          <input
+            type="text"
+            placeholder="Task"
+            value={taskName}
+            onChange={(e) => setTaskName(e.target.value)}
+            className={styles.addTask}
+          />
           <div className={styles.urgentSection}>
-            <input type="checkbox" id="urgent" className={styles.urgentCheckbox} />
+            <input
+              type="checkbox"
+              checked={urgent}
+              onChange={() => setUrgent(!urgent)}
+              className={styles.urgentCheckbox}
+            />
             <span className={styles.urgent}>URGENT</span>
           </div>
           <button id="add" className={styles.button} onClick={handleAddTask}>
