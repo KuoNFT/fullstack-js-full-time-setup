@@ -37,10 +37,12 @@ function Home() {
             value={taskName}
             onChange={(e) => setTaskName(e.target.value)}
             className={styles.addTask}
+            id='taskName'
           />
           <div className={styles.urgentSection}>
             <input
               type="checkbox"
+              id='urgent'
               checked={urgent}
               onChange={() => setUrgent(!urgent)}
               className={styles.urgentCheckbox}
