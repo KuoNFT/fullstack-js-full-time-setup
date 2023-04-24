@@ -1,0 +1,41 @@
+body {
+  padding: 0;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+input {
+  border: 1px white solid;
+  border-radius: 2px;
+  padding: 2px;
+  font-family: 'Goldman', cursive;
+}
+
+input:focus {
+  border: none;
+  border-bottom: 1px white solid;
+  outline: none;
+}
+
+button {
+  margin: 15px;
+  border: none;
+  background-color: transparent;
+  color: white;
+  font-family: 'Goldman', cursive;
+  letter-spacing: 2px;
+  cursor: pointer;
+}
+
+button:hover {
+  opacity: 0.7;
+}
+
+span {
+  width: 150px;
+}
