@@ -1,8 +1,31 @@
+import { useDispatch, useSelector } from 'react-redux';
+import { addTask, deleteTask, toggleTask } from '../reducers/tasks';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import styles from '../styles/Home.module.css';
 
 function Home() {
+  const dispatch = useDispatch();
+  const tasks = useSelector((state) => state.tasks.tasks);
+
+  const handleAddTask = () => {
+    const taskName = document.getElementById('taskName').value;
+    const urgent = document.getElementById('urgent').checked;
+
+    if (taskName.trim() !== '') {
+      dispatch(addTask({ name: taskName, urgent, completed: false }));
+      document.getElementById('taskName').value = '';
+    }
+  };
+
+  const handleDeleteTask = (index) => {
+    dispatch(deleteTask(index));
+  };
+
+  const handleToggleTask = (index) => {
+    dispatch(toggleTask(index));
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.card}>
@@ -12,34 +35,31 @@ function Home() {
             <input type="checkbox" id="urgent" className={styles.urgentCheckbox} />
             <span className={styles.urgent}>URGENT</span>
           </div>
-          <button id="add" className={styles.button}>ADD TASK</button>
+          <button id="add" className={styles.button} onClick={handleAddTask}>
+            ADD TASK
+          </button>
         </div>
 
         <div className={styles.tasksContainer}>
-          <div className={styles.task}>
-            <div className={styles.taskSection}>
-              <input type="checkbox" className={styles.completeCheckbox} />
-              <p>Go to the grocery store</p>
-              <span className={styles.urgentBadge}>URGENT</span>
+          {tasks.map((task, index) => (
+            <div key={index} className={styles.task}>
+              <div className={styles.taskSection}>
+                <input
+                  type="checkbox"
+                  className={styles.completeCheckbox}
+                  checked={task.completed}
+                  onChange={() => handleToggleTask(index)}
+                />
+                <p className={task.completed ? styles.completed : ''}>{task.name}</p>
+                {task.urgent && <span className={styles.urgentBadge}>URGENT</span>}
+              </div>
+              <FontAwesomeIcon
+                icon={faTrash}
+                className={styles.delete}
+                onClick={() => handleDeleteTask(index)}
+              />
             </div>
-            <FontAwesomeIcon icon={faTrash} className={styles.delete} />
-          </div>
-
-          <div className={styles.task}>
-            <div className={styles.taskSection}>
-              <input type="checkbox" className={styles.completeCheckbox} />
-              <p>Pay the bills</p>
-            </div>
-            <FontAwesomeIcon icon={faTrash} className={styles.delete} />
-          </div>
-
-          <div className={styles.task}>
-            <div className={styles.taskSection}>
-              <input type="checkbox" className={styles.completeCheckbox} />
-              <p>Call Grandma</p>
-            </div>
-            <FontAwesomeIcon icon={faTrash} className={styles.delete} />
-          </div>
+          ))}
         </div>
       </div>
     </div>
