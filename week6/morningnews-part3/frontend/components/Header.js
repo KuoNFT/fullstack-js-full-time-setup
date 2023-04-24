@@ -86,12 +86,14 @@ function Header() {
       <input
         type="text"
         placeholder="Username"
+		id="signUpUsername"
         value={signUpUsername}
         onChange={(e) => setSignUpUsername(e.target.value)}
       />
       <input
         type="password"
         placeholder="Password"
+		id="signUpPassword"
         value={signUpPassword}
         onChange={(e) => setSignUpPassword(e.target.value)}
       />
@@ -102,12 +104,14 @@ function Header() {
       <input
         type="text"
         placeholder="Username"
+		id="signInUsername"
         value={signInUsername}
         onChange={(e) => setSignInUsername(e.target.value)}
       />
       <input
         type="password"
         placeholder="Password"
+		id="signInPassword"
         value={signInPassword}
         onChange={(e) => setSignInPassword(e.target.value)}
       />
@@ -115,7 +119,6 @@ function Header() {
     </div>
 	<div className={styles.registerContainer}>
     {errorMessage && <p className={styles.error}>{errorMessage}</p>}
-    // ...
   </div>
     </div>
   );
