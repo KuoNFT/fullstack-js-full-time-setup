@@ -31,7 +31,7 @@ function Header() {
   const [errorMessage, setErrorMessage] = useState('');
 
   async function handleSignUp() {
-    const response = await fetch("/signup", {
+    const response = await fetch("http://localhost:3000/users/signup", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -53,7 +53,7 @@ function Header() {
   }
 
   async function handleSignIn() {
-    const response = await fetch("/signin", {
+    const response = await fetch("http://localhost:3000/users/signin", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
