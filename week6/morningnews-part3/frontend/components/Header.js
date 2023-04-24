@@ -97,7 +97,7 @@ function Header() {
         value={signUpPassword}
         onChange={(e) => setSignUpPassword(e.target.value)}
       />
-      <button onClick={handleSignUp}>Register</button>
+      <button id='register'onClick={handleSignUp}>Register</button>
     </div>
     <div className={styles.registerSection}>
       <p>Sign-in</p>
@@ -115,7 +115,7 @@ function Header() {
         value={signInPassword}
         onChange={(e) => setSignInPassword(e.target.value)}
       />
-      <button onClick={handleSignIn}>Connect</button>
+      <button id='connection'onClick={handleSignIn}>Connect</button>
     </div>
 	<div className={styles.registerContainer}>
     {errorMessage && <p className={styles.error}>{errorMessage}</p>}
