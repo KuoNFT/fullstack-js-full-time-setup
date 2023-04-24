@@ -64,7 +64,8 @@ function Home() {
                   checked={task.completed}
                   onChange={() => handleToggleTask(index)}
                 />
-                <p className={task.completed ? styles.completed : ''}>{task.name}</p>
+                <p style={task.completed ? { textDecoration: 'line-through' } : {}}>{task.name}</p>
+
                 {task.urgent && <span className={styles.urgentBadge}>URGENT</span>}
               </div>
               <FontAwesomeIcon
