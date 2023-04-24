@@ -6,7 +6,7 @@ import Moment from 'react-moment';
 import { Modal } from 'antd';
 import Link from 'next/link';
 import { useDispatch, useSelector } from 'react-redux';
-import { setUser, logoutUser} from '../reducers/users';
+import { setUser, logoutUser} from '../reducers/user';
 
 function Header() {
   const [date, setDate] = useState('2050-11-22T23:59:59');
