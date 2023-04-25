@@ -7,7 +7,7 @@ const { checkBody } = require('../modules/checkBody');
 const uid2 = require('uid2');
 const bcrypt = require('bcrypt');
 
-
+const saltRounds= 10;
 
 router.post('/signup', (req, res) => {
 	if (!checkBody(req.body, ['username', 'password'])) {
@@ -19,14 +19,15 @@ router.post('/signup', (req, res) => {
   // Check if the user has not already been registered
   User.findOne({ username: req.body.username }).then(data => {
     if (data === null) {
-      const token = uid2(32)
-      const hash = bcrypt.hashSync(req.body.password)
+      const token = uid2(32);
+      const hashedPassword = bcrypt.hashSync(req.body.password, saltRounds);
+  
       const newUser = new User({
         username: req.body.username,
-        password: hash,
-        token:  token,
+        password: hashedPassword,
+        token: token
       });
-
+  
       newUser.save().then(() => {
         res.json({ result: true });
       });
