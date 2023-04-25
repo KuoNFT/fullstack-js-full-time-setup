@@ -1,14 +1,23 @@
-import { useDispatch } from 'react-redux';
-import { addBookmark, removeBookmark } from '../reducers/bookmarks';
+import { useDispatch, useSelector } from 'react-redux';
+import { addBookmark, removeBookmark, removeAllBookmarks } from '../reducers/bookmarks';
 import Image from 'next/image';
 import styles from '../styles/Article.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBookmark } from '@fortawesome/free-solid-svg-icons';
 
 function Article(props) {
+	const user = useSelector((state) => state.user.value);
 	const dispatch = useDispatch();
 
-	const handleBookmarkClick = () => {
+	const canBookmark = async () => {
+		if (!user.token) return false;
+		const response = await fetch(`/users/canBookmark/${user.token}`);
+		const result = await response.json();
+		return result.canBookmark;
+	  };
+
+	const handleBookmarkClick = async () => {
+		if(!(await canBookmark())) return
 		if (props.isBookmarked) {
 			dispatch(removeBookmark(props));
 		} else {

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { login, logout } from '../reducers/user';
+import {addBookmark, removeBookmark, removeAllBookmarks} from '../reducers/bookmarks'
 import styles from '../styles/Header.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faXmark } from '@fortawesome/free-solid-svg-icons';
@@ -25,36 +26,38 @@ function Header() {
 
 	const handleRegister = () => {
 		fetch('http://localhost:3000/users/signup', {
-			method: 'POST',
-			headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify({ username: signUpUsername, password: signUpPassword }),
+		  method: 'POST',
+		  headers: { 'Content-Type': 'application/json' },
+		  body: JSON.stringify({ username: signUpUsername, password: signUpPassword }),
 		}).then(response => response.json())
-			.then(data => {
-				if (data.result) {
-					dispatch(login(signUpUsername));
-					setSignUpUsername('');
-					setSignUpPassword('');
-				}
-			});
-	};
+		  .then(data => {
+			if (data.result) {
+			  dispatch(login({ username: signUpUsername, token: data.token }));
+			  setSignUpUsername('');
+			  setSignUpPassword('');
+			}
+		  });
+	  };
+	  
 
-	const handleConnection = () => {
+	  const handleConnection = () => {
 		fetch('http://localhost:3000/users/signin', {
-			method: 'POST',
-			headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify({ username: signInUsername, password: signInPassword }),
+		  method: 'POST',
+		  headers: { 'Content-Type': 'application/json' },
+		  body: JSON.stringify({ username: signInUsername, password: signInPassword }),
 		}).then(response => response.json())
-			.then(data => {
-				if (data.result) {
-					dispatch(login(signInUsername));
-					setSignInUsername('');
-					setSignInPassword('');
-				}
-			});
-	};
+		  .then(data => {
+			if (data.result) {
+			  dispatch(login({ username: signInUsername, token: data.token }));
+			  setSignInUsername('');
+			  setSignInPassword('');
+			}
+		  });
+	  };
 
 	const handleLogout = () => {
 		dispatch(logout());
+		dispatch(removeAllBookmarks())
 	};
 
 	const showModal = () => {
@@ -62,7 +65,7 @@ function Header() {
 	};
 
 	let modalContent;
-	if (!user.isConnected) {
+	if (!user.token) {
 		modalContent = (
 			<div className={styles.registerContainer}>
 				<div className={styles.registerSection}>
@@ -82,7 +85,7 @@ function Header() {
 	}
 
 	let userSection;
-	if (user.isConnected) {
+	if (user.token) {
 		userSection = (
       <div className={styles.logoutSection}>
         <p>Welcome {user.username} / </p>
