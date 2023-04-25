@@ -51,7 +51,7 @@ router.post('/signup', (req, res) => {
   });
  });
 
-router.get('/users/canBookmark/:token', (req, res) => {
+ router.get('/canBookmark/:token', (req, res) => {
   User.findOne({ token: req.params.token }).then(data => {
     if (data) {
       res.json({ result: true, canBookmark: data.canBookmark });
@@ -59,7 +59,7 @@ router.get('/users/canBookmark/:token', (req, res) => {
       res.json({ result: false, error: 'User not found' });
     }
   });
-});
+ })
 
 
 module.exports = router;
