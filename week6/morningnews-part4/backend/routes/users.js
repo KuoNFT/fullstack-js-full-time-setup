@@ -7,14 +7,15 @@ const { checkBody } = require('../modules/checkBody');
 const uid2 = require('uid2');
 const bcrypt = require('bcrypt');
 
+
+
 router.post('/signup', (req, res) => {
 	if (!checkBody(req.body, ['username', 'password'])) {
     res.json({ result: false, error: 'Missing or empty fields' });
     return;
   }
-  
   const hash = bcrypt.hashSync(req.body.password, 10)
-
+  
   // Check if the user has not already been registered
   User.findOne({ username: req.body.username }).then(data => {
     if (data === null) {
