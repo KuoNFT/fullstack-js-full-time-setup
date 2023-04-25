@@ -10,22 +10,25 @@ function TopArticle(props) {
 	const user = useSelector((state) => state.user.value);
 	const dispatch = useDispatch();
 
-	const canBookmark = async () => {
-		if (!user.token) return false;
-		const response = await fetch(`/users/canBookmark/${user.token}`);
-		const result = await response.json();
-		return result.canBookmark;
-	  };
-
-	const handleBookmarkClick = async () => {
-		if(!(await canBookmark())) return
-		if (props.isBookmarked) {
-			dispatch(removeBookmark(props));
-		} else {
-			dispatch(addBookmark(props));
+	const handleBookmarkClick = () => {
+		if (!user.token) {
+		  return;
 		}
-	}
-
+	   
+		fetch(`http://localhost:3000/users/canBookmark/${user.token}`)
+		  .then(response => response.json())
+		  .then(data => {
+			if (data.result && data.canBookmark) {
+			  if (props.isBookmarked) {
+				dispatch(removeBookmark(props));
+	   
+			   } else {
+				dispatch(addBookmark(props));
+	   
+			   }
+			}
+		  });
+	   }
 	let iconStyle = {};
 	if (props.isBookmarked) {
 		iconStyle = { 'color': '#E9BE59' };
