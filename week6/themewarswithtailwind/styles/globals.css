@@ -32,7 +32,7 @@ body {
   --accent-color: #bbbbbb;
 }
 
-/* Application des styles en fonction du thème */
+/*Appliquer les styles en fonction du thème*/
 body {
   background-color: var(--bg-color);
   color: var(--text-color);
