@@ -13,7 +13,7 @@ module.exports = {
         'dark': "url('/images/background-dark.jpg')",
       },
       fontFamily: {
-        'starjedi': ['Starjedi']
+        'starjedi': ['Starjedi', 'sans-serif'],
       }
     },
   },
