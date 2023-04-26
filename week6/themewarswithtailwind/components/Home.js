@@ -31,7 +31,7 @@ function Home() {
       </div>
 
       {/* TITLE */}
-      <h1 className="text-6xl m-10 text-neutral-800">THEME WARS</h1>
+      <h1 className="text-6xl m-10 text-neutral-800 font-starjedi">THEME WARS</h1>
 
       {/* SEARCH */}
       <Form handleSearch={handleSearch} />

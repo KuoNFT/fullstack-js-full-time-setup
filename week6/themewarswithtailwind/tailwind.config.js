@@ -10,7 +10,11 @@ module.exports = {
         'light': "url('/images/background-light.jpg')",
         'dark': "url('/images/background-dark.jpg')",
       },
+      fontFamily: {
+        'starjedi': ['Starjedi', 'sans-serif']
+      }
     },
   },
+  variants: {},
   plugins: [],
 };
