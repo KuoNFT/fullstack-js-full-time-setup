@@ -12,7 +12,7 @@ export const activitiesSlice = createSlice({
       state.value.push(action.payload);
     },
     removeActivity: (state, action) => {
-      state.value = state.value.filter((activity) => activity.id !== action.payload);
+      state.value = state.value.filter((activity) => activity.name !== action.payload);
     },
     updateActivity: (state, action) => {
       const index = state.value.findIndex((activity) => activity.id === action.payload.id);

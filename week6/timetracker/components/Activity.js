@@ -1,9 +1,12 @@
 import { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import styles from '../styles/Activity.module.css';
+import { removeActivity } from '../reducers/activities';
 
 function Activity(props) {
   const [timer, setTimer] = useState(props.timer);
   const [isRunning, setIsRunning] = useState(false);
+  const dispatch= useDispatch()
 
   useEffect(() => {
     let intervalId;
@@ -27,12 +30,17 @@ function Activity(props) {
     setIsRunning(false);
   };
 
+  const handleDel = () => {
+    dispatch(removeActivity(props.name))
+
+  }
+
   return (
     <>
       <div className={styles.activityWindow}>
         <div className={styles.activityHeader}>
           {props.name}
-          <div className={styles.delete}>X</div>
+          <div className={styles.delete} onClick={handleDel}>X</div>
         </div>
 
         {formattedTimer}
