@@ -15,7 +15,7 @@ body {
 
 @font-face {
   font-family: 'Starjedi';
-  src: url('/fonts/Starjedi.tff') format('truetype');
+  src: url('/public/fonts/Starjedi.tff') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
