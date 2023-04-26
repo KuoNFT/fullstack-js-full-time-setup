@@ -4,6 +4,8 @@ module.exports = {
     './pages/**/*.{js,jsx}',
     './components/**/*.{js,jsx}',
   ],
+  darkMode: 'class',
+
   theme: {
     extend: {
       backgroundImage: {
@@ -15,6 +17,8 @@ module.exports = {
       }
     },
   },
-  variants: {},
+  variants: {
+    extend: {},
+  },
   plugins: [],
 };
