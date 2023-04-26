@@ -8,9 +8,7 @@ import { faBookmark, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 
 function TopArticle(props) {
 
-	const handleHideClick = () => {
-		dispatch(hideArticle(props));
-	  };
+
 
 	const dispatch = useDispatch();
 	const user = useSelector((state) => state.user.value);
@@ -45,7 +43,6 @@ function TopArticle(props) {
 				<h2 className={styles.topTitle}>{props.title}</h2>
 				<div>
 				<FontAwesomeIcon onClick={() => handleBookmarkClick()} icon={faBookmark} style={iconStyle} className={styles.bookmarkIcon} />
-				<FontAwesomeIcon onClick={() => handleHideClick()} icon={faEyeSlash} className={styles.hideIcon} />
 				</div>
 				<h4>{props.author}</h4>
 				<p>{props.description}</p>
