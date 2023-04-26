@@ -39,11 +39,11 @@ return (
 
       
       {/* TITLE */}
-      <h1 className={`text-6xl m-10 ${theme === 'light' ? 'text-neutral-800' : 'text-neutral-200'}`}>THEME WARS</h1>
+      <h1 className={`text-6xl m-10 font-starjedi ${theme === 'light' ? 'text-neutral-800' : 'text-neutral-200'}`}>THEME WARS</h1>
 
 
       {/* SEARCH */}
-      <Form handleSearch={handleSearch} />
+      <Form theme={theme}handleSearch={handleSearch} />
 
       {/* CARDS */}
       <div className="w-2/5 flex flex-col items-center">
