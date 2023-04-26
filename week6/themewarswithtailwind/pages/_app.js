@@ -6,7 +6,7 @@ function MyApp({ Component, pageProps }) {
   return (
     <ThemeProvider attribute="class">
       <Head>
-        <title>Time tracker</title>
+        <title>Time trackesr</title>
       </Head>
       <Component {...pageProps} />
     </ThemeProvider>
