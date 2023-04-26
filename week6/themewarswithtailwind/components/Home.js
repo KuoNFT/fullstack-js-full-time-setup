@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import {useTheme} from 'next-themes'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSith } from '@fortawesome/free-brands-svg-icons';
 import { faJedi } from '@fortawesome/free-solid-svg-icons';
@@ -7,7 +8,7 @@ import Card from './Card';
 import Form from './Form';
 
 function Home() {
-  const theme = 'light';
+  const [theme, setTheme]= useTheme()
   const [searchResult, setSearchResult] = useState([]);
 
   const handleSearch = async (searchText) => {
@@ -19,8 +20,14 @@ function Home() {
     return <Card key={i} infos={data} />;
   });
 
+  const toggleTheme = () => {
+    setTheme(theme === 'light' ? 'dark' : 'light')
+  }
+
+ 
+
   return (
-    <div id="main" className="py-0 px-5 bg-left-top bg-right-top bg-no-repeat bg-cover w-screen min-h-screen relative bg-light flex flex-col justify-center items-center transition-all">
+    <div id="main" className="py-0 px-5 bg-left-top bg-right-top bg-no-repeat bg-cover w-screen min-h-screen relative bg-light flex flex-col justify-center items-center transition-all" onClick={toggleTheme}>
       {/* TOGGLE THEME BUTTON */}
       <div className="rounded-full cursor-pointer border-none absolute top-6 right-6 w-[50px] h-[50px] bg-neutral-500">
         <button className="flex justify-center items-center w-full h-full rounded-full -translate-y-[6px] active:-translate-y-[2px] bg-neutral-800">

@@ -17,3 +17,27 @@ body {
   font-family: 'Starjedi';
   src: url('/fonts/Starjedi.tff') format('truetype');
 }
+
+.light {
+  --bg-color: #ffffff;
+  --text-color: #333333;
+  --accent-color: #4a4a4a;
+}
+
+
+.dark {
+  --bg-color: #1a1a1a;
+  --text-color: #e5e5e5;
+  --accent-color: #bbbbbb;
+}
+
+/* Application des styles en fonction du thème */
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+
+h1,
+button {
+  color: var(--accent-color);
+}

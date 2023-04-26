@@ -1,15 +1,16 @@
 import '../styles/globals.css';
+import { ThemeProvider } from 'next-themes';
 import Head from 'next/head';
 
-function App({ Component, pageProps }) {
+function MyApp({ Component, pageProps }) {
   return (
-    <>
+    <ThemeProvider attribute="class">
       <Head>
-        <title>THEME WARS</title>
+        <title>Time tracker</title>
       </Head>
       <Component {...pageProps} />
-    </>
+    </ThemeProvider>
   );
 }
 
-export default App;
+export default MyApp;
