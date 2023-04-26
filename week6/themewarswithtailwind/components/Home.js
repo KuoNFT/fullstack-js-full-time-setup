@@ -9,13 +9,15 @@ import Form from './Form';
 
 function Home() {
   const {theme, setTheme}= useTheme()
+  const [initialized, setInitialized] = useState(false)
   const [searchResult, setSearchResult] = useState([]);
 
   useEffect(()=> {
-    if(!theme){
-      setTheme('light')
+    if(!initialized){
+      setTheme('light');
+      setInitialized(true)
     }
-  }, [theme, setTheme])
+  }, [theme, setTheme, initialized])
 
   const handleSearch = async (searchText) => {
     const result = await searchAPI(searchText);
