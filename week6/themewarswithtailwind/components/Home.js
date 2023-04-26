@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {useTheme} from 'next-themes'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSith } from '@fortawesome/free-brands-svg-icons';
@@ -10,6 +10,12 @@ import Form from './Form';
 function Home() {
   const {theme, setTheme}= useTheme()
   const [searchResult, setSearchResult] = useState([]);
+
+  useEffect(()=> {
+    if(!theme){
+      setTheme('light')
+    }
+  }, [theme, setTheme])
 
   const handleSearch = async (searchText) => {
     const result = await searchAPI(searchText);
