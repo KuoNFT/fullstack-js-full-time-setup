@@ -3,9 +3,9 @@ import Head from 'next/head';
 import Header from '../components/Header';
 
 import { Provider } from 'react-redux';
-import { configureStore } from '@reduxjs/toolkit';
 import { persistStore, persistReducer } from 'redux-persist';
 import { PersistGate } from 'redux-persist/integration/react';
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import storage from 'redux-persist/lib/storage';
 
 import bookmarks from '../reducers/bookmarks';
@@ -14,21 +14,23 @@ import user from '../reducers/user';
 // Créez un nouveau reducer pour les articles cachés
 import hiddenArticles from '../reducers/hiddenArticles';
 
-const rootReducer = {
+const rootReducer = combineReducers({
   bookmarks,
   user,
   hiddenArticles,
-};
+});
 
 const persistConfig = {
   key: 'root',
   storage,
 };
 
-const persistedReducer = persistReducer(persistConfig, rootReducer);
-
 const store = configureStore({
-  reducer: persistedReducer,
+  reducer: persistReducer(persistConfig, rootReducer),
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware({
+    serializableCheck: false
+  }),
+  
 });
 
 const persistor = persistStore(store);

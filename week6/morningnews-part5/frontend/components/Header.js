@@ -2,9 +2,10 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { login, logout } from '../reducers/user';
 import { removeAllBookmark } from '../reducers/bookmarks';
+import { unhideArticles } from '../reducers/hiddenArticles';
 import styles from '../styles/Header.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser, faXmark } from '@fortawesome/free-solid-svg-icons';
+import { faUser, faXmark, faEye } from '@fortawesome/free-solid-svg-icons';
 import Moment from 'react-moment';
 import { Modal } from 'antd';
 import Link from 'next/link';
@@ -19,6 +20,10 @@ function Header() {
 	const [signUpPassword, setSignUpPassword] = useState('');
 	const [signInUsername, setSignInUsername] = useState('');
 	const [signInPassword, setSignInPassword] = useState('');
+
+	const handleUnhideClick = () => {
+		dispatch(unhideArticles());
+	  };
 
 	useEffect(() => {
 		setDate(new Date());
@@ -92,6 +97,7 @@ function Header() {
 			<div className={styles.logoutSection}>
 				<p>Welcome {user.username} / </p>
 				<button onClick={() => handleLogout()}>Logout</button>
+				<FontAwesomeIcon onClick={() => handleUnhideClick()} icon={faEye} className={styles.unhideIcon} />
 			</div>
 		);
 	} else {
@@ -99,11 +105,13 @@ function Header() {
 			userSection =
 				<div className={styles.headerIcons}>
 					<FontAwesomeIcon onClick={showModal} className={styles.userSection} icon={faXmark} />
+					<FontAwesomeIcon onClick={() => handleUnhideClick()} icon={faEye} className={styles.unhideIcon} />
 				</div>
 		} else {
 			userSection =
 				<div className={styles.headerIcons}>
 					<FontAwesomeIcon onClick={showModal} className={styles.userSection} icon={faUser} />
+					<FontAwesomeIcon onClick={() => handleUnhideClick()} icon={faEye} className={styles.unhideIcon} />
 				</div>
 		}
 	}
