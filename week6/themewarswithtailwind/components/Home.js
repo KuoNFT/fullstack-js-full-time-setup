@@ -26,7 +26,7 @@ function Home() {
 
  
 return (
-    <div id="main" className={`py-0 px-5 bg-left-top bg-right-top bg-no-repeat bg-cover w-screen min-h-screen relative flex flex-col justify-center items-center transition-all ${theme === 'light' ? 'bg-light' : 'bg-dark'}`}>
+    <div id="main" className={`py-0 px-5 bg-left-top bg-right-top bg-no-repeat bg-cover w-screen min-h-screen relative flex flex-col justify-center items-center transition-all ${theme === 'light' ? 'bg-light' : 'dark:bg-dark'}`}>
       {/* TOGGLE THEME BUTTON */}
       <div className="rounded-full cursor-pointer border-none absolute top-6 right-6 w-[50px] h-[50px] bg-neutral-500">
         <button onClick={toggleTheme} className="flex justify-center items-center w-full h-full rounded-full -translate-y-[6px] active:-translate-y-[2px] bg-neutral-800">
