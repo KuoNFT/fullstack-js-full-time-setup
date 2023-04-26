@@ -2,27 +2,32 @@ import '../styles/globals.css';
 import Head from 'next/head';
 import {Provider} from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
-import {configureStore} from 'reduxjs/toolkit';
+import {configureStore, combineReducers, getDefaultMiddleware} from '@reduxjs/toolkit';
 import activitiesReducer from '../reducers/activities';
 import storage from 'redux-persist/lib/storage';
 import { persistStore, persistReducer } from 'redux-persist';
-import { combineReducers } from 'redux';
+
+
+const rootReducer = combineReducers({
+  activities: activitiesReducer,
+});
 
 const persistConfig = {
   key: 'root',
   storage,
 };
 
-const rootReducer = combineReducers({
-  activities: activitiesReducer,
-});
-
-const persistedReducer= persistReducer(store);
 
 
 const store= configureStore({
-  reducer: persistedReducer,
+  reducer: persistReducer(persistConfig, rootReducer),
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware({
+    serializableCheck: false
+  })
 });
+
+
+
 
 const persistor = persistStore(store);
 
