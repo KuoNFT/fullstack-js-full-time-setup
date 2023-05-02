@@ -24,7 +24,7 @@ const TabNavigator = () => {
             iconName = 'location-arrow';
           }
 
-          // Vous pouvez retourner n'importe quel élément ici en tant qu'icône de l'onglet, comme ceci :
+        
           return <FontAwesome name={iconName} size={size} color={color} />;
         },
       })}
