@@ -10,7 +10,9 @@ import {
 import { FontAwesome } from '@expo/vector-icons';
 
 const placesData = [
-
+  { name: 'Paris', latitude: 48.859, longitude: 2.347 },
+  { name: 'Lyon', latitude: 45.758, longitude: 4.835 },
+  { name: 'Marseille', latitude: 43.282, longitude: 5.405 },
 ];
 
 const PlacesScreen = () => {
