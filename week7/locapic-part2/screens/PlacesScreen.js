@@ -45,7 +45,7 @@ export default function PlacesScreen() {
     dispatch({ type: 'DELETE_PLACE', payload: placeName });
   };
 
-  const places = placesData.map((data, i) => {
+  const places = placesData && placesData.map((data, i) => {
     return (
       <View key={i} style={styles.card}>
         <View>

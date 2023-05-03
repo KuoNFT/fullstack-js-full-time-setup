@@ -12,7 +12,7 @@ const initialState = {
       case 'ADD_PLACE':
         return { ...state, places: [...state.places, action.payload] };
   
-      case 'REMOVE_PLACE':
+      case 'DELETE_PLACE':
         return {
           ...state,
           places: state.places.filter((place) => place.name !== action.payload),
