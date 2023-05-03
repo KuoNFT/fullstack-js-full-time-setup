@@ -22,7 +22,7 @@ export default function PlacesScreen() {
     if (newCity.trim() === '') return;
 
     const response = await fetch(
-      `https://api-adresse.data.gouv.fr/search/?q=${newCity}&limit=1`,
+      `https://api-adresse.data.gouv.fr/search/?q=${newCity}`,
     );
     const data = await response.json();
     console.log(data)
