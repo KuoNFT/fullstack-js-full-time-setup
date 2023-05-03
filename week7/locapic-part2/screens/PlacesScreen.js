@@ -8,16 +8,42 @@ import {
   View,
 } from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import { useSelector } from 'react-redux';
-import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import React, { useState } from 'react';
 
 export default function PlacesScreen() {
-  const placesData = [
-    { name: 'Paris', latitude: 48.859, longitude: 2.347 },
-    { name: 'Lyon', latitude: 45.758, longitude: 4.835 },
-    { name: 'Marseille', latitude: 43.282, longitude: 5.405 },
-  ];
+  const placesData = useSelector((state) => state.user.places);
   const nickname = useSelector((state) => state.user.nickname);
+  const [newCity, setNewCity] = useState('');
+  const dispatch = useDispatch();
+
+  const handleAddPlace = async () => {
+    if (newCity.trim() === '') return;
+
+    const response = await fetch(
+      `https://api-adresse.data.gouv.fr/search/?q=${newCity}&limit=1`,
+    );
+    const data = await response.json();
+    const firstResult = data.features[0];
+
+    if (firstResult) {
+      const { coordinates } = firstResult.geometry;
+      const place = {
+        name: newCity,
+        latitude: coordinates[1],
+        longitude: coordinates[0],
+      };
+
+      dispatch({ type: 'ADD_PLACE', payload: place });
+      setNewCity('');
+    } else {
+      alert("Aucune ville trouvée, veuillez réessayer.");
+    }
+  };
+
+  const handleDeletePlace = (placeName) => {
+    dispatch({ type: 'DELETE_PLACE', payload: placeName });
+  };
 
   const places = placesData.map((data, i) => {
     return (
@@ -26,26 +52,39 @@ export default function PlacesScreen() {
           <Text style={styles.name}>{data.name}</Text>
           <Text>LAT : {data.latitude} LON : {data.longitude}</Text>
         </View>
-        <FontAwesome name='trash-o' size={25} color='#ec6e5b' />
-      </View>
-    );
-  });
+        <FontAwesome
+          name="trash-o"
+          size={25}
+          color="#ec6e5b"
+          onPress={() => handleDeletePlace(data.name)}
+          />
+        </View>
+      )});
 
   return (
     <SafeAreaView style={styles.container}>
       <Text style={styles.title}>{nickname}'s places</Text>
 
       <View style={styles.inputContainer}>
-        <TextInput style={styles.input} placeholder="New city" />
-        <TouchableOpacity style={styles.button} activeOpacity={0.8}>
-          <Text style={styles.textButton}>Add</Text>
-        </TouchableOpacity>
-      </View>
+    <TextInput
+      style={styles.input}
+      placeholder="New city"
+      value={newCity}
+      onChangeText={setNewCity}
+    />
+    <TouchableOpacity
+      onPress={handleAddPlace}
+      style={styles.button}
+      activeOpacity={0.8}
+    >
+      <Text style={styles.textButton}>Add</Text>
+    </TouchableOpacity>
+  </View>
 
-      <ScrollView contentContainerStyle={styles.scrollView}>
-        {places}
-      </ScrollView>
-    </SafeAreaView>
+  <ScrollView contentContainerStyle={styles.scrollView}>
+    {places}
+  </ScrollView>
+</SafeAreaView>
   );
 }
 
