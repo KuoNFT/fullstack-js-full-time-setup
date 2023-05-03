@@ -9,6 +9,8 @@ import PlacesScreen from './screens/PlacesScreen';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware, combineReducers } from 'redux';
 import thunk from 'redux-thunk';
+import userReducer from './reducers/user';
+
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -42,15 +44,6 @@ const TabNavigator = () => {
 // Reducer pour gérer le surnom de l'utilisateur
 const initialState = {
   nickname: '',
-};
-
-const userReducer = (state = initialState, action) => {
-  switch (action.type) {
-    case 'SET_NICKNAME':
-      return { ...state, nickname: action.payload };
-    default:
-      return state;
-  }
 };
 
 // Création du store Redux

@@ -10,7 +10,9 @@ const initialState = {
         return { ...state, nickname: action.payload };
   
       case 'ADD_PLACE':
-        return { ...state, places: [...state.places, action.payload] };
+        const updatedPlaces = [...state.places, action.payload];
+        console.log('UpdatedPlaces is'+ updatedPlaces);
+        return { ...state, places: updatedPlaces };
   
       case 'DELETE_PLACE':
         return {

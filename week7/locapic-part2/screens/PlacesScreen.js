@@ -13,6 +13,7 @@ import React, { useState } from 'react';
 
 export default function PlacesScreen() {
   const placesData = useSelector((state) => state.user.places);
+  console.log('placesData is :'+ placesData)
   const nickname = useSelector((state) => state.user.nickname);
   const [newCity, setNewCity] = useState('');
   const dispatch = useDispatch();
@@ -24,6 +25,7 @@ export default function PlacesScreen() {
       `https://api-adresse.data.gouv.fr/search/?q=${newCity}&limit=1`,
     );
     const data = await response.json();
+    console.log(data)
     const firstResult = data.features[0];
 
     if (firstResult) {
