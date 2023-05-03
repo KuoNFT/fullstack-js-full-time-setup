@@ -7,9 +7,9 @@ import {
   TextInput,
   TouchableOpacity,
 } from 'react-native';
+
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function HomeScreen({ navigation }) {
   const [nickname, setNickname] = useState('');
@@ -19,14 +19,9 @@ export default function HomeScreen({ navigation }) {
     dispatch({ type: 'SET_NICKNAME', payload: nickname });
   };
 
-  const handleGoToMap = async () => {
-    try {
-      await AsyncStorage.setItem('nickname', nickname);
-      updateNickname(nickname);
-      navigation.navigate('TabNavigator');
-    } catch (error) {
-      console.error("Erreur lors de l'enregistrement du surnom:", error);
-    }
+  const handleGoToMap = () => {
+    updateNickname(nickname);
+    navigation.navigate('TabNavigator');
   };
 
   return (
@@ -37,16 +32,15 @@ export default function HomeScreen({ navigation }) {
       <TextInput
         style={styles.input}
         placeholder="Nickname"
-        onChangeText={setNickname}
+        onChangeText={(text) => setNickname(text)}
         value={nickname}
       />
       <TouchableOpacity onPress={handleGoToMap} style={styles.button} activeOpacity={0.8}>
         <Text style={styles.textButton}>Go to map</Text>
       </TouchableOpacity>
-    </KeyboardAvoidingView >
+    </KeyboardAvoidingView>
   );
 }
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,

@@ -9,34 +9,15 @@ import {
 } from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { useSelector } from 'react-redux';
-import React, { useState, useEffect } from 'react';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import React from 'react';
 
 export default function PlacesScreen() {
-  const nicknameFromRedux = useSelector((state) => state.user.nickname);
-  const [nickname, setNickname] = useState(nicknameFromRedux);
-
-  useEffect(() => {
-    const fetchNickname = async () => {
-      try {
-        const storedNickname = await AsyncStorage.getItem('nickname');
-        if (storedNickname !== null) {
-          setNickname(storedNickname);
-        }
-      } catch (error) {
-        console.error("Erreur lors de la récupération du surnom:", error);
-      }
-    };
-    fetchNickname();
-  }, []);
-
   const placesData = [
     { name: 'Paris', latitude: 48.859, longitude: 2.347 },
     { name: 'Lyon', latitude: 45.758, longitude: 4.835 },
     { name: 'Marseille', latitude: 43.282, longitude: 5.405 },
   ];
-
-
+  const nickname = useSelector((state) => state.user.nickname);
 
   const places = placesData.map((data, i) => {
     return (
