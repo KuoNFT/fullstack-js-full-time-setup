@@ -7,15 +7,40 @@ import {
   TextInput,
   TouchableOpacity,
 } from 'react-native';
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function HomeScreen({ navigation }) {
+  const [nickname, setNickname] = useState('');
+  const dispatch = useDispatch();
+
+  const updateNickname = (nickname) => {
+    dispatch({ type: 'SET_NICKNAME', payload: nickname });
+  };
+
+  const handleGoToMap = async () => {
+    try {
+      await AsyncStorage.setItem('nickname', nickname);
+      updateNickname(nickname);
+      navigation.navigate('TabNavigator');
+    } catch (error) {
+      console.error("Erreur lors de l'enregistrement du surnom:", error);
+    }
+  };
+
   return (
     <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
       <Image style={styles.image} source={require('../assets/home-image.jpg')} />
       <Text style={styles.title}>Welcome to Locapic</Text>
 
-      <TextInput style={styles.input} placeholder="Nickname" />
-      <TouchableOpacity onPress={() => navigation.navigate('TabNavigator')} style={styles.button} activeOpacity={0.8}>
+      <TextInput
+        style={styles.input}
+        placeholder="Nickname"
+        onChangeText={setNickname}
+        value={nickname}
+      />
+      <TouchableOpacity onPress={handleGoToMap} style={styles.button} activeOpacity={0.8}>
         <Text style={styles.textButton}>Go to map</Text>
       </TouchableOpacity>
     </KeyboardAvoidingView >
