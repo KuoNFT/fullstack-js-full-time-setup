@@ -1,53 +1,45 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { StyleSheet, Text, View, TextInput, Pressable, SafeAreaView } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 
 export default function App() {
-  const [placeName, setPlaceName] = useState('');
-  const [latitude, setLatitude] = useState('');
-  const [longitude, setLongitude] = useState('');
   const [markers, setMarkers] = useState([]);
+  const titleInput = useRef();
+  const latInput = useRef();
+  const lonInput = useRef();
 
-  const handlePress = () => {
-    if (placeName && latitude && longitude) {
-      const newMarker = {
-        title: placeName,
-        coordinate: {
-          latitude: parseFloat(latitude),
-          longitude: parseFloat(longitude),
-        },
-      };
-      setMarkers([...markers, newMarker]);
-      setPlaceName('');
-      setLatitude('');
-      setLongitude('');
-    }
+  const addMarker = (title, latitude, longitude) => {
+    setMarkers([...markers, { title, latitude, longitude }]);
   };
 
   return (
     <View>
       <SafeAreaView style={styles.inputSection}>
         <TextInput
+          ref={titleInput}
           placeholder='Place Name'
           style={styles.input}
-          value={placeName}
-          onChangeText={setPlaceName}
         />
         <TextInput
+          ref={latInput}
           placeholder='Latitude'
           style={styles.input}
-          value={latitude}
-          onChangeText={setLatitude}
-          keyboardType='numeric'
         />
         <TextInput
+          ref={lonInput}
           placeholder='Longitude'
           style={styles.input}
-          value={longitude}
-          onChangeText={setLongitude}
-          keyboardType='numeric'
         />
-        <Pressable style={styles.button} onPress={handlePress}>
+        <Pressable
+          style={styles.button}
+          onPress={() => {
+            addMarker(
+              titleInput.current.value,
+              parseFloat(latInput.current.value),
+              parseFloat(lonInput.current.value)
+            );
+          }}
+        >
           <Text style={styles.buttonText}>Go</Text>
         </Pressable>
       </SafeAreaView>
@@ -63,7 +55,10 @@ export default function App() {
         {markers.map((marker, index) => (
           <Marker
             key={index}
-            coordinate={marker.coordinate}
+            coordinate={{
+              latitude: marker.latitude,
+              longitude: marker.longitude,
+            }}
             title={marker.title}
           />
         ))}
