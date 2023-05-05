@@ -17,6 +17,7 @@ export default function App() {
           longitude: parseFloat(longitude),
         },
       };
+	  console.log(newMarker)
       setMarkers([...markers, newMarker]);
       setPlaceName('');
       setLatitude('');
@@ -61,20 +62,20 @@ export default function App() {
         <TextInput
           placeholder='Place Name'
           style={styles.input}
-          value={placeName}
+          //value={placeName}
           onChangeText={setPlaceName}
         />
         <TextInput
           placeholder='Latitude'
           style={styles.input}
-          value={latitude}
+          //value={latitude}
           onChangeText={setLatitude}
           keyboardType='numeric'
         />
         <TextInput
           placeholder='Longitude'
           style={styles.input}
-          value={longitude}
+          //value={longitude}
           onChangeText={setLongitude}
           keyboardType='numeric'
         />
