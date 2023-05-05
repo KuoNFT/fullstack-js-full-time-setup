@@ -61,7 +61,7 @@ export default function App() {
         }}
         style={styles.map}
       >
-        {markers.map((marker, index) => (
+        {markers && markers.map((marker, index) => (
           <Marker
             key={index}
             coordinate={marker.coordinate}
