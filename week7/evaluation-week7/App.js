@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, Text, View, TextInput, Pressable, SafeAreaView } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 
@@ -6,7 +6,7 @@ export default function App() {
   const [placeName, setPlaceName] = useState('');
   const [latitude, setLatitude] = useState('');
   const [longitude, setLongitude] = useState('');
-  const markersRef = useRef([]);
+  const [markers, setMarkers] = useState([]);
 
   const handlePress = () => {
     if (placeName && latitude && longitude) {
@@ -17,8 +17,7 @@ export default function App() {
           longitude: parseFloat(longitude),
         },
       };
-	  console.log(newMarker)
-      markersRef.current = [...markersRef.current, newMarker];
+      setMarkers([...markers, newMarker]);
       setPlaceName('');
       setLatitude('');
       setLongitude('');
@@ -61,7 +60,7 @@ export default function App() {
         }}
         style={styles.map}
       >
-        {markersRef.current.map((marker, index) => (
+        {markers.map((marker, index) => (
           <Marker
             key={index}
             coordinate={marker.coordinate}
@@ -72,3 +71,43 @@ export default function App() {
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+  },
+  map: {
+    width: '100%',
+    height: '70%',
+  },
+  inputSection: {
+    width: '100%',
+    height: '30%',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  input: {
+    borderWidth: 1,
+    width: '80%',
+    borderColor: 'gray',
+    paddingHorizontal: 20,
+    paddingVertical: 5,
+    margin: 5,
+    borderRadius: 10,
+  },
+  button: {
+    marginTop: 5,
+    paddingHorizontal: 12,
+    paddingVertical: 3,
+    borderRadius: 10,
+    backgroundColor: '#16C172',
+  },
+  buttonText: {
+    color: 'white',
+    fontSize: 17,
+    fontWeight: 'bold',
+    paddingHorizontal: 20,
+  },
+});
