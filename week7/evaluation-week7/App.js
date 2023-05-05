@@ -17,6 +17,7 @@ export default function App() {
           longitude: parseFloat(longitude),
         },
       };
+      console.log(newMarker)
       setMarkers([...markers, newMarker]);
       setPlaceName('');
       setLatitude('');
