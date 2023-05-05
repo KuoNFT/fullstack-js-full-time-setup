@@ -3,44 +3,69 @@ import { StyleSheet, Text, View, TextInput, Pressable, SafeAreaView } from 'reac
 import MapView, { Marker } from 'react-native-maps';
 
 export default function App() {
+  const [placeName, setPlaceName] = useState('');
+  const [latitude, setLatitude] = useState('');
+  const [longitude, setLongitude] = useState('');
   const [markers, setMarkers] = useState([]);
 
-  const addMarker = () => {
-    const name = nameRef.current?.value;
-    const lat = Number(latRef.current?.value);
-    const lng = Number(lngRef.current?.value);
-
-    if (!name || isNaN(lat) || isNaN(lng)) {
-      return;
+  const handlePress = () => {
+    if (placeName && latitude && longitude) {
+      const newMarker = {
+        title: placeName,
+        coordinate: {
+          latitude: parseFloat(latitude),
+          longitude: parseFloat(longitude),
+        },
+      };
+      setMarkers([...markers, newMarker]);
+      setPlaceName('');
+      setLatitude('');
+      setLongitude('');
     }
-
-    setMarkers([...markers, { name, coordinate: { latitude: lat, longitude: lng } }]);
   };
-
-  const nameRef = React.createRef();
-  const latRef = React.createRef();
-  const lngRef = React.createRef();
 
   return (
     <View>
       <SafeAreaView style={styles.inputSection}>
-        <TextInput ref={nameRef} placeholder='Place Name' style={styles.input} />
-        <TextInput ref={latRef} placeholder='Latitude' style={styles.input} />
-        <TextInput ref={lngRef} placeholder='Longitude' style={styles.input} />
-        <Pressable style={styles.button} onPress={addMarker}>
+        <TextInput
+          placeholder='Place Name'
+          style={styles.input}
+          value={placeName}
+          onChangeText={setPlaceName}
+        />
+        <TextInput
+          placeholder='Latitude'
+          style={styles.input}
+          value={latitude}
+          onChangeText={setLatitude}
+          keyboardType='numeric'
+        />
+        <TextInput
+          placeholder='Longitude'
+          style={styles.input}
+          value={longitude}
+          onChangeText={setLongitude}
+          keyboardType='numeric'
+        />
+        <Pressable style={styles.button} onPress={handlePress}>
           <Text style={styles.buttonText}>Go</Text>
         </Pressable>
       </SafeAreaView>
       <MapView
         initialRegion={{
-          latitude: 48.856614,
-          longitude: 2.3522219,
-          latitudeDelta: 5,
-          longitudeDelta: 5,
+          latitude: 5,
+          longitude: 5,
+          latitudeDelta: 0.5,
+          longitudeDelta: 0.5,
         }}
-        style={styles.map}>
+        style={styles.map}
+      >
         {markers.map((marker, index) => (
-          <Marker key={index} coordinate={marker.coordinate} title={marker.name} />
+          <Marker
+            key={index}
+            coordinate={marker.coordinate}
+            title={marker.title}
+          />
         ))}
       </MapView>
     </View>
