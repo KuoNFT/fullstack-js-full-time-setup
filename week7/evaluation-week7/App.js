@@ -19,9 +19,6 @@ export default function App() {
       };
 	  console.log(newMarker)
       setMarkers([...markers, newMarker]);
-      setPlaceName('');
-      setLatitude('');
-      setLongitude('');
     }
   };
 
@@ -63,7 +60,7 @@ export default function App() {
           placeholder='Place Name'
           style={styles.input}
           value={placeName}
-          onChangeText={(value) => setPlaceName(value)}
+          onChangeText={setPlaceName}
         />
         <TextInput
           placeholder='Latitude'
