@@ -13,8 +13,8 @@ export default function App() {
       const newMarker = {
         title: placeName,
         coordinate: {
-          latitude: parseFloat(latitude),
-          longitude: parseFloat(longitude),
+          latitude: latitude,
+          longitude: longitude,
         },
       };
       console.log(newMarker)
