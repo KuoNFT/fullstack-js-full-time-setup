@@ -8,11 +8,24 @@ import * as Location from 'expo-location';
 export default function MapScreen() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.value);
+  const [isMapReady, setIsMapReady] = useState(false);
 
   const [currentPosition, setCurrentPosition] = useState(null);
   const [tempCoordinates, setTempCoordinates] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
   const [newPlace, setNewPlace] = useState('');
+
+  const onMapLayout = () => {
+    setIsMapReady(true);
+  };
+
+  useEffect(() => {
+    if (isMapReady) {
+      loadMarkers();
+    }
+  }, [isMapReady]);
+
+
 
   useEffect(() => {
     (async () => {
@@ -27,25 +40,88 @@ export default function MapScreen() {
     })();
   }, []);
 
+  const loadMarkers = async () => {
+    try {
+      const response = await fetch(`http://192.168.1.124:3000/places/${user.nickname}`);
+      const data = await response.json();
+      console.log(data)
+
+      if (data.result) {
+        dispatch(addPlace(data.places));
+      } else {
+        console.error('Error loading markers.');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+
+ 
+
   const handleLongPress = (e) => {
     setTempCoordinates(e.nativeEvent.coordinate);
     setModalVisible(true);
   };
 
-  const handleNewPlace = () => {
-    dispatch(addPlace({ name: newPlace, latitude: tempCoordinates.latitude, longitude: tempCoordinates.longitude }));
+  const handleNewPlace = async () => {
+    try {
+      const response = await fetch('http://192.168.1.124:3000/places', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          nickname: user.nickname,
+          name: newPlace,
+          latitude: tempCoordinates.latitude,
+          longitude: tempCoordinates.longitude,
+        }),
+        
+      });
+  
+      const data = await response.json();
+      console.log(data)
+  
+      if (data.result) {
+        dispatch(addPlace({
+          name: newPlace,
+          latitude: tempCoordinates.latitude,
+          longitude: tempCoordinates.longitude,
+        }));
+      } else {
+        console.error('Error saving the place.');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  
     setModalVisible(false);
     setNewPlace('');
   };
+  
 
   const handleClose = () => {
     setModalVisible(false);
     setNewPlace('');
   };
+  console.log(user.places)
 
-  const markers = user.places.map((data, i) => {
-    return <Marker key={i} coordinate={{ latitude: data.latitude, longitude: data.longitude }} title={data.name} />;
+  const markers = user.places 
+  .filter((data) => data.latitude !== undefined && data.longitude !== undefined)
+  .map((data, i) => {
+    return (
+      <Marker
+        key={i}
+        coordinate={{ latitude: data.latitude, longitude: data.longitude }}
+        title={data.name}
+      />
+    );
   });
+
+  useEffect(() => {
+    loadMarkers();
+  }, []);
+
 
   return (
     <View style={styles.container}>
@@ -63,7 +139,7 @@ export default function MapScreen() {
         </View>
       </Modal>
 
-      <MapView onLongPress={(e) => handleLongPress(e)} mapType="hybrid" style={styles.map}>
+      <MapView onLongPress={(e) => handleLongPress(e)} onLayout={onMapLayout} mapType="hybrid" style={styles.map}>
         {currentPosition && <Marker coordinate={currentPosition} title="My position" pinColor="#fecb2d" />}
         {markers}
       </MapView>
