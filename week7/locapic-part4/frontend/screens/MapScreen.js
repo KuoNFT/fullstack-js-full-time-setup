@@ -8,7 +8,6 @@ import * as Location from 'expo-location';
 export default function MapScreen() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.value);
-  const markers = useSelector((state) => state.markers.value);
 
   const [currentPosition, setCurrentPosition] = useState(null);
   const [tempCoordinates, setTempCoordinates] = useState(null);
@@ -27,8 +26,6 @@ export default function MapScreen() {
       }
     })();
   }, []);
-
-
 
   const handleLongPress = (e) => {
     setTempCoordinates(e.nativeEvent.coordinate);
@@ -49,27 +46,26 @@ export default function MapScreen() {
           longitude: tempCoordinates.longitude,
         }),
       });
-  
+
       const data = await response.json();
-  
+
       if (data.result) {
         data.result && dispatch(addPlace({
           name: newPlace,
           latitude: tempCoordinates.latitude,
           longitude: tempCoordinates.longitude,
         }));
-        dispatch(setMarkers(user.nickname));
       } else {
         console.error('Error saving the place.');
       }
     } catch (error) {
       console.error('Error:', error);
     }
-  
+
     setModalVisible(false);
     setNewPlace('');
   };
-  
+
   const handleClose = () => {
     setModalVisible(false);
     setNewPlace('');
@@ -94,9 +90,9 @@ export default function MapScreen() {
   useEffect(() => {
     loadMarkers();
   }, []);
-  
-  const markerElements = markers
-    ? markers
+
+  const markerElements = user.places
+    ? user.places
         .filter((data) => data.latitude !== undefined && data.longitude !== undefined)
         .map((data, i) => {
           return (
@@ -109,18 +105,17 @@ export default function MapScreen() {
         })
     : [];
 
-
-return (
-  <View style={styles.container}>
-  <Modal visible={modalVisible} animationType="fade" transparent>
-    <View style={styles.centeredView}>
-      <View style={styles.modalView}>
-        <TextInput placeholder="New place" onChangeText={(value) => setNewPlace(value)} value={newPlace} style={styles.input} />
-        <TouchableOpacity onPress={() => handleNewPlace()} style={styles.button} activeOpacity={0.8}>
-          <Text style={styles.textButton}>Add</Text>
-        </TouchableOpacity>
+  return (
+    <View style={styles.container}>
+      <Modal visible={modalVisible} animationType="fade" transparent>
+        <View style={styles.centeredView}>
+          <View style={styles.modalView}>
+            <TextInput placeholder="New place" onChangeText={(value) => setNewPlace(value)} value={newPlace} style={styles.input} />
+            <TouchableOpacity onPress={() => handleNewPlace()} style={styles.button} activeOpacity={0.8}>
+              <Text style={styles.textButton}>Add</Text>
+              </TouchableOpacity>
         <TouchableOpacity onPress={() => handleClose()} style={styles.button} activeOpacity={0.8}>
-          <Text style={styles.textButton}>Close</Text>
+          <Text style={styles.textButton}>Fermer</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -133,7 +128,6 @@ return (
 </View>
 );
 }
-
 
 const styles = StyleSheet.create({
   container: {
