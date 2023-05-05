@@ -8,10 +8,12 @@ import PlacesScreen from './screens/PlacesScreen';
 
 import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
-import user from './reducers/user';
+import userReducer from './reducers/user';
 
 const store = configureStore({
-  reducer: { user },
+  reducer: {
+    user: userReducer,
+  },
 });
 
 const Stack = createNativeStackNavigator();

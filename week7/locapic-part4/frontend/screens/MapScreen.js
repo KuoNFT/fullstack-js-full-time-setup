@@ -1,31 +1,19 @@
 import { useEffect, useState } from 'react';
 import { Modal, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import { addPlace } from '../reducers/user';
+import { addPlace, setMarkers } from '../reducers/user';
 import MapView, { Marker } from 'react-native-maps';
 import * as Location from 'expo-location';
 
 export default function MapScreen() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.value);
-  const [isMapReady, setIsMapReady] = useState(false);
+  const markers = useSelector((state) => state.markers.value);
 
   const [currentPosition, setCurrentPosition] = useState(null);
   const [tempCoordinates, setTempCoordinates] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
   const [newPlace, setNewPlace] = useState('');
-
-  const onMapLayout = () => {
-    setIsMapReady(true);
-  };
-
-  useEffect(() => {
-    if (isMapReady) {
-      loadMarkers();
-    }
-  }, [isMapReady]);
-
-
 
   useEffect(() => {
     (async () => {
@@ -40,23 +28,9 @@ export default function MapScreen() {
     })();
   }, []);
 
-  const loadMarkers = async () => {
-    try {
-      const response = await fetch(`http://192.168.1.124:3000/places/${user.nickname}`);
-      const data = await response.json();
-      console.log(data)
-
-      if (data.result) {
-        dispatch(addPlace(data.places));
-      } else {
-        console.error('Error loading markers.');
-      }
-    } catch (error) {
-      console.error('Error:', error);
-    }
-  };
-
- 
+  useEffect(() => {
+    dispatch(setMarkers(user.nickname));
+  }, []);
 
   const handleLongPress = (e) => {
     setTempCoordinates(e.nativeEvent.coordinate);
@@ -76,18 +50,17 @@ export default function MapScreen() {
           latitude: tempCoordinates.latitude,
           longitude: tempCoordinates.longitude,
         }),
-        
       });
   
       const data = await response.json();
-      console.log(data)
   
       if (data.result) {
-        dispatch(addPlace({
+        data.result && dispatch(addPlace({
           name: newPlace,
           latitude: tempCoordinates.latitude,
           longitude: tempCoordinates.longitude,
         }));
+        dispatch(setMarkers(user.nickname));
       } else {
         console.error('Error saving the place.');
       }
@@ -99,53 +72,70 @@ export default function MapScreen() {
     setNewPlace('');
   };
   
-
   const handleClose = () => {
     setModalVisible(false);
     setNewPlace('');
   };
-  console.log(user.places)
 
-  const markers = user.places 
-  .filter((data) => data.latitude !== undefined && data.longitude !== undefined)
-  .map((data, i) => {
-    return (
-      <Marker
-        key={i}
-        coordinate={{ latitude: data.latitude, longitude: data.longitude }}
-        title={data.name}
-      />
-    );
-  });
+  const loadMarkers = async () => {
+    try {
+      const response = await fetch(`http://192.168.1.124:3000/places/${user.nickname}`);
+      const data = await response.json();
+
+      if (data.result) {
+        console.log(data)
+        dispatch(setMarkers(data.places));
+      } else {
+        console.error('Error loading markers.');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
 
   useEffect(() => {
     loadMarkers();
   }, []);
+  
+  const markerElements = markers
+    ? markers
+        .filter((data) => data.latitude !== undefined && data.longitude !== undefined)
+        .map((data, i) => {
+          return (
+            <Marker
+              key={i}
+              coordinate={{ latitude: data.latitude, longitude: data.longitude }}
+              title={data.name}
+            />
+          );
+        })
+    : [];
 
 
-  return (
-    <View style={styles.container}>
-      <Modal visible={modalVisible} animationType="fade" transparent>
-        <View style={styles.centeredView}>
-          <View style={styles.modalView}>
-            <TextInput placeholder="New place" onChangeText={(value) => setNewPlace(value)} value={newPlace} style={styles.input} />
-            <TouchableOpacity onPress={() => handleNewPlace()} style={styles.button} activeOpacity={0.8}>
-              <Text style={styles.textButton}>Add</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => handleClose()} style={styles.button} activeOpacity={0.8}>
-              <Text style={styles.textButton}>Close</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </Modal>
-
-      <MapView onLongPress={(e) => handleLongPress(e)} onLayout={onMapLayout} mapType="hybrid" style={styles.map}>
-        {currentPosition && <Marker coordinate={currentPosition} title="My position" pinColor="#fecb2d" />}
-        {markers}
-      </MapView>
+return (
+  <View style={styles.container}>
+  <Modal visible={modalVisible} animationType="fade" transparent>
+    <View style={styles.centeredView}>
+      <View style={styles.modalView}>
+        <TextInput placeholder="New place" onChangeText={(value) => setNewPlace(value)} value={newPlace} style={styles.input} />
+        <TouchableOpacity onPress={() => handleNewPlace()} style={styles.button} activeOpacity={0.8}>
+          <Text style={styles.textButton}>Add</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => handleClose()} style={styles.button} activeOpacity={0.8}>
+          <Text style={styles.textButton}>Close</Text>
+        </TouchableOpacity>
+      </View>
     </View>
-  );
+  </Modal>
+
+  <MapView onLongPress={(e) => handleLongPress(e)} mapType="hybrid" style={styles.map}>
+    {currentPosition && <Marker coordinate={currentPosition} title="Ma position" pinColor="#fecb2d" />}
+    {markerElements}
+  </MapView>
+</View>
+);
 }
+
 
 const styles = StyleSheet.create({
   container: {
