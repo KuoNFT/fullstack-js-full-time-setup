@@ -3,8 +3,8 @@ import { StyleSheet, Text, View, TextInput, Pressable, SafeAreaView } from 'reac
 import MapView, { Marker } from 'react-native-maps';
 
 export default function App() {
-  const [placeName, setPlaceName] = useState('');
-  const [latitude, setLatitude] = useState('');
+  const [placeName, setPlaceName] = useState(null);
+  const [latitude, setLatitude] = useState(null);
   const [longitude, setLongitude] = useState('');
   const [markers, setMarkers] = useState([]);
 
@@ -20,8 +20,8 @@ export default function App() {
       console.log(newMarker)
       setMarkers([...markers, newMarker]);
       setPlaceName('');
-      setLatitude('');
-      setLongitude('');
+      setLatitude(null);
+      setLongitude(null);
     }
   };
 
@@ -61,7 +61,7 @@ export default function App() {
         }}
         style={styles.map}
       >
-        {markers && markers.map((marker, index) => (
+        {markers.map((marker, index) => (
           <Marker
             key={index}
             coordinate={marker.coordinate}
