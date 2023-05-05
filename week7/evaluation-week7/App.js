@@ -6,6 +6,7 @@ export default function App() {
   const [placeName, setPlaceName] = useState('');
   const [latitude, setLatitude] = useState('');
   const [longitude, setLongitude] = useState('');
+
   const [markers, setMarkers] = useState([]);
 
   const handlePress = () => {
@@ -17,70 +18,40 @@ export default function App() {
           longitude: parseFloat(longitude),
         },
       };
-	  console.log(newMarker)
-      setMarkers([...markers, newMarker]);
+
+      setPlaceName('');
+      setLatitude('');
+      setLongitude('');
+
+      setMarkers((prevMarkers) => [...prevMarkers, newMarker]);
     }
-  };
-
-  const addTestMarkers = () => {
-    const London = { lat: 51.507359, lon: -0.136439 };
-    const Madrid = { lat: 40.416775, lon: -3.703790 };
-    const Rome = { lat: 41.902783, lon: 12.496366 };
-
-    setMarkers([
-      ...markers,
-      {
-        title: 'London',
-        coordinate: {
-          latitude: London.lat,
-          longitude: London.lon,
-        },
-      },
-      {
-        title: 'Madrid',
-        coordinate: {
-          latitude: Madrid.lat,
-          longitude: Madrid.lon,
-        },
-      },
-      {
-        title: 'Rome',
-        coordinate: {
-          latitude: Rome.lat,
-          longitude: Rome.lon,
-        },
-      },
-    ]);
   };
 
   return (
     <View>
       <SafeAreaView style={styles.inputSection}>
         <TextInput
-          placeholder='Place Name'
+          placeholder="Place Name"
           style={styles.input}
           value={placeName}
           onChangeText={setPlaceName}
         />
         <TextInput
-          placeholder='Latitude'
+          placeholder="Latitude"
           style={styles.input}
           value={latitude}
           onChangeText={setLatitude}
-          keyboardType='numeric'
+          keyboardType="numeric"
         />
         <TextInput
-          placeholder='Longitude'
+          placeholder="Longitude"
           style={styles.input}
           value={longitude}
           onChangeText={setLongitude}
-          keyboardType='numeric'
+          keyboardType="numeric"
         />
         <Pressable style={styles.button} onPress={handlePress}>
           <Text style={styles.buttonText}>Go</Text>
-        </Pressable>
-        <Pressable style={styles.button} onPress={addTestMarkers}>
-          <Text style={styles.buttonText}>Ajouter les villes de test</Text>
         </Pressable>
       </SafeAreaView>
       <MapView
@@ -93,11 +64,7 @@ export default function App() {
         style={styles.map}
       >
         {markers.map((marker, index) => (
-          <Marker
-            key={index}
-            coordinate={marker.coordinate}
-            title={marker.title}
-          />
+          <Marker key={index} coordinate={marker.coordinate} title={marker.title} />
         ))}
       </MapView>
     </View>
@@ -124,7 +91,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     width: '80%',
     borderColor: 'gray',
-    paddingHorizontal: 20, 
+    paddingHorizontal: 20,
     paddingVertical: 5,
     margin: 5,
     borderRadius: 10,
