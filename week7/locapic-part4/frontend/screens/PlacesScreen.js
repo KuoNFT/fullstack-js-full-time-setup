@@ -25,7 +25,7 @@ export default function PlacesScreen() {
 
     fetch(`https://api-adresse.data.gouv.fr/search/?q=${city}`)
       .then((response) => response.json())
-      .then((data) => {
+      .then(async (data) => {
         const firstCity = data.features[0];
         const newPlace = {
           name: firstCity.properties.city,
@@ -33,9 +33,57 @@ export default function PlacesScreen() {
           longitude: firstCity.geometry.coordinates[0],
         };
 
-        dispatch(addPlace(newPlace));
-        setCity('');
+        try {
+          const response = await fetch('http://192.168.1.124:3000/places', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              nickname: user.nickname,
+              name: newPlace.name,
+              latitude: newPlace.latitude,
+              longitude: newPlace.longitude,
+            }),
+          });
+
+          const responseData = await response.json();
+
+          if (responseData.result) {
+            dispatch(addPlace(newPlace));
+            setCity('');
+          } else {
+            console.error('Error saving the place.');
+          }
+        } catch (error) {
+          console.error('Error:', error);
+        }
       });
+  };
+
+  const handleDelete = async (placeName) => {
+    try {
+      const response = await fetch(`http://192.168.1.124:3000/places`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          nickname: user.nickname,
+          name: placeName,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (data.result) {
+        dispatch(removePlace(placeName));
+      } else {
+        console.error('Error deleting the place.');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
   };
 
   const places = user.places.map((data, i) => {
@@ -45,7 +93,7 @@ export default function PlacesScreen() {
           <Text style={styles.name}>{data.name}</Text>
           <Text>LAT : {Number(data.latitude).toFixed(3)} LON : {Number(data.longitude).toFixed(3)}</Text>
         </View>
-        <FontAwesome name='trash-o' onPress={() => dispatch(removePlace(data.name))} size={25} color='#ec6e5b' />
+        <FontAwesome name='trash-o' onPress={() => handleDelete(data.name)} size={25} color='#ec6e5b' />
       </View>
     );
   });
@@ -69,62 +117,62 @@ export default function PlacesScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#f2f2f2',
-    alignItems: 'center',
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: '600',
-    marginTop: 30,
-    marginBottom: 20,
-  },
-  scrollView: {
-    alignItems: 'center',
-    paddingBottom: 20,
-  },
-  card: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    width: '80%',
-    backgroundColor: '#ffffff',
-    padding: 20,
-    marginTop: 20,
-    borderRadius: 10,
-  },
-  name: {
-    fontSize: 18,
-  },
-  inputContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    width: '80%',
-    backgroundColor: '#ffffff',
-    padding: 20,
-    marginTop: 20,
-    borderRadius: 10,
-  },
-  input: {
-    width: '65%',
-    marginTop: 6,
-    borderBottomColor: '#ec6e5b',
-    borderBottomWidth: 1,
-    fontSize: 16,
-  },
-  button: {
-    width: '30%',
-    alignItems: 'center',
-    paddingTop: 8,
-    backgroundColor: '#ec6e5b',
-    borderRadius: 10,
-  },
-  textButton: {
-    color: '#ffffff',
-    height: 24,
-    fontWeight: '600',
-    fontSize: 15,
-  },
+container: {
+flex: 1,
+backgroundColor: '#f2f2f2',
+alignItems: 'center',
+},
+title: {
+fontSize: 20,
+fontWeight: '600',
+marginTop: 30,
+marginBottom: 20,
+},
+scrollView: {
+alignItems: 'center',
+paddingBottom: 20,
+},
+card: {
+flexDirection: 'row',
+alignItems: 'center',
+justifyContent: 'space-between',
+width: '80%',
+backgroundColor: '#ffffff',
+padding: 20,
+marginTop: 20,
+borderRadius: 10,
+},
+name: {
+fontSize: 18,
+},
+inputContainer: {
+flexDirection: 'row',
+justifyContent: 'space-between',
+alignItems: 'center',
+width: '80%',
+backgroundColor: '#ffffff',
+padding: 20,
+marginTop: 20,
+borderRadius: 10,
+},
+input: {
+width: '65%',
+marginTop: 6,
+borderBottomColor: '#ec6e5b',
+borderBottomWidth: 1,
+fontSize: 16,
+},
+button: {
+width: '30%',
+alignItems: 'center',
+paddingTop: 8,
+backgroundColor: '#ec6e5b',
+borderRadius: 10,
+},
+textButton: {
+color: '#ffffff',
+height: 24,
+fontWeight: '600',
+fontSize: 15,
+},
 });

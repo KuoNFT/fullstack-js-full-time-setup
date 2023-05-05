@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Modal, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import { addPlace, setMarkers } from '../reducers/user';
+import { addPlace, importPlaces } from '../reducers/user';
 import MapView, { Marker } from 'react-native-maps';
 import * as Location from 'expo-location';
 
@@ -28,9 +28,7 @@ export default function MapScreen() {
     })();
   }, []);
 
-  useEffect(() => {
-    dispatch(setMarkers(user.nickname));
-  }, []);
+
 
   const handleLongPress = (e) => {
     setTempCoordinates(e.nativeEvent.coordinate);
@@ -84,7 +82,7 @@ export default function MapScreen() {
 
       if (data.result) {
         console.log(data)
-        dispatch(setMarkers(data.places));
+        dispatch(importPlaces(data.places));
       } else {
         console.error('Error loading markers.');
       }
