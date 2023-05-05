@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { StyleSheet, Text, View, TextInput, Pressable, SafeAreaView } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 
@@ -6,8 +6,7 @@ export default function App() {
   const [placeName, setPlaceName] = useState('');
   const [latitude, setLatitude] = useState('');
   const [longitude, setLongitude] = useState('');
-
-  const [markers, setMarkers] = useState([]);
+  const markersRef = useRef([]);
 
   const handlePress = () => {
     if (placeName && latitude && longitude) {
@@ -18,12 +17,11 @@ export default function App() {
           longitude: parseFloat(longitude),
         },
       };
-
+	  console.log(newMarker)
+      markersRef.current = [...markersRef.current, newMarker];
       setPlaceName('');
       setLatitude('');
       setLongitude('');
-
-      setMarkers((prevMarkers) => [...prevMarkers, newMarker]);
     }
   };
 
@@ -31,24 +29,24 @@ export default function App() {
     <View>
       <SafeAreaView style={styles.inputSection}>
         <TextInput
-          placeholder="Place Name"
+          placeholder='Place Name'
           style={styles.input}
           value={placeName}
           onChangeText={setPlaceName}
         />
         <TextInput
-          placeholder="Latitude"
+          placeholder='Latitude'
           style={styles.input}
           value={latitude}
           onChangeText={setLatitude}
-          keyboardType="numeric"
+          keyboardType='numeric'
         />
         <TextInput
-          placeholder="Longitude"
+          placeholder='Longitude'
           style={styles.input}
           value={longitude}
           onChangeText={setLongitude}
-          keyboardType="numeric"
+          keyboardType='numeric'
         />
         <Pressable style={styles.button} onPress={handlePress}>
           <Text style={styles.buttonText}>Go</Text>
@@ -63,50 +61,14 @@ export default function App() {
         }}
         style={styles.map}
       >
-        {markers.map((marker, index) => (
-          <Marker key={index} coordinate={marker.coordinate} title={marker.title} />
+        {markersRef.current.map((marker, index) => (
+          <Marker
+            key={index}
+            coordinate={marker.coordinate}
+            title={marker.title}
+          />
         ))}
       </MapView>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'flex-end',
-    alignItems: 'center',
-  },
-  map: {
-    width: '100%',
-    height: '70%',
-  },
-  inputSection: {
-    width: '100%',
-    height: '30%',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  input: {
-    borderWidth: 1,
-    width: '80%',
-    borderColor: 'gray',
-    paddingHorizontal: 20,
-    paddingVertical: 5,
-    margin: 5,
-    borderRadius: 10,
-  },
-  button: {
-    marginTop: 5,
-    paddingHorizontal: 12,
-    paddingVertical: 3,
-    borderRadius: 10,
-    backgroundColor: '#16C172',
-  },
-  buttonText: {
-    color: 'white',
-    fontSize: 17,
-    fontWeight: 'bold',
-    paddingHorizontal: 20,
-  },
-});
