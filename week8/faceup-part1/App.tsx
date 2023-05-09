@@ -14,8 +14,8 @@ const Tab = createBottomTabNavigator();
 
 const App = () => {
   const screenOptions = ({ route }) => ({
-    tabBarIcon: ({ focused, color, size }) => {
-      let iconName;
+    tabBarIcon: ({ color, size }) => {
+      let iconName = '';
 
       if (route.name === 'GalleryScreen') {
         iconName = 'image';
@@ -27,6 +27,7 @@ const App = () => {
     },
     tabBarActiveTintColor: '#e8be4b',
     tabBarInactiveTintColor: '#b2b2b2',
+    headerShown: false,
     tabBarStyle: [
       {
         display: 'flex',
