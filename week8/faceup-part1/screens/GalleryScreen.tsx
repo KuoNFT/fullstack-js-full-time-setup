@@ -29,7 +29,7 @@ const GalleryScreen: React.FC = () => {
 
   return (
     <View style={styles.container}>
-      <Text>Gallery Screen</Text>
+      <Text>Gallery</Text>
       <FlatList
         data={photosData}
         renderItem={renderItem}
@@ -70,4 +70,3 @@ const styles = StyleSheet.create({
 });
 
 export default GalleryScreen;
-
