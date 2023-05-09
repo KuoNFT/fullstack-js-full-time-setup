@@ -8,6 +8,8 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import { useSelector } from 'react-redux';
+
 
 const photosData: string[] = [
   'https://static.lacapsule.academy/faceup/picture1.jpg',
@@ -25,10 +27,14 @@ const GalleryScreen: React.FC = () => {
       </TouchableOpacity>
     </View>
   );
+  const email = useSelector((state) => state.user.email);
+
 
   return (
     <View style={styles.container}>
       <Text>Gallery</Text>
+      <Text>{email}</Text>
+
       <FlatList
         data={photosData}
         renderItem={renderItem}
