@@ -1,4 +1,5 @@
 // src/reducers/user.ts
+
 type UserState = {
     email: string;
   };

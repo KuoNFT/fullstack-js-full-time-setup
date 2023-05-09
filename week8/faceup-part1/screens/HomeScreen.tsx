@@ -11,6 +11,8 @@ import {
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch } from 'react-redux';
+import userReducer from '../src/reducers/user';
+
 
 
 const HomeScreen: React.FC = () => {
@@ -18,6 +20,14 @@ const HomeScreen: React.FC = () => {
   const [errorMessage, setErrorMessage] = useState('');
   const dispatch = useDispatch();
   const navigation = useNavigation();
+
+  const setEmailAction = (email: string) => {
+    return {
+      type: 'SET_EMAIL',
+      payload: email,
+    };
+  };
+  
 
   const validateEmail = (email: string) => {
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -27,12 +37,13 @@ const HomeScreen: React.FC = () => {
   const handleEmailValidation = () => {
     if (validateEmail(email)) {
       setErrorMessage('');
+      dispatch(setEmailAction(email));
       navigation.navigate('TabNavigator', { screen: 'GalleryScreen' });
-
     } else {
       setErrorMessage('Invalid email address');
     }
   };
+  
 
   return (
     <ImageBackground

@@ -32,8 +32,8 @@ const GalleryScreen: React.FC = () => {
 
   return (
     <View style={styles.container}>
-      <Text>Gallery</Text>
-      <Text>{email}</Text>
+      <Text>Gallery  {email}</Text>
+     
 
       <FlatList
         data={photosData}
