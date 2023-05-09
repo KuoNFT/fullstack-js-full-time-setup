@@ -27,7 +27,8 @@ const HomeScreen: React.FC = () => {
   const handleEmailValidation = () => {
     if (validateEmail(email)) {
       setErrorMessage('');
-      navigation.navigate('Main', { screen: 'GalleryScreen' });
+      navigation.navigate('TabNavigator', { screen: 'GalleryScreen' });
+
     } else {
       setErrorMessage('Invalid email address');
     }

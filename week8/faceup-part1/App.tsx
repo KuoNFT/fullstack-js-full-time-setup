@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import HomeScreen from './screens/HomeScreen';
@@ -9,7 +9,7 @@ import SnapScreen from './screens/SnapScreen';
 import { Provider } from 'react-redux';
 import store from './src/store/store';
 
-const Stack = createStackNavigator();
+const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
 const App = () => {
@@ -35,7 +35,7 @@ const App = () => {
     ],
   });
 
-  const MainTabs = () => (
+  const TabNavigator = () => (
     <Tab.Navigator screenOptions={screenOptions}>
       <Tab.Screen name="GalleryScreen" component={GalleryScreen} />
       <Tab.Screen name="SnapScreen" component={SnapScreen} />
@@ -46,11 +46,12 @@ const App = () => {
     <Provider store={store}>
       <NavigationContainer>
         <Stack.Navigator
-               screenOptions={{
-                headerShown: false,
-              }} >
+          screenOptions={{
+            headerShown: false,
+          }}
+        >
           <Stack.Screen name="Home" component={HomeScreen} />
-          <Stack.Screen name="Main" component={MainTabs} />
+          <Stack.Screen name="TabNavigator" component={TabNavigator} />
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>
