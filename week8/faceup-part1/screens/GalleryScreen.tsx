@@ -7,8 +7,7 @@ import {
   Image,
   TouchableOpacity,
 } from 'react-native';
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faTimes } from '@fortawesome/free-solid-svg-icons';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 const photosData: string[] = [
   'https://static.lacapsule.academy/faceup/picture1.jpg',
@@ -22,7 +21,7 @@ const GalleryScreen: React.FC = () => {
     <View style={styles.imageContainer}>
       <Image source={{ uri: item }} style={styles.image} />
       <TouchableOpacity style={styles.deleteIcon}>
-        <FontAwesomeIcon icon={faTimes} size={24} />
+        <FontAwesome name="times" size={24} />
       </TouchableOpacity>
     </View>
   );
