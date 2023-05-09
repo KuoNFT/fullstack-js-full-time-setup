@@ -45,7 +45,10 @@ const App = () => {
   return (
     <Provider store={store}>
       <NavigationContainer>
-        <Stack.Navigator>
+        <Stack.Navigator
+               screenOptions={{
+                headerShown: false,
+              }} >
           <Stack.Screen name="Home" component={HomeScreen} />
           <Stack.Screen name="Main" component={MainTabs} />
         </Stack.Navigator>

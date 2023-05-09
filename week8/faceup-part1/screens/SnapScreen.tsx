@@ -4,7 +4,7 @@ import { View, Text } from 'react-native';
 const SnapScreen = () => {
   return (
     <View>
-      <Text></Text>
+      <Text>Snap Screen</Text>
     </View>
   );
 };
