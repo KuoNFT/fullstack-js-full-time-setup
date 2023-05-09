@@ -11,17 +11,13 @@ import {
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch } from 'react-redux';
-import { StackNavigationProp } from '@react-navigation/stack';
-import { RootStackParamList } from '../App';
-
-type HomeScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Home'>;
 
 
 const HomeScreen: React.FC = () => {
   const [email, setEmail] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const dispatch = useDispatch();
-  const navigation = useNavigation<HomeScreenNavigationProp>();
+  const navigation = useNavigation();
 
   const validateEmail = (email: string) => {
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -31,7 +27,6 @@ const HomeScreen: React.FC = () => {
   const handleEmailValidation = () => {
     if (validateEmail(email)) {
       setErrorMessage('');
-      dispatch({ type: 'SET_EMAIL', payload: email });
       navigation.navigate('Main', { screen: 'GalleryScreen' });
     } else {
       setErrorMessage('Invalid email address');
