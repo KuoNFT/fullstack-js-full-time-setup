@@ -10,7 +10,7 @@ export default function SnapScreen() {
   const [type, setType] = useState(Camera.Constants.Type.back);
   const [flash, setFlash] = useState(Camera.Constants.FlashMode.off);
 
-  const cameraRef = useRef(null);  // Ajouter une référence à la caméra
+  const cameraRef: any = useRef(null);  // Ajouter une référence à la caméra
   const dispatch = useDispatch();  // Ajouter useDispatch
 
   useEffect(() => {
@@ -23,7 +23,7 @@ export default function SnapScreen() {
   const takePicture = async () => {  // Ajouter la fonction pour prendre la photo
     if (cameraRef.current) {
       const photo = await cameraRef.current.takePictureAsync({quality: 0.5});
-      dispatch(updatePhotos(photo.uri));
+      dispatch(updatePhotos(photo?.uri));
     }
   };
 
@@ -50,6 +50,7 @@ export default function SnapScreen() {
             <FontAwesome name="rotate-right" size={36} color="white" />
           </TouchableOpacity>
           <TouchableOpacity
+          testID="FontAwesomeIcon-circle-thin"
           style={styles.button}
           onPress={takePicture}>
           <FontAwesome name="circle-thin" size={36} color="white" />
