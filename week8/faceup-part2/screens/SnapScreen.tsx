@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux';  // Importer useDispatch
 import { updatePhotos } from '../reducers/user';  // Importer updatePhotos
 
 export default function SnapScreen() {
-  const [hasPermission, setHasPermission] = useState(null);
+  const [hasPermission, setHasPermission] = useState(false);
   const [type, setType] = useState(Camera.Constants.Type.back);
   const [flash, setFlash] = useState(Camera.Constants.FlashMode.off);
 
