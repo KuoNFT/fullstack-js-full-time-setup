@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux';
 import { addPhoto } from '../reducers/user';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { useIsFocused } from "@react-navigation/native";
+import * as FileSystem from 'expo-file-system';
 
 export default function SnapScreen() {
   const dispatch = useDispatch();
@@ -25,7 +26,32 @@ export default function SnapScreen() {
 
   const takePicture = async () => {
     const photo = await cameraRef.takePictureAsync({ quality: 0.3 });
-    dispatch(addPhoto(photo.uri));
+  
+    let localUri = photo.uri;
+    let filename = localUri.split('/').pop();
+  
+    // Infer the type of the image
+    let match = /\.(\w+)$/.exec(filename);
+    let type = match ? `image/${match[1]}` : `image`;
+  
+    // Prepare the formData
+    let formData = new FormData();
+    formData.append('photoFromFront', { uri: localUri, name: filename, type });
+  
+    // Use fetch API to send the image to the server
+    let response = await fetch("http://localhost:3000/upload", {
+      method: 'POST',
+      body: formData,
+      headers: {
+        'content-type': 'multipart/form-data',
+      },
+    });
+  
+    let responseJson = await response.json();
+    let serverUri = responseJson.url;  // Assuming your server responds with JSON and the URL of the uploaded image
+  
+    // Dispatch the server image URL instead of the local image URI
+    dispatch(addPhoto(serverUri));
   }
 
   if (!hasPermission || !isFocused) {
