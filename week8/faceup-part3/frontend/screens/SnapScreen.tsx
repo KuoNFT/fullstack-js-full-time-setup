@@ -26,34 +26,23 @@ export default function SnapScreen() {
 
   const takePicture = async () => {
     const photo = await cameraRef.takePictureAsync({ quality: 0.3 });
+    const data = new FormData();
+    data.append('photoFromFront', { uri: photo.uri, name: 'photo.jpg', type: 'image/jpg' });
   
-    let localUri = photo.uri;
-    let filename = localUri.split('/').pop();
-  
-    // Infer the type of the image
-    let match = /\.(\w+)$/.exec(filename);
-    let type = match ? `image/${match[1]}` : `image`;
-  
-    // Prepare the formData
-    let formData = new FormData();
-    formData.append('photoFromFront', { uri: localUri, name: filename, type });
-  
-    // Use fetch API to send the image to the server
-    let response = await fetch("http://localhost:3000/upload", {
-      method: 'POST',
-      body: formData,
-      headers: {
-        'content-type': 'multipart/form-data',
-      },
+    const rawResponse = await fetch('http://192.168.1.124:3000/upload', {
+      method: 'post',
+      body: data
     });
   
-    let responseJson = await response.json();
-    let serverUri = responseJson.url;  // Assuming your server responds with JSON and the URL of the uploaded image
-  
-    // Dispatch the server image URL instead of the local image URI
-    dispatch(addPhoto(serverUri));
+    // Vérifiez si le statut de la réponse est OK avant de la traiter en tant que JSON
+    if (rawResponse.ok) {
+      const content = await rawResponse.json();
+      dispatch(addPhoto(content.url));
+    } else {
+      console.log(`HTTP-Error: ${rawResponse.status}`);
+    }
   }
-
+  
   if (!hasPermission || !isFocused) {
     return <View />;
   }

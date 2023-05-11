@@ -6,6 +6,7 @@
     "start": "node ./bin/www"
   },
   "dependencies": {
+    "async-storage": "^0.1.0",
     "cloudinary": "^1.36.4",
     "cookie-parser": "~1.4.4",
     "cors": "^2.8.5",
@@ -14,6 +15,7 @@
     "express": "~4.16.1",
     "express-fileupload": "^1.4.0",
     "morgan": "~1.9.1",
+    "redux-persist": "^6.0.0",
     "uniqid": "^5.4.0"
   },
   "devDependencies": {
